@@ -1,0 +1,55 @@
+/* TransactionFilters.css */
+
+.filters-container {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+/* each control group */
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* label */
+.filter-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* modern select */
+.filter-select {
+  min-width: 160px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  font-size: 14px;
+  color: #111827;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* hover */
+.filter-select:hover {
+  border-color: #c7cbd1;
+}
+
+/* focus */
+.filter-select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+/* optional: card-like feel when inside transactions card */
+.filters-container {
+  padding: 4px 0;
+}

@@ -1,0 +1,73 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cards-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Cards should NOT stretch fully */
+.cards-row > * {
+  flex: 0 0 auto;
+  width: 220px;
+}
+
+.charts-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start; /* ⭐ THIS FIXES EVERYTHING */
+}
+
+.chart-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Card */
+.chart-card {
+  flex: 1;
+  min-width: 350px;
+  background: white;
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid #f0f0f0;
+}
+
+
+.chart-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .cards-row > * {
+    width: 45%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .cards-row > * {
+    width: 100%;
+  }
+}
+
+/* If not enough space → stack */
+@media (max-width: 800px) {
+  .charts-row {
+    flex-direction: column;
+  }
+}
