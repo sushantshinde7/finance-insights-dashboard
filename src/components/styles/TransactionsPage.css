@@ -1,16 +1,19 @@
-/* TransactionsPage.css */
-
 .transactions-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  /* key upgrade: page padding control */
+  padding: 16px;
 }
 
-/* HEADER */
+/* ================= HEADER ================= */
 .transactions-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
+  flex-wrap: wrap; /* important for mobile */
 }
 
 .transactions-title {
@@ -18,30 +21,39 @@
   font-weight: 600;
   color: #111827;
   letter-spacing: -0.3px;
+  margin: 0;
 }
 
-/* Header right side */
+/* right side actions (future proofing) */
 .header-actions {
   display: flex;
-  gap: 12px;
+  gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
-/* CARD (very important) */
+/* ================= CARD SYSTEM ================= */
 .transactions-card {
   background: #ffffff;
   border-radius: 14px;
+
+  /* responsive padding */
   padding: 18px;
+
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
   border: 1px solid #f1f5f9;
+
   transition: all 0.2s ease;
 }
 
-.transactions-card:hover {
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+/* hover only for desktop */
+@media (hover: hover) {
+  .transactions-card:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  }
 }
 
-/* ADD BUTTON */
+/* ================= BUTTON ================= */
 .add-btn {
   background: #111827;
   color: #fff;
@@ -52,6 +64,7 @@
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 .add-btn:hover {
@@ -59,41 +72,28 @@
   transform: translateY(-1px);
 }
 
-/* ROLE SELECT */
-.role-select {
-  border: 1px solid #e5e7eb;
-  padding: 7px 10px;
-  border-radius: 8px;
-  background: #fff;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.role-select:hover {
-  border-color: #c7cbd1;
-}
-
-.role-select:focus {
-  outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
-}
-
+/* ================= TOAST ================= */
 .toast {
   position: fixed;
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
+
   background: #1f2937;
   color: white;
+
   padding: 12px 16px;
   border-radius: 10px;
+
   display: flex;
   gap: 12px;
   align-items: center;
+
   font-size: 14px;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+  max-width: 90vw;
+  text-align: center;
 }
 
 .toast-action {
@@ -102,4 +102,61 @@
   color: #60a5fa;
   cursor: pointer;
   font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ================= RESPONSIVE BREAKPOINTS ================= */
+
+/* TABLET */
+@media (max-width: 768px) {
+  .transactions-container {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  .transactions-title {
+    font-size: 20px;
+  }
+
+  .transactions-card {
+    padding: 14px;
+  }
+
+  .add-btn {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .transactions-container {
+    padding: 10px;
+    gap: 14px;
+  }
+
+  .transactions-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .transactions-title {
+    font-size: 18px;
+  }
+
+  .add-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .transactions-card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .toast {
+    bottom: 16px;
+    font-size: 13px;
+    padding: 10px 14px;
+  }
 }
