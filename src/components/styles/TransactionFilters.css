@@ -1,10 +1,21 @@
-/* TransactionFilters.css */
-
 .filters-container {
+  display: flex;
+  align-items: center;
+}
+
+.filters-container::after {
+  content: "";
+  flex: 1;
+}
+/* inner wrapper */
+.filters-inner {
   display: flex;
   gap: 16px;
   align-items: flex-end;
   flex-wrap: wrap;
+
+  /* controls visual width */
+  width: fit-content;
 }
 
 /* each control group */
@@ -12,6 +23,8 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+
+  min-width: 160px;
 }
 
 /* label */
@@ -27,13 +40,15 @@
 .filter-select {
   min-width: 160px;
   padding: 10px 12px;
+
   border-radius: 10px;
   border: 1px solid #e5e7eb;
+
   background: #ffffff;
   font-size: 14px;
   color: #111827;
-  cursor: pointer;
 
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
@@ -49,7 +64,40 @@
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
 }
 
-/* optional: card-like feel when inside transactions card */
-.filters-container {
-  padding: 4px 0;
+/* ================= RESPONSIVE ================= */
+
+/* TABLET */
+@media (max-width: 768px) {
+  .filters-container {
+    gap: 12px;
+  }
+
+  .filter-group {
+    min-width: 140px;
+  }
+
+  .filter-select {
+    min-width: 140px;
+    padding: 9px 10px;
+    font-size: 13px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .filters-container {
+    flex-direction: column;
+    align-items: stretch; /* full width controls */
+    gap: 12px;
+  }
+
+  .filter-group {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .filter-select {
+    width: 100%;
+    min-width: unset;
+  }
 }
