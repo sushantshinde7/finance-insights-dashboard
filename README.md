@@ -1,12 +1,92 @@
 # 📊 Finance Insights Dashboard
 
-A modern financial analytics dashboard built with **React (Vite)** that visualizes personal transactions using interactive charts and intelligent insights.  
-The project focuses on transforming raw transaction data into meaningful financial patterns using dynamic calculations and data visualization.
+A modern role-based financial analytics dashboard built with **React (Vite)** that transforms transaction data into actionable insights using interactive visualizations, filtering systems, and smart aggregation logic.
+
+The application is structured as a **multi-layout analytics system** with role-based access control and modular dashboards.
 
 ---
 
 ## 🚀 Live Demo
-[finance-dashboard-live](https://finance-insights-dashboard.vercel.app/)
+https://finance-insights-dashboard.vercel.app/
+
+---
+
+## 🧭 System Architecture (Important)
+
+This project is divided into **3 core layouts**, managed via a fixed navigation system (navbar + sidebar):
+
+### 1️⃣ Dashboard (Overview Layer)
+A high-level financial summary view.
+
+#### Includes:
+- 📌 KPI Cards:
+  - Total Income
+  - Total Expense
+  - Net Balance
+- 📊 Charts:
+  - Income vs Expense (Bar Chart)
+  - Expense Distribution (Pie Chart)
+
+#### Purpose:
+Provides a **quick financial snapshot** for decision-making.
+
+---
+
+### 2️⃣ Transactions Module (Data Control Layer)
+
+A full CRUD + analytics table for raw financial data.
+
+#### Features:
+- 📄 Complete transaction listing
+- 🔍 Filtering:
+  - Income only
+  - Expense only
+  - All transactions
+- ↕️ Sorting:
+  - Date (Newest → Oldest)
+  - Date (Oldest → Newest)
+- ✏️ Admin Controls (Role-based):
+  - Add transaction
+  - Edit transaction
+  - Delete transaction
+
+#### Role System:
+- 👤 Viewer:
+  - Read-only access
+  - Can view and filter data
+- 🔐 Admin:
+  - Full data manipulation permissions
+
+#### Purpose:
+Acts as the **source-of-truth data management layer**.
+
+---
+
+### 3️⃣ Insights Dashboard (Analytics Layer)
+
+A smart analytics engine that converts raw transactions into behavioral insights.
+
+#### Features:
+- 💡 Smart Insight Cards:
+  - Expense change vs previous month
+  - Top spending category identification
+  - Spending behavior classification
+- 📊 Supporting Visuals:
+  - Category-based analysis
+  - Trend-based interpretation
+
+#### Purpose:
+Moves beyond charts into **decision intelligence layer**.
+
+---
+
+## 🧱 UI Navigation System
+
+- 🧭 Fixed Navbar (global context)
+- 📂 Sidebar Navigation (layout switching)
+- ⚡ Instant view switching without page reload
+
+This creates a **single-page analytics application experience** similar to SaaS dashboards like Stripe / Notion / Linear.
 
 ---
 
@@ -16,29 +96,26 @@ The project focuses on transforming raw transaction data into meaningful financi
 - Total Income tracking
 - Total Expense tracking
 - Net Balance calculation
-- Top Spending Category detection (dynamic)
+- Dynamic top spending category detection
 
 ---
 
 ### 📊 Data Visualizations
-- 📈 Income vs Expense (Bar Chart)
-- 🍩 Expense Breakdown by Category (Pie Chart)
-- 📉 Balance Trend over time (Line Chart)
-- 📆 Monthly Financial Trends
+- Income vs Expense comparison (Bar)
+- Category-wise expense breakdown (Pie)
+- Trend-based analysis charts
 
-Built using **Recharts** for interactive and responsive visualization.
+Built using **Recharts**.
 
 ---
 
 ### 💡 Smart Insights Engine
-Automatically generated insights based on transaction data:
-
-- Expense change comparison with previous month
-- Identification of top spending driver category
-- Behavioral analysis of spending patterns:
-  - Increasing expenses warning
-  - Stable spending indicator
-  - Positive savings behavior detection
+- Month-over-month expense comparison
+- Category dominance detection
+- Behavioral classification:
+  - Increasing spend alert
+  - Stable spending pattern
+  - Controlled spending indicator
 
 ---
 
@@ -47,85 +124,88 @@ Automatically generated insights based on transaction data:
 - React.js (Vite)
 - JavaScript (ES6+)
 - Recharts (Data Visualization)
-- CSS (Custom modern UI styling)
 - Lucide Icons
-
-
----
-
-## ⚙️ Core Logic
-
-### 🔹 Data Source
-All insights are generated from a mock transaction dataset (`mockTransactions.js`), which simulates real-world financial activity.
+- CSS (Custom modular styling)
 
 ---
 
-### 🔹 Computed Metrics
-- Income = sum of income transactions
-- Expense = sum of expense transactions
-- Balance = Income - Expense
-- Category Breakdown = grouped expense aggregation
-- Monthly Trend = time-series aggregation of transactions
+## ⚙️ Core System Logic
+
+### 🔹 Data Model
+Transactions are structured as:
+- id
+- type (income / expense)
+- amount
+- category
+- date
 
 ---
 
-### 🔹 Smart Insight Logic
-The system calculates:
-- Month-over-month expense changes
-- Dominant spending category
-- Spending behavior classification (increasing/stable/controlled)
+### 🔹 Derived Computations
+- Income aggregation
+- Expense aggregation
+- Net balance calculation
+- Category grouping
+- Time-series trend mapping
 
 ---
 
-## 🎨 UI/UX Highlights
-
-- Modern SaaS-style dashboard layout
-- Responsive 2-column analytics grid
-- KPI-first hierarchy design
-- Card-based visual system with elevation effects
-- Clean spacing system for readability
-- Subtle hover interactions for better UX feedback
+### 🔹 Role-Based Access Logic
+- Viewer → read-only state
+- Admin → full CRUD access layer
 
 ---
 
-## 📌 Purpose of Project
+## 🎨 UI/UX Design System
 
-This project was built to practice:
-
-- Real-world data visualization
-- Financial analytics UI design
-- Component-based architecture in React
-- Derived state calculations from raw data
-- Building dashboard-style interfaces similar to SaaS products (Stripe / Notion analytics style)
+- SaaS-inspired layout structure
+- Card-based KPI architecture
+- Responsive grid analytics layout
+- Clean spacing hierarchy (dashboard-first design)
+- Interactive chart components
+- Minimal but functional visual language
 
 ---
 
-## 🚀 Future Improvements
+## 📌 Project Intent
 
-- 🔮 AI-based spending predictions
-- 🔎 Filters (monthly/yearly/category-wise)
-- 📊 Drill-down analytics per category
-- 📄 Export reports (PDF/CSV)
-- 🔔 Budget alerts system
-- 🌙 Dark mode optimization
+This project was built to simulate a **real-world financial analytics SaaS system**, focusing on:
+
+- Data visualization pipelines
+- Role-based dashboard architecture
+- CRUD + analytics hybrid system
+- Derived state computation from raw data
+- Multi-view dashboard UX design
+
+---
+
+## 🚀 Future Enhancements
+
+- 🔮 Predictive expense forecasting (AI layer)
+- 🔎 Advanced filters (category + date range)
+- 📤 Export analytics (PDF/CSV reports)
+- 🔔 Budget threshold alerts
+- 🌙 Dark mode system overhaul
+- 📊 Drill-down per-category analytics
 
 ---
 
 ## 📷 Preview
 
-(Add screenshot here later)
+(Add screenshots here later)
 
 ---
 
 ## 👨‍💻 Author
 
-Built as a frontend development project focused on mastering:
-- React dashboards
-- Data visualization
-- UI/UX for analytics systems
+Frontend project focused on:
+- Dashboard systems
+- Financial analytics UI
+- React architecture patterns
+- Data-driven UI design
 
 ---
 
 ## 📜 License
 
-This project is open-source and free to use for learning purposes.
+Open-source project for learning and portfolio demonstration purposes.
