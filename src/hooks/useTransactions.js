@@ -37,7 +37,7 @@ export const useTransactions = () => {
 
   const updateTransaction = (updated) => {
     setTransactions((prev) =>
-      prev.map((t) => (t.id === updated.id ? updated : t))
+      prev.map((t) => (t.id === updated.id ? updated : t)),
     );
   };
 
@@ -73,7 +73,7 @@ export const useTransactions = () => {
       }, {});
 
     const categoryBreakdown = Object.entries(byCategory).map(
-      ([name, value]) => ({ name, value })
+      ([name, value]) => ({ name, value }),
     );
 
     // ----------------------------
@@ -91,9 +91,15 @@ export const useTransactions = () => {
       monthlyMap[month][t.type] += t.amount;
     });
 
+    const formatMonth = (ym) => {
+      const [year, month] = ym.split("-");
+      const date = new Date(year, month - 1);
+      return date.toLocaleString("en-IN", { month: "short" }); // Apr, May
+    };
+
     const monthlyTrend = Object.entries(monthlyMap)
       .map(([month, values]) => ({
-        month,
+        month: formatMonth(month),
         ...values,
         balance: values.income - values.expense,
       }))
@@ -119,14 +125,14 @@ export const useTransactions = () => {
     const expenseChange = calcChange(current.expense, previous.expense);
     const balanceChange = calcChange(
       current.income - current.expense,
-      previous.income - previous.expense
+      previous.income - previous.expense,
     );
 
     // ----------------------------
     // BALANCE TREND (LINE)
     // ----------------------------
     const sorted = [...transactions].sort(
-      (a, b) => new Date(a.date) - new Date(b.date)
+      (a, b) => new Date(a.date) - new Date(b.date),
     );
 
     let running = 0;
