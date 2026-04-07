@@ -1,73 +1,114 @@
+/* =========================
+   BASE LAYOUT
+========================= */
+
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+
+  padding: 4px 2px;
 }
+
+/* =========================
+   KPI CARDS (TOP SECTION)
+========================= */
 
 .cards-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
 }
 
-/* Cards should NOT stretch fully */
-.cards-row > * {
-  flex: 0 0 auto;
-  width: 220px;
-}
+/* =========================
+   CHARTS GRID
+========================= */
 
 .charts-row {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  align-items: flex-start; /* ⭐ THIS FIXES EVERYTHING */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
 }
 
+/* =========================
+   CHART CARD
+========================= */
+
+.chart-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+
+  transition: all 0.2s ease;
+}
+
+.chart-card:hover {
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+}
+
+/* inner layout */
 .chart-inner {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
+/* title */
 .chart-title {
   font-size: 14px;
   font-weight: 600;
+  color: #334155;
 }
 
-/* Card */
-.chart-card {
-  flex: 1;
-  min-width: 350px;
-  background: white;
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid #f0f0f0;
-}
+/* =========================
+   RESPONSIVE
+========================= */
 
+/* Large Tablet */
+@media (max-width: 1024px) {
+  .cards-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
 
-.chart-card h4 {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 10px;
+  .charts-row {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Tablet */
-@media (max-width: 900px) {
-  .cards-row > * {
-    width: 45%;
+@media (max-width: 768px) {
+  .dashboard {
+    gap: 20px;
+  }
+
+  .cards-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
   }
 }
 
 /* Mobile */
-@media (max-width: 600px) {
-  .cards-row > * {
-    width: 100%;
+@media (max-width: 480px) {
+  .dashboard {
+    gap: 16px;
   }
-}
 
-/* If not enough space → stack */
-@media (max-width: 800px) {
+  .cards-row {
+    grid-template-columns: 1fr;
+  }
+
   .charts-row {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+  }
+
+  .chart-card {
+    padding: 14px;
+  }
+
+  .chart-title {
+    font-size: 13px;
   }
 }
