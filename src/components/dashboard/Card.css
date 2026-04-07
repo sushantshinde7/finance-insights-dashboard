@@ -3,8 +3,6 @@
 ========================= */
 
 .card {
-  position: relative;
-
   background: #ffffff;
   padding: 18px;
   border-radius: 16px;
@@ -37,34 +35,7 @@
   align-items: center;
 }
 
-/* trend badge */
-.trend-badge {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 999px;
-}
-
-/* positive */
-.trend-badge.positive {
-  background: #ecfdf5;
-  color: #16a34a;
-}
-
-/* negative */
-.trend-badge.negative {
-  background: #fef2f2;
-  color: #dc2626;
-}
-
-/* subtext */
-.trend-subtext {
-  font-size: 11px;
-  color: #6b7280;
-  margin-top: 4px;
-}
-
-/* title group */
+/* title */
 .card-title-group {
   display: flex;
   align-items: center;
@@ -89,77 +60,62 @@
 .card-value {
   font-size: 26px;
   font-weight: 700;
-  margin-top: 8px;
+  margin-top: 10px;
   letter-spacing: 0.4px;
   color: #0f172a;
 }
 
 /* =========================
-   TREND BADGE
+   TREND ROW (FIXED UX)
 ========================= */
 
-.card-trend {
+.card-trend-row {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
+  margin-top: 4px;
+}
 
-  font-size: 12px;
+/* % badge */
+.trend-badge {
+  font-size: 11px;
   font-weight: 600;
-
-  padding: 4px 8px;
+  padding: 3px 6px;
   border-radius: 999px;
-
-  background: #f1f5f9;
 }
 
 /* positive */
-.card-trend.positive {
-  color: #16a34a;
+.trend-badge.positive {
   background: #ecfdf5;
+  color: #16a34a;
 }
 
 /* negative */
-.card-trend.negative {
-  color: #dc2626;
+.trend-badge.negative {
   background: #fef2f2;
+  color: #dc2626;
 }
 
-/* =========================
-   SUBTEXT
-========================= */
-
-.card-subtext {
+/* "vs last month" */
+.trend-text {
   font-size: 12px;
-  color: #94a3b8;
-  margin-top: 6px;
+  color: #64748b;
 }
 
 /* =========================
-   VARIANTS (SUBTLE GRADIENT)
+   VARIANTS (GRADIENT STYLE)
 ========================= */
 
 .card.balance {
-  background: linear-gradient(
-    135deg,
-    #eff6ff 0%,
-    #ffffff 60%
-  );
+  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 65%);
 }
 
 .card.income {
-  background: linear-gradient(
-    135deg,
-    #ecfdf5 0%,
-    #ffffff 60%
-  );
+  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 65%);
 }
 
 .card.expense {
-  background: linear-gradient(
-    135deg,
-    #fef2f2 0%,
-    #ffffff 60%
-  );
+  background: linear-gradient(135deg, #fef2f2 0%, #ffffff 65%);
 }
 
 /* icon colors */
@@ -191,5 +147,13 @@
 
   .card-title-group {
     font-size: 12px;
+  }
+
+  .card-trend-row {
+    gap: 6px;
+  }
+
+  .trend-text {
+    font-size: 11px;
   }
 }
