@@ -30,7 +30,7 @@
 }
 
 /* =========================
-   KPI GRID (premium cards)
+   KPI GRID
 ========================= */
 
 .kpi-grid {
@@ -73,48 +73,6 @@
 .kpi-card.highlight h3 { color: #8b5cf6; }
 
 /* =========================
-   CHART GRID (ANALYTICS LAYOUT)
-========================= */
-
-.insights-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
-/* reusable span system */
-.span-2 {
-  grid-column: span 2;
-}
-
-/* =========================
-   CHART CARDS (modern SaaS style)
-========================= */
-
-.chart-card {
-  background: white;
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  border-radius: 18px;
-  padding: 18px;
-  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
-  transition: all 0.25s ease;
-}
-
-.chart-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-}
-
-.chart-title {
-  font-size: 14px;
-  font-weight: 700;
-  color: #334155;
-  margin-bottom: 14px;
-  letter-spacing: -0.2px;
-}
-
-
-/* =========================
    SMART INSIGHTS GRID
 ========================= */
 
@@ -122,7 +80,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  margin-bottom: 24px;
+  margin-bottom: 26px;
 }
 
 .insight-card {
@@ -151,17 +109,9 @@
 }
 
 /* semantic colors */
-.insight-card.danger {
-  border-left: 4px solid #ef4444;
-}
-
-.insight-card.warning {
-  border-left: 4px solid #f59e0b;
-}
-
-.insight-card.info {
-  border-left: 4px solid #3b82f6;
-}
+.insight-card.danger { border-left: 4px solid #ef4444; }
+.insight-card.warning { border-left: 4px solid #f59e0b; }
+.insight-card.info { border-left: 4px solid #3b82f6; }
 
 /* number direction */
 .up {
@@ -175,24 +125,110 @@
 }
 
 /* =========================
+   CHART GRID
+========================= */
+
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* span system */
+.span-2 {
+  grid-column: span 2;
+}
+
+/* =========================
+   CHART CARDS
+========================= */
+
+.chart-card {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.05);
+  transition: all 0.25s ease;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 14px;
+  letter-spacing: -0.2px;
+}
+
+/* ensure charts don't stretch weirdly */
+.chart-card .recharts-responsive-container {
+  flex: 1;
+  min-height: 240px;
+}
+
+/* =========================
    FOOTER
 ========================= */
 
 .insight-footer {
-  margin-top: 26px;
+  margin-top: 30px;
   text-align: center;
   font-size: 13px;
   color: #94a3b8;
 }
+
 /* =========================
-   RESPONSIVE
+   RESPONSIVE (TABLET)
 ========================= */
 
 @media (max-width: 1024px) {
+  .insights-container {
+    padding: 24px;
+  }
+
+  /* KPI → 2 per row */
   .kpi-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  /* insights → 2 per row */
+  .insight-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* charts stay 2 but cleaner spacing */
+  .insights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .span-2 {
+    grid-column: span 2;
+  }
+}
+
+/* =========================
+   RESPONSIVE (SMALL TABLET)
+========================= */
+
+@media (max-width: 768px) {
+  .insights-container {
+    padding: 20px;
+  }
+
+  /* insight cards → stack better */
+  .insight-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* charts → 1 column */
   .insights-grid {
     grid-template-columns: 1fr;
   }
@@ -200,14 +236,42 @@
   .span-2 {
     grid-column: span 1;
   }
+
+  .chart-card {
+    padding: 16px;
+  }
 }
 
-@media (max-width: 600px) {
+/* =========================
+   RESPONSIVE (MOBILE)
+========================= */
+
+@media (max-width: 480px) {
+  .insights-container {
+    padding: 16px;
+  }
+
+  .insights-header h2 {
+    font-size: 22px;
+  }
+
   .kpi-grid {
     grid-template-columns: 1fr;
   }
 
-  .insights-container {
-    padding: 16px;
+  .kpi-card {
+    padding: 14px;
+  }
+
+  .kpi-card h3 {
+    font-size: 18px;
+  }
+
+  .chart-title {
+    font-size: 13px;
+  }
+
+  .insight-card p {
+    font-size: 13px;
   }
 }
