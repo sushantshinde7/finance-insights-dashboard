@@ -1,82 +1,141 @@
+/* =========================
+   BASE CARD
+========================= */
+
 .card {
+  position: relative;
+
   background: #ffffff;
-  padding: 20px; /* slightly increased */
-  border-radius: 12px;
-  border: 1px solid #f0f0f0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  padding: 18px;
+  border-radius: 16px;
+
+  border: 1px solid #f1f5f9;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  min-height: 110px; /* KEY CHANGE */
+  min-height: 120px;
 
-  transition: 0.2s;
+  transition: all 0.2s ease;
 }
 
-/* Hover effect */
+/* subtle hover lift */
 .card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }
 
-/* Title + Icon group */
+/* =========================
+   HEADER
+========================= */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* title group */
 .card-title-group {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 
   font-size: 13px;
-  color: #666;
+  color: #64748b;
   font-weight: 500;
 }
 
-/* Icon */
+/* icon */
 .card-icon {
   display: flex;
   align-items: center;
-  color: #888;
+  opacity: 0.9;
 }
 
-/* Value */
+/* =========================
+   VALUE
+========================= */
+
 .card-value {
-  font-size: 24px;
-  font-weight: 600;
-  margin-top: 6px; /* controlled spacing */
+  font-size: 26px;
+  font-weight: 700;
+  margin-top: 8px;
   letter-spacing: 0.4px;
-  color: #111;
+  color: #0f172a;
 }
 
-/* Variants */
-.card.income .card-value {
+/* =========================
+   TREND BADGE
+========================= */
+
+.card-trend {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  padding: 4px 8px;
+  border-radius: 999px;
+
+  background: #f1f5f9;
+}
+
+/* positive */
+.card-trend.positive {
   color: #16a34a;
+  background: #ecfdf5;
 }
 
-.card.expense .card-value {
+/* negative */
+.card-trend.negative {
   color: #dc2626;
+  background: #fef2f2;
 }
 
-/* Background variations */
-/* Balance - cooler blue */
+/* =========================
+   SUBTEXT
+========================= */
+
+.card-subtext {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 6px;
+}
+
+/* =========================
+   VARIANTS (SUBTLE GRADIENT)
+========================= */
+
 .card.balance {
-  background: #e1e3ff;
-  border: 1px solid #c7dbff;
-  border-top: 3px solid #3b82f6;
+  background: linear-gradient(
+    135deg,
+    #eff6ff 0%,
+    #ffffff 60%
+  );
 }
 
-/* Income - more distinct green */
 .card.income {
-  background: #dbfae6;
-  border: 1px solid #b7e4c7;
-  border-top: 3px solid #16a34a;
+  background: linear-gradient(
+    135deg,
+    #ecfdf5 0%,
+    #ffffff 60%
+  );
 }
 
-/* Expense - soft but visible red */
 .card.expense {
-  background: #fdecec;
-  border: 1px solid #fabfbf;
-  border-top: 3px solid #dc2626;
+  background: linear-gradient(
+    135deg,
+    #fef2f2 0%,
+    #ffffff 60%
+  );
 }
 
+/* icon colors */
 .card.balance .card-icon {
   color: #3b82f6;
 }
@@ -87,4 +146,23 @@
 
 .card.expense .card-icon {
   color: #dc2626;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 480px) {
+  .card {
+    padding: 16px;
+    min-height: 110px;
+  }
+
+  .card-value {
+    font-size: 22px;
+  }
+
+  .card-title-group {
+    font-size: 12px;
+  }
 }

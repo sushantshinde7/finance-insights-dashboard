@@ -7,30 +7,44 @@ import { useTransactions } from "../hooks/useTransactions";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  const { transactions, income, expense, balance } = useTransactions();
+  const {
+    transactions,
+    income,
+    expense,
+    balance,
+    incomeTrend,
+    expenseTrend,
+    balanceTrendPercent,
+  } = useTransactions();
 
   return (
     <div className="dashboard">
       <div className="cards-row">
         <StatCard
           title="Total Balance"
-          value={`₹${balance}`}
+          value={`₹${balance.toLocaleString()}`}
           icon={<Wallet size={18} />}
           type="balance"
+          trend={balanceTrendPercent}
+          trendLabel="vs last month"
         />
 
         <StatCard
           title="Income"
-          value={`₹${income}`}
+          value={`₹${income.toLocaleString()}`}
           icon={<ArrowUpRight size={18} />}
           type="income"
+          trend={incomeTrend}
+          trendLabel="vs last month"
         />
 
         <StatCard
           title="Expenses"
-          value={`₹${expense}`}
+          value={`₹${expense.toLocaleString()}`}
           icon={<ArrowDownRight size={18} />}
           type="expense"
+          trend={expenseTrend}
+          trendLabel="vs last month"
         />
       </div>
 
