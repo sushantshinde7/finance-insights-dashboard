@@ -12,9 +12,9 @@ const Dashboard = () => {
     income,
     expense,
     balance,
-    incomeTrend,
-    expenseTrend,
-    balanceTrendPercent,
+    incomeChange,
+    expenseChange,
+    balanceChange,
   } = useTransactions();
 
   return (
@@ -25,8 +25,7 @@ const Dashboard = () => {
           value={`₹${balance.toLocaleString()}`}
           icon={<Wallet size={18} />}
           type="balance"
-          trend={balanceTrendPercent}
-          trendLabel="vs last month"
+          change={balanceChange}
         />
 
         <StatCard
@@ -34,8 +33,7 @@ const Dashboard = () => {
           value={`₹${income.toLocaleString()}`}
           icon={<ArrowUpRight size={18} />}
           type="income"
-          trend={incomeTrend}
-          trendLabel="vs last month"
+          change={incomeChange}
         />
 
         <StatCard
@@ -43,17 +41,16 @@ const Dashboard = () => {
           value={`₹${expense.toLocaleString()}`}
           icon={<ArrowDownRight size={18} />}
           type="expense"
-          trend={expenseTrend}
-          trendLabel="vs last month"
+          change={expenseChange}
         />
       </div>
 
       <div className="charts-row">
-        <div className="chart-card">
+        <div className="chart-card balance-chart">
           <BalanceChart transactions={transactions} />
         </div>
 
-        <div className="chart-card">
+        <div className="chart-card expense-chart">
           <ExpenseChart transactions={transactions} />
         </div>
       </div>
