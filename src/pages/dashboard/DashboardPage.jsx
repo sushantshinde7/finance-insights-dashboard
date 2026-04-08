@@ -1,10 +1,10 @@
 import { Wallet, ArrowUpRight, ArrowDownRight } from "lucide-react";
-import StatCard from "../components/dashboard/StatCard";
-import BalanceChart from "../components/charts/BalanceChart";
-import ExpenseChart from "../components/charts/ExpenseChart";
-import { useTransactions } from "../hooks/useTransactions";
+import StatCard from "./components/StatCard";
+import BalanceChart from "./components/BalanceChart";
+import ExpenseChart from "./components/ExpenseChart";
+import { useTransactions } from "../../hooks/useTransactions";
 
-import "./Dashboard.css";
+import "./dashboard.css";
 
 const Dashboard = () => {
   const {

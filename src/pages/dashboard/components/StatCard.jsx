@@ -1,4 +1,4 @@
-import "./Card.css";
+import "./StatCard.css";
 
 const StatCard = ({ title, value, icon, type, change }) => {
   const isPositive = change >= 0;

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import TransactionsTable from "../components/transactions/TransactionsTable";
-import TransactionFilters from "../components/transactions/TransactionFilters";
-import AddTransactionModal from "../components/transactions/AddTransactionModal";
-import { useTransactions } from "../hooks/useTransactions";
+import TransactionsTable from "./components/TransactionsTable";
+import TransactionFilters from "./components/TransactionFilters";
+import AddTransactionModal from "./components/AddTransactionModal";
+import { useTransactions } from "../../hooks/useTransactions";
 
-import "../components/styles/TransactionsPage.css";
+import "./transactions.css";
 
 export default function TransactionsPage({ role }) {
   const {

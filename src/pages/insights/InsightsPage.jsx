@@ -1,4 +1,4 @@
-import { useTransactions } from "../hooks/useTransactions";
+import { useTransactions } from "../../hooks/useTransactions";
 import {
   BarChart,
   Bar,
@@ -14,7 +14,7 @@ import {
   Legend,
 } from "recharts";
 
-import "./Insights.css";
+import "./insights.css";
 
 const COLORS = ["#3b82f6", "#16a34a", "#f59e0b", "#ef4444", "#8b5cf6"];
 

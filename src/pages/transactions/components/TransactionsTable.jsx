@@ -1,4 +1,4 @@
-import "../styles/TransactionsTable.css";
+import "./TransactionsTable.css";
 import { Pencil, Trash2 } from "lucide-react";
 
 export default function TransactionsTable({

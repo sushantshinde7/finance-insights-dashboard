@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/AddTransactionModal.css";
+import "./AddTransactionModal.css";
 
 export default function AddTransactionModal({
   onClose,

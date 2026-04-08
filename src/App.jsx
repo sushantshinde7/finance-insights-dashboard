@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Layout from "./components/layout/Layout";
-import Dashboard from "./pages/Dashboard";
-import Transactions from "./pages/TransactionsPage";
-import Insights from "./pages/InsightsPage";
+import Layout from "./layout/Layout";
+import Dashboard from "./pages/dashboard/DashboardPage";
+import Transactions from "./pages/transactions/TransactionsPage";
+import Insights from "./pages/insights/InsightsPage";
 
 function App() {
   const [page, setPage] = useState("dashboard");
@@ -15,12 +15,7 @@ function App() {
   };
 
   return (
-    <Layout
-      setPage={setPage}
-      activePage={page}
-      role={role}
-      setRole={setRole}
-    >
+    <Layout setPage={setPage} activePage={page} role={role} setRole={setRole}>
       {renderPage()}
     </Layout>
   );
