@@ -129,6 +129,79 @@ Built using **Recharts**.
 
 ---
 
+## 📂 PROJECT FOLDER STRCUCTURE
+
+```text
+finance-insights-dashboard/
+│
+├── dist/
+├── node_modules/
+├── public/
+│
+├── src/
+│   ├── components/
+│   │   ├── charts/
+│   │   │   ├── BalanceChart.jsx
+│   │   │   └── ExpenseChart.jsx
+│   │   │
+│   │   ├── dashboard/
+│   │   │   ├── Card.css
+│   │   │   └── StatCard.jsx
+│   │   │
+│   │   ├── Insights/
+│   │   │   └── InsightCard.jsx
+│   │   │
+│   │   ├── Layout/
+│   │   │   ├── Layout.css
+│   │   │   ├── Layout.jsx
+│   │   │   ├── Navbar.css
+│   │   │   ├── Navbar.jsx
+│   │   │   ├── Sidebar.css
+│   │   │   └── Sidebar.jsx
+│   │   │
+│   │   ├── styles/
+│   │   │   ├── AddTransactionModal.css
+│   │   │   ├── TransactionFilters.css
+│   │   │   ├── TransactionsPage.css
+│   │   │   └── TransactionsTable.css
+│   │   │
+│   │   └── transactions/
+│   │       ├── AddTransactionModal.jsx
+│   │       ├── TransactionFilters.jsx
+│   │       └── TransactionsTable.jsx
+│   │
+│   ├── data/
+│   │   └── mockTransactions.js
+│   │
+│   ├── hooks/
+│   │   └── useTransactions.js
+│   │
+│   ├── pages/
+│   │   ├── Dashboard.css
+│   │   ├── Dashboard.jsx
+│   │   ├── Insights.css
+│   │   ├── InsightsPage.jsx
+│   │   └── TransactionsPage.jsx
+│   │
+│   ├── styles/
+│   │   └── global.css
+│   │
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+│
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+└── vite.config.js
+```
+
+---
+
 ## ⚙️ Core System Logic
 
 ### 🔹 Data Model
