@@ -139,57 +139,54 @@ finance-insights-dashboard/
 ├── public/
 │
 ├── src/
-│   ├── components/
-│   │   ├── charts/
-│   │   │   ├── BalanceChart.jsx
-│   │   │   └── ExpenseChart.jsx
-│   │   │
-│   │   ├── dashboard/
-│   │   │   ├── Card.css
-│   │   │   └── StatCard.jsx
-│   │   │
-│   │   ├── Insights/
-│   │   │   └── InsightCard.jsx
-│   │   │
-│   │   ├── Layout/
-│   │   │   ├── Layout.css
-│   │   │   ├── Layout.jsx
-│   │   │   ├── Navbar.css
-│   │   │   ├── Navbar.jsx
-│   │   │   ├── Sidebar.css
-│   │   │   └── Sidebar.jsx
-│   │   │
-│   │   ├── styles/
-│   │   │   ├── AddTransactionModal.css
-│   │   │   ├── TransactionFilters.css
-│   │   │   ├── TransactionsPage.css
-│   │   │   └── TransactionsTable.css
-│   │   │
-│   │   └── transactions/
-│   │       ├── AddTransactionModal.jsx
-│   │       ├── TransactionFilters.jsx
-│   │       └── TransactionsTable.jsx
+│   ├── layout/
+│   │   ├── Layout.jsx
+│   │   ├── Layout.css
+│   │   ├── Navbar.jsx
+│   │   ├── Navbar.css
+│   │   ├── Sidebar.jsx
+│   │   └── Sidebar.css
 │   │
-│   ├── data/
-│   │   └── mockTransactions.js
+│   ├── pages/
+│   │   ├── dashboard/
+│   │   │   ├── DashboardPage.jsx
+│   │   │   ├── dashboard.css
+│   │   │   └── components/
+│   │   │       ├── StatCard.jsx
+│   │   │       ├── StatCard.css
+│   │   │       ├── BalanceChart.jsx
+│   │   │       ├── BalanceChart.css
+│   │   │       ├── ExpenseChart.jsx
+│   │   │       └── ExpenseChart.css
+│   │   │
+│   │   ├── transactions/
+│   │   │   ├── TransactionsPage.jsx
+│   │   │   ├── transactions.css
+│   │   │   └── components/
+│   │   │       ├── TransactionsTable.jsx
+│   │   │       ├── TransactionsTable.css
+│   │   │       ├── TransactionFilters.jsx
+│   │   │       ├── TransactionFilters.css
+│   │   │       ├── AddTransactionModal.jsx
+│   │   │       └── AddTransactionModal.css
+│   │   │
+│   │   └── insights/
+│   │       ├── InsightsPage.jsx
+│   │       └── insights.css
 │   │
 │   ├── hooks/
 │   │   └── useTransactions.js
 │   │
-│   ├── pages/
-│   │   ├── Dashboard.css
-│   │   ├── Dashboard.jsx
-│   │   ├── Insights.css
-│   │   ├── InsightsPage.jsx
-│   │   └── TransactionsPage.jsx
+│   ├── data/
+│   │   └── mockTransactions.js
 │   │
 │   ├── styles/
-│   │   └── global.css
+│   │   ├── global.css
+│   │   └── variables.css
 │   │
-│   ├── App.css
 │   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
+│   ├── main.jsx
+│   └── index.css
 │
 ├── .gitignore
 ├── eslint.config.js
@@ -199,6 +196,7 @@ finance-insights-dashboard/
 ├── README.md
 └── vite.config.js
 ```
+The project follows a feature-based structure, where each page (dashboard, transactions, insights) contains its own components and styles, improving scalability and maintainability.
 
 ---
 
