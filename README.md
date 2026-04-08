@@ -131,6 +131,7 @@ Built using **Recharts**.
 
 ## 📂 PROJECT FOLDER STRCUCTURE
 
+```text
 finance-insights-dashboard/
 │
 ├── dist/
@@ -197,6 +198,7 @@ finance-insights-dashboard/
 ├── package-lock.json
 ├── README.md
 └── vite.config.js
+```
 
 ---
 
