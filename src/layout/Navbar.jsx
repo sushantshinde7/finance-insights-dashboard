@@ -4,7 +4,7 @@ const Navbar = ({ role, setRole }) => {
   return (
     <div className="navbar">
       <div className="navbar-left">
-        <h2>Finance Dashboard</h2>
+        <h2>Finance Insights</h2>
       </div>
 
       <div className="navbar-right">
