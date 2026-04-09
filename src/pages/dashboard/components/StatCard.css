@@ -1,159 +1,179 @@
 /* =========================
-   BASE CARD
+   STAT CARD BASE
 ========================= */
 
-.card {
-  background: #ffffff;
-  padding: 18px;
-  border-radius: 16px;
-
-  border: 1px solid #f1f5f9;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+.stat-card {
+  position: relative;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  min-height: 120px;
+  min-height: 110px;
+  padding: var(--space-4);
 
-  transition: all 0.2s ease;
+  overflow: hidden; /* important */
+  
 }
 
-/* subtle hover lift */
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+/* =========================
+   SUBTLE CORNER ACCENT (REFINED)
+========================= */
+
+.stat-card::after {
+  content: "";
+  position: absolute;
+
+  /* centered outside corner for even spread */
+  top: -60%;
+  right: -60%;
+
+  width: 260px;
+  height: 260px;
+
+  background: radial-gradient(
+    circle,
+    rgba(52, 195, 252, 0.10) 0%,
+    rgba(52, 195, 252, 0.06) 30%,
+    transparent 70%
+  );
+  
+  filter: blur(2px);
+  pointer-events: none;
+}
+
+/* Variants */
+.stat-card.income::after {
+  background: radial-gradient(
+    circle,
+    rgba(63, 250, 132, 0.15) 0%,
+    rgba(73, 253, 139, 0.09) 30%,
+    transparent 70%
+  );
+}
+
+.stat-card.expense::after {
+  background: radial-gradient(
+    circle,
+    rgba(248, 110, 110, 0.10) 0%,
+    rgba(248, 110, 110, 0.06) 30%,
+    transparent 70%
+  );
 }
 
 /* =========================
    HEADER
 ========================= */
 
-.card-header {
+.stat-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-/* title */
-.card-title-group {
+/* tighter grouping */
+.stat-title-group {
   display: flex;
   align-items: center;
-  gap: 8px;
-
-  font-size: 13px;
-  color: #64748b;
-  font-weight: 500;
+  gap: 6px; /* tighter than before */
 }
 
-/* icon */
-.card-icon {
+/* ICON (smaller + subtle) */
+.stat-icon {
   display: flex;
   align-items: center;
-  opacity: 0.9;
+  justify-content: center;
+
+  width: 26px;
+  height: 26px;
+
+  border-radius: var(--radius-sm);
+
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* subtle variation via icon only */
+.stat-card.income .stat-icon {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.stat-card.expense .stat-icon {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
+/* TITLE */
+.stat-title {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-medium);
 }
 
 /* =========================
-   VALUE
+   VALUE (MAIN FOCUS)
 ========================= */
 
-.card-value {
+.stat-value {
   font-size: 26px;
-  font-weight: 700;
-  margin-top: 10px;
-  letter-spacing: 0.4px;
-  color: #0f172a;
+  font-weight: var(--font-bold);
+
+  margin-top: var(--space-2);
+  letter-spacing: 0.2px;
+
+  color: var(--color-text-primary);
+}
+
+/* VERY subtle color hint (optional but controlled) */
+.stat-card.income .stat-value {
+  color: #15803d; /* slightly toned green */
+}
+
+.stat-card.expense .stat-value {
+  color: #b91c1c; /* slightly toned red */
 }
 
 /* =========================
-   TREND ROW (FIXED UX)
+   TREND
 ========================= */
 
-.card-trend-row {
+.stat-trend {
   display: flex;
   align-items: center;
-  gap: 2px;
-  margin-top: 4px;
+  gap: 4px; /* tighter */
+
+  margin-top: var(--space-1);
 }
 
-/* % badge */
+/* BADGE */
 .trend-badge {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: var(--font-semibold);
+
   padding: 3px 6px;
   border-radius: 999px;
 }
 
-/* positive */
+/* POSITIVE */
 .trend-badge.positive {
-  background: #ecfdf5;
-  color: #16a34a;
+  background: var(--color-success-bg);
+  color: var(--color-success);
 }
 
-/* negative */
+/* NEGATIVE */
 .trend-badge.negative {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
 }
 
-/* "vs last month" */
+/* NEUTRAL */
+.trend-badge.neutral {
+  background: var(--color-border);
+  color: var(--color-text-secondary);
+}
+
+/* TEXT */
 .trend-text {
-  font-size: 12px;
-  color: #64748b;
-}
-
-/* =========================
-   VARIANTS (GRADIENT STYLE)
-========================= */
-
-.card.balance {
-  background: linear-gradient(135deg, #eff6ff 0%, #ffffff 65%);
-}
-
-.card.income {
-  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 65%);
-}
-
-.card.expense {
-  background: linear-gradient(135deg, #fef2f2 0%, #ffffff 65%);
-}
-
-/* icon colors */
-.card.balance .card-icon {
-  color: #3b82f6;
-}
-
-.card.income .card-icon {
-  color: #16a34a;
-}
-
-.card.expense .card-icon {
-  color: #dc2626;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 480px) {
-  .card {
-    padding: 16px;
-    min-height: 110px;
-  }
-
-  .card-value {
-    font-size: 22px;
-  }
-
-  .card-title-group {
-    font-size: 12px;
-  }
-
-  .card-trend-row {
-    gap: 6px;
-  }
-
-  .trend-text {
-    font-size: 11px;
-  }
+  font-size: 11px;
+  color: var(--color-text-secondary);
 }
