@@ -46,7 +46,7 @@ const Dashboard = () => {
       </div>
 
       <div className="charts-row">
-        <div className="chart-card balance-chart">
+        <div className="card chart-card">
           <BalanceChart transactions={transactions} />
         </div>
 

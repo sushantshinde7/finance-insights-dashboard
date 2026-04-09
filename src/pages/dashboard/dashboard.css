@@ -5,19 +5,19 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: var(--space-6);
 
-  padding: 4px 2px;
+  padding: var(--space-1);
 }
 
 /* =========================
-   KPI CARDS (TOP SECTION)
+   KPI CARDS
 ========================= */
 
 .cards-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+  gap: var(--space-5);
 }
 
 /* =========================
@@ -27,40 +27,42 @@
 .charts-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
+  gap: var(--space-5);
 }
 
 /* =========================
-   CHART CARD
+   CHART CARD (USE GLOBAL CARD)
 ========================= */
 
 .chart-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
+  /* inherit base card */
+  padding: var(--space-5); 
 
-  border: 1px solid #f1f5f9;
-  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
-
-  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
-.chart-card:hover {
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
-}
-
-/* inner layout */
+/* INNER CONTENT */
 .chart-inner {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: var(--space-3);
 }
 
-/* title */
+/* TITLE */
 .chart-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #334155;
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+/* =========================
+   HOVER (subtle enhancement)
+========================= */
+
+.chart-card:hover {
+  transform: translateY(-2px);
 }
 
 /* =========================
@@ -81,19 +83,19 @@
 /* Tablet */
 @media (max-width: 768px) {
   .dashboard {
-    gap: 20px;
+    gap: var(--space-5);
   }
 
   .cards-row {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: var(--space-4);
   }
 }
 
 /* Mobile */
 @media (max-width: 480px) {
   .dashboard {
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .cards-row {
@@ -105,10 +107,10 @@
   }
 
   .chart-card {
-    padding: 14px;
+    padding: var(--space-4);
   }
 
   .chart-title {
-    font-size: 13px;
+    font-size: var(--text-sm);
   }
 }
