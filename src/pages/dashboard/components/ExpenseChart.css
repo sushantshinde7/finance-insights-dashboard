@@ -1,0 +1,103 @@
+/* =========================
+   BASE
+========================= */
+
+.chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.chart-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chart-title {
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.chart-subtitle {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+}
+
+/* =========================
+   BODY (CENTERED PIE)
+========================= */
+
+.chart-body {
+  width: 100%;
+  height: 240px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =========================
+   TOOLTIP (enhanced)
+========================= */
+
+.chart-tooltip {
+  background: white;
+  padding: 8px 10px;
+  border-radius: var(--radius-md);
+
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tooltip-label {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.tooltip-value {
+  font-size: 13px;
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+/* =========================
+   OPTIONAL LEGEND (FUTURE READY)
+========================= */
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.legend-color {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.pie-center-text {
+  font-size: 14px;
+  font-weight: var(--font-semibold);
+  fill: var(--color-text-primary);
+}
