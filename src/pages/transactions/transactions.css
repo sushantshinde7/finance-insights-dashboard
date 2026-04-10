@@ -1,78 +1,78 @@
+/* =========================
+   CONTAINER
+========================= */
+
 .transactions-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-
-  /* key upgrade: page padding control */
-  padding: 16px;
+  gap: var(--space-6);
+  padding: var(--space-4);
 }
 
 /* ================= HEADER ================= */
+
 .transactions-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap; /* important for mobile */
-}
-
-.transactions-title {
-  font-size: 22px;
-  font-weight: 600;
-  color: #111827;
-  letter-spacing: -0.3px;
-  margin: 0;
-}
-
-/* right side actions (future proofing) */
-.header-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
+  gap: var(--space-3);
   flex-wrap: wrap;
 }
 
-/* ================= CARD SYSTEM ================= */
-.transactions-card {
-  background: #ffffff;
-  border-radius: 14px;
-
-  /* responsive padding */
-  padding: 18px;
-
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
-  border: 1px solid #f1f5f9;
-
-  transition: all 0.2s ease;
+.transactions-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
 }
 
-/* hover only for desktop */
-@media (hover: hover) {
-  .transactions-card:hover {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
-  }
+/* ================= PANEL (MAIN FIX) ================= */
+
+.transactions-panel {
+  padding: 0; /* IMPORTANT: control inside */
+  overflow: hidden;
+}
+
+/* FILTER SECTION */
+.panel-filters {
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-surface);
+}
+
+/* DIVIDER */
+.panel-divider {
+  height: 1px;
+  background: var(--color-border);
+}
+
+/* TABLE SECTION */
+.panel-table {
+  padding: 0; /* table should feel edge-aligned */
 }
 
 /* ================= BUTTON ================= */
+
 .add-btn {
-  background: #111827;
-  color: #fff;
+  background: var(--color-primary);
+  color: white;
+
   border: none;
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-md);
+
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
   transition: all 0.2s ease;
-  white-space: nowrap;
 }
 
 .add-btn:hover {
-  background: #000;
+  background: var(--color-primary-hover);
   transform: translateY(-1px);
 }
 
 /* ================= TOAST ================= */
+
 .toast {
   position: fixed;
   bottom: 24px;
@@ -82,18 +82,15 @@
   background: #1f2937;
   color: white;
 
-  padding: 12px 16px;
-  border-radius: 10px;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
 
   display: flex;
-  gap: 12px;
+  gap: var(--space-3);
   align-items: center;
 
-  font-size: 14px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-
-  max-width: 90vw;
-  text-align: center;
+  font-size: var(--text-sm);
+  box-shadow: var(--shadow-lg);
 }
 
 .toast-action {
@@ -101,62 +98,34 @@
   border: none;
   color: #60a5fa;
   cursor: pointer;
-  font-weight: 600;
-  white-space: nowrap;
+  font-weight: var(--font-semibold);
 }
 
-/* ================= RESPONSIVE BREAKPOINTS ================= */
+/* ================= RESPONSIVE ================= */
 
-/* TABLET */
 @media (max-width: 768px) {
   .transactions-container {
-    padding: 12px;
-    gap: 16px;
+    gap: var(--space-5);
+    padding: var(--space-3);
   }
 
   .transactions-title {
-    font-size: 20px;
+    font-size: var(--text-lg);
   }
 
-  .transactions-card {
-    padding: 14px;
-  }
-
-  .add-btn {
-    padding: 7px 14px;
-    font-size: 13px;
+  .panel-filters {
+    padding: var(--space-3) var(--space-4);
   }
 }
 
-/* MOBILE */
 @media (max-width: 480px) {
-  .transactions-container {
-    padding: 10px;
-    gap: 14px;
-  }
-
   .transactions-header {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .transactions-title {
-    font-size: 18px;
-  }
-
   .add-btn {
     width: 100%;
     text-align: center;
-  }
-
-  .transactions-card {
-    padding: 12px;
-    border-radius: 12px;
-  }
-
-  .toast {
-    bottom: 16px;
-    font-size: 13px;
-    padding: 10px 14px;
   }
 }

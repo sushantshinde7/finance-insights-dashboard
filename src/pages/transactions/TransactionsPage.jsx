@@ -52,6 +52,7 @@ export default function TransactionsPage({ role }) {
 
   return (
     <div className="transactions-container">
+      {/* ================= HEADER ================= */}
       <div className="transactions-header">
         <h2 className="transactions-title">Transactions</h2>
 
@@ -62,15 +63,36 @@ export default function TransactionsPage({ role }) {
         )}
       </div>
 
-      <div className="transactions-card">
-        <TransactionFilters
-          filterType={filterType}
-          setFilterType={setFilterType}
-          sortOrder={sortOrder}
-          setSortOrder={setSortOrder}
-        />
+      {/* ================= UNIFIED PANEL ================= */}
+      <div className="card transactions-panel">
+        {/* Filters */}
+        <div className="panel-filters">
+          <TransactionFilters
+            filterType={filterType}
+            setFilterType={setFilterType}
+            sortOrder={sortOrder}
+            setSortOrder={setSortOrder}
+          />
+        </div>
+
+        {/* Divider */}
+        <div className="panel-divider" />
+
+        {/* Table */}
+        <div className="panel-table">
+          <TransactionsTable
+            data={processedTransactions}
+            role={role}
+            onEdit={(tx) => {
+              setEditingTx(tx);
+              setShowModal(true);
+            }}
+            onDelete={handleDelete}
+          />
+        </div>
       </div>
 
+      {/* ================= TOAST ================= */}
       {toast && (
         <div className="toast">
           <span>{toast.message}</span>
@@ -80,24 +102,16 @@ export default function TransactionsPage({ role }) {
         </div>
       )}
 
-      <div className="transactions-card">
-        <TransactionsTable
-          data={processedTransactions}
-          role={role}
-          onEdit={(tx) => {
-            setEditingTx(tx);
-            setShowModal(true);
-          }}
-          onDelete={handleDelete}
-        />
-      </div>
-
+      {/* ================= MODAL ================= */}
       {showModal && (
         <AddTransactionModal
           key={editingTx ? editingTx.id : "new"}
           mode={editingTx ? "edit" : "add"}
           initialData={editingTx}
-          onClose={() => setShowModal(false)}
+          onClose={() => {
+            setShowModal(false);
+            setEditingTx(null); // ✅ important reset
+          }}
           onAdd={handleAdd}
           onUpdate={handleUpdate}
         />
