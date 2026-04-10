@@ -10,6 +10,26 @@ import {
 
 import "./BalanceChart.css";
 
+/* =========================
+   FORMAT HELPERS
+========================= */
+
+// Format date → "1 Jan"
+const formatDate = (dateStr) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+  });
+};
+
+// Format currency → ₹1.2K / ₹1.5L
+const formatCurrency = (value) => {
+  if (value >= 100000) return `₹${(value / 100000).toFixed(1)}L`;
+  if (value >= 1000) return `₹${(value / 1000).toFixed(1)}K`;
+  return `₹${value}`;
+};
+
 const BalanceChart = ({ transactions }) => {
   const sorted = [...transactions].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
@@ -38,8 +58,18 @@ const BalanceChart = ({ transactions }) => {
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" className="chart-grid" />
 
-            <XAxis dataKey="date" className="chart-axis" />
-            <YAxis className="chart-axis" />
+            {/* ✅ Formatted Dates */}
+            <XAxis
+              dataKey="date"
+              tickFormatter={formatDate}
+              className="chart-axis"
+            />
+
+            {/* ✅ Formatted Currency */}
+            <YAxis
+              tickFormatter={formatCurrency}
+              className="chart-axis"
+            />
 
             <Tooltip content={<CustomTooltip />} />
 
@@ -57,10 +87,15 @@ const BalanceChart = ({ transactions }) => {
   );
 };
 
-const CustomTooltip = ({ active, payload }) => {
+/* =========================
+   CUSTOM TOOLTIP
+========================= */
+
+const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="chart-tooltip">
+        <p className="tooltip-label">{formatDate(label)}</p>
         <p className="tooltip-value">
           ₹{payload[0].value.toLocaleString()}
         </p>
