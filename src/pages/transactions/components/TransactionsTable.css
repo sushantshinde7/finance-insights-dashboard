@@ -1,133 +1,191 @@
-/* TransactionsTable.css */
+/* =========================
+   WRAPPER
+========================= */
 
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
-  border-radius: 12px;
-
-  /* important upgrade */
   -webkit-overflow-scrolling: touch;
+
+  /* subtle separation from card edges */
+  border-radius: var(--radius-lg);
 }
 
-/* TABLE BASE */
+/* =========================
+   TABLE BASE
+========================= */
+
 .transactions-table {
   width: 100%;
-  min-width: 650px; /* KEY for controlled scrolling */
+  min-width: 680px;
+
   border-collapse: separate;
   border-spacing: 0;
-  font-size: 14px;
-  background: #fff;
-  border-radius: 12px;
+
+  font-size: var(--text-sm);
+  background: var(--color-surface);
+
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
-/* HEADER */
+/* =========================
+   HEADER (clean + premium)
+========================= */
+
 .transactions-table thead {
-  background: #f9fafb;
+  background: #fafbfc; /* softer than gray */
 }
 
 .transactions-table th {
   text-align: left;
-  padding: 14px 16px;
-  font-weight: 600;
-  font-size: 12px;
-  letter-spacing: 0.05em;
+
+  padding: 14px 18px;
+
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #6b7280;
-  border-bottom: 1px solid #eef0f2;
+
+  color: var(--color-text-secondary);
+
+  border-bottom: 1px solid var(--color-border);
 }
 
-/* ROWS */
+/* =========================
+   ROWS
+========================= */
+
 .transactions-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid #f1f5f9;
-  color: #111827;
+  padding: 16px 18px;
+
+  border-bottom: 1px solid #f5f7fa; /* lighter divider */
+  color: var(--color-text-primary);
+
+  vertical-align: middle;
 }
-/* hover effect (modern SaaS feel) */
+
+/* row hover = very subtle */
 .transactions-table tbody tr {
-  transition: background 0.15s ease, transform 0.1s ease;
+  transition: background 0.15s ease;
 }
 
 .transactions-table tbody tr:hover {
-  background: #f8fafc;
+  background: #fafcff;
 }
 
-/* AMOUNT */
+/* remove last border */
+.transactions-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================
+   DATE (secondary info)
+========================= */
+
+.transactions-table td:first-child {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+}
+
+/* =========================
+   AMOUNT (important)
+========================= */
+
 .amount {
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
 }
 
-/* BADGE SYSTEM */
+/* =========================
+   BADGES (refined)
+========================= */
+
 .badge {
   display: inline-flex;
   align-items: center;
+
   padding: 4px 10px;
   border-radius: 999px;
-  font-size: 12px;
+
+  font-size: 11px;
   font-weight: 500;
+  letter-spacing: 0.02em;
+
   text-transform: capitalize;
 }
 
-/* INCOME */
-.income {
-  background: #ecfdf5;
-  color: #059669;
+/* income */
+.badge.income {
+  background: rgba(34, 197, 94, 0.08);
+  color: #16a34a;
 }
 
-/* EXPENSE */
-.expense {
-  background: #fef2f2;
+/* expense */
+.badge.expense {
+  background: rgba(239, 68, 68, 0.08);
   color: #dc2626;
 }
 
-/* EMPTY STATE */
-.empty-state {
-  padding: 24px;
-  text-align: center;
-  color: #9ca3af;
-  background: #fff;
-  border-radius: 12px;
-}
+/* =========================
+   ACTIONS
+========================= */
 
-/* ACTIONS CELL */
 .actions-cell {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 6px;
 }
 
-/* ICON BUTTON BASE (IMPORTANT CHANGE) */
+/* ICON BUTTON */
 .icon-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
 
   border-radius: 8px;
   border: none;
+
   background: transparent;
+  color: var(--color-text-secondary);
 
-  color: #6b7280;
   cursor: pointer;
-
   transition: all 0.15s ease;
 }
 
-/* HOVER = soft background, not border */
+/* hover */
 .icon-btn:hover {
-  background: #f3f4f6;
-  color: #111827;
-  transform: translateY(-1px);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
 }
 
-/* DELETE ICON SPECIAL STATE */
+/* delete hover */
 .icon-btn.danger:hover {
-  background: #fef2f2;
+  background: rgba(239, 68, 68, 0.08);
   color: #dc2626;
 }
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+  padding: 28px;
+  text-align: center;
+
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 768px) {
   .transactions-table {
@@ -136,44 +194,35 @@
 
   .transactions-table th,
   .transactions-table td {
-    padding: 10px 12px;
-  }
-
-  .icon-btn {
-    width: 30px;
-    height: 30px;
+    padding: 12px 14px;
   }
 }
 
 @media (max-width: 480px) {
   .transactions-table {
+    min-width: 600px;
     font-size: 12px;
-    min-width: 580px; /* tighter but still scroll-safe */
   }
 
+  /* compress category */
   .transactions-table th:nth-child(2),
   .transactions-table td:nth-child(2) {
-    /* category slightly compressed */
-    max-width: 90px;
+    max-width: 100px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .badge {
-    font-size: 11px;
+    font-size: 10px;
     padding: 3px 8px;
-  }
-
-  .actions-cell {
-    gap: 6px;
   }
 }
 
+/* disable hover effects on touch */
 @media (hover: none) {
   .transactions-table tbody tr:hover {
     background: transparent;
-    transform: none;
   }
 
   .icon-btn:hover {

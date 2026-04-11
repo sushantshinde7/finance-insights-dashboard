@@ -1,12 +1,7 @@
 import "./TransactionsTable.css";
 import { Pencil, Trash2 } from "lucide-react";
 
-export default function TransactionsTable({
-  data,
-  role,
-  onEdit,
-  onDelete,
-}) {
+export default function TransactionsTable({ data, role, onEdit, onDelete }) {
   if (!data.length) {
     return <div className="empty-state">No transactions found</div>;
   }
@@ -14,7 +9,6 @@ export default function TransactionsTable({
   return (
     <div className="table-wrapper">
       <table className="transactions-table">
-
         <thead>
           <tr>
             <th>Date</th>
@@ -28,11 +22,15 @@ export default function TransactionsTable({
         <tbody>
           {data.map((tx) => (
             <tr key={tx.id}>
-
-              <td>{tx.date}</td>
+              <td>
+                {new Date(tx.date).toLocaleDateString("en-IN", {
+                  day: "2-digit",
+                  month: "short",
+                })}
+              </td>
               <td>{tx.category}</td>
 
-              <td className="amount">
+              <td className={`amount ${tx.type}`}>
                 ₹{tx.amount.toLocaleString()}
               </td>
 
@@ -48,7 +46,6 @@ export default function TransactionsTable({
 
               {role === "admin" && (
                 <td className="actions-cell">
-
                   {/* EDIT */}
                   <button
                     onClick={() => onEdit(tx)}
@@ -66,13 +63,11 @@ export default function TransactionsTable({
                   >
                     <Trash2 size={16} />
                   </button>
-
                 </td>
               )}
             </tr>
           ))}
         </tbody>
-
       </table>
     </div>
   );
