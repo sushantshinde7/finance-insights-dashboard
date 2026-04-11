@@ -172,17 +172,24 @@
    EMPTY STATE
 ========================= */
 
+/* EMPTY STATE */
+
 .empty-state {
-  padding: 28px;
+  padding: var(--space-6);
   text-align: center;
-
-  color: var(--color-text-secondary);
-  font-size: var(--text-sm);
-
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
 }
 
+.empty-title {
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.empty-subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin-top: 4px;
+}
 /* =========================
    RESPONSIVE
 ========================= */

@@ -35,11 +35,13 @@ export default function AddTransactionModal({
   };
 
   // dirty check
-  const isDirty =
-    JSON.stringify(form) !== JSON.stringify(initialSnapshot);
+  const isDirty = JSON.stringify(form) !== JSON.stringify(initialSnapshot);
+
+  // ✅ VALIDATION
+  const isValid = form.date && form.amount && form.category;
 
   const handleSubmit = () => {
-    if (!form.date || !form.amount || !form.category) return;
+    if (!isValid) return;
 
     const payload = {
       ...form,
@@ -61,19 +63,17 @@ export default function AddTransactionModal({
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal">
-
+    // ✅ OVERLAY CLICK CLOSE
+    <div className="modal-overlay" onClick={onClose}>
+      {/* ✅ STOP PROPAGATION */}
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
         <h3 className="modal-title">
-          {mode === "edit"
-            ? "Edit Transaction"
-            : "Add Transaction"}
+          {mode === "edit" ? "Edit Transaction" : "Add Transaction"}
         </h3>
 
         <div className="modal-form">
-
           <input
-            type="date"
+            type="date" autoFocus
             name="date"
             value={form.date}
             onChange={handleChange}
@@ -83,7 +83,7 @@ export default function AddTransactionModal({
           <input
             type="number"
             name="amount"
-            placeholder="Amount"
+            placeholder="Enter amount"
             value={form.amount}
             onChange={handleChange}
             className="modal-input"
@@ -92,7 +92,7 @@ export default function AddTransactionModal({
           <input
             type="text"
             name="category"
-            placeholder="Category"
+            placeholder="e.g. Food, Salary"
             value={form.category}
             onChange={handleChange}
             className="modal-input"
@@ -114,9 +114,11 @@ export default function AddTransactionModal({
             Cancel
           </button>
 
+          {/* disable when form invalid */}
           <button
             onClick={handleSubmit}
             className="btn-primary"
+            disabled={!isValid}
           >
             {mode === "edit" ? "Save Changes" : "Add Transaction"}
           </button>

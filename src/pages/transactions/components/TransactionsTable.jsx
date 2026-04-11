@@ -3,9 +3,15 @@ import { Pencil, Trash2 } from "lucide-react";
 
 export default function TransactionsTable({ data, role, onEdit, onDelete }) {
   if (!data.length) {
-    return <div className="empty-state">No transactions found</div>;
-  }
-
+  return (
+    <div className="empty-state">
+      <p className="empty-title">No transactions yet</p>
+      <p className="empty-subtitle">
+        Add your first transaction to get started
+      </p>
+    </div>
+  );
+}
   return (
     <div className="table-wrapper">
       <table className="transactions-table">
