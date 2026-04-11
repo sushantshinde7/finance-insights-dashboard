@@ -7,36 +7,41 @@ export default function TransactionFilters({
   setSortOrder,
 }) {
   return (
-    <div className="filters-container">
-      <div className="filters-inner">
-        {/* Filter group */}
-        <div className="filter-group">
-          <label className="filter-label">Type</label>
+    <div className="filters">
+      {/* LEFT: TYPE FILTER */}
+      <div className="filter-tabs">
+        <button
+          className={`tab ${filterType === "all" ? "active" : ""}`}
+          onClick={() => setFilterType("all")}
+        >
+          All
+        </button>
 
-          <select
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-            className="filter-select"
-          >
-            <option value="all">All</option>
-            <option value="income">Income</option>
-            <option value="expense">Expense</option>
-          </select>
-        </div>
+        <button
+          className={`tab ${filterType === "income" ? "active" : ""}`}
+          onClick={() => setFilterType("income")}
+        >
+          Income
+        </button>
 
-        {/* Sort group */}
-        <div className="filter-group">
-          <label className="filter-label">Sort</label>
+        <button
+          className={`tab ${filterType === "expense" ? "active" : ""}`}
+          onClick={() => setFilterType("expense")}
+        >
+          Expense
+        </button>
+      </div>
 
-          <select
-            value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
-            className="filter-select"
-          >
-            <option value="desc">Newest First</option>
-            <option value="asc">Oldest First</option>
-          </select>
-        </div>
+      {/* RIGHT: SORT */}
+      <div className="filter-actions">
+        <button
+          className="sort-btn"
+          onClick={() =>
+            setSortOrder(sortOrder === "desc" ? "asc" : "desc")
+          }
+        >
+          {sortOrder === "desc" ? "Newest ↓" : "Oldest ↑"}
+        </button>
       </div>
     </div>
   );
