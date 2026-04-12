@@ -1,14 +1,12 @@
 import "./TransactionsTable.css";
 import { Pencil, Trash2 } from "lucide-react";
 
-export default function TransactionsTable({ data, role, onEdit, onDelete }) {
+export default function TransactionsTable({ data, role, onEdit, onDelete, emptyState, }) {
   if (!data.length) {
   return (
     <div className="empty-state">
-      <p className="empty-title">No transactions yet</p>
-      <p className="empty-subtitle">
-        Add your first transaction to get started
-      </p>
+      <p className="empty-title">{emptyState?.title}</p>
+      <p className="empty-subtitle">{emptyState?.subtitle}</p>
     </div>
   );
 }

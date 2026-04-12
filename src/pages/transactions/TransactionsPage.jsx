@@ -7,12 +7,8 @@ import { useTransactions } from "../../hooks/useTransactions";
 import "./transactions.css";
 
 export default function TransactionsPage({ role }) {
-  const {
-    transactions,
-    addTransaction,
-    updateTransaction,
-    deleteTransaction,
-  } = useTransactions();
+  const { transactions, addTransaction, updateTransaction, deleteTransaction } =
+    useTransactions();
 
   const [filterType, setFilterType] = useState("all");
   const [sortOrder, setSortOrder] = useState("desc");
@@ -26,7 +22,7 @@ export default function TransactionsPage({ role }) {
     .sort((a, b) =>
       sortOrder === "asc"
         ? new Date(a.date) - new Date(b.date)
-        : new Date(b.date) - new Date(a.date)
+        : new Date(b.date) - new Date(a.date),
     );
 
   const handleAdd = (tx) => addTransaction(tx);
@@ -49,6 +45,36 @@ export default function TransactionsPage({ role }) {
 
     setTimeout(() => setToast(null), 4000);
   };
+
+  const getEmptyState = () => {
+    if (transactions.length === 0) {
+      return {
+        title: "No transactions yet",
+        subtitle: "Add your first transaction to get started",
+      };
+    }
+
+    if (filterType === "income") {
+      return {
+        title: "No income transactions",
+        subtitle: "Try changing filters or add income",
+      };
+    }
+
+    if (filterType === "expense") {
+      return {
+        title: "No expense transactions",
+        subtitle: "Try changing filters or add expenses",
+      };
+    }
+
+    return {
+      title: "No transactions found",
+      subtitle: "Try adjusting filters",
+    };
+  };
+
+  const emptyState = getEmptyState();
 
   return (
     <div className="transactions-container">
@@ -83,6 +109,7 @@ export default function TransactionsPage({ role }) {
           <TransactionsTable
             data={processedTransactions}
             role={role}
+            emptyState={emptyState}
             onEdit={(tx) => {
               setEditingTx(tx);
               setShowModal(true);
