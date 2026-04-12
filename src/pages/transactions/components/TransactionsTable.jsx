@@ -1,12 +1,19 @@
 import "./TransactionsTable.css";
 import { Pencil, Trash2 } from "lucide-react";
 
-export default function TransactionsTable({ data, role, onEdit, onDelete, emptyState, }) {
+export default function TransactionsTable({ data, role, onEdit, onDelete, emptyState, onAddClick, }) {
   if (!data.length) {
   return (
     <div className="empty-state">
       <p className="empty-title">{emptyState?.title}</p>
       <p className="empty-subtitle">{emptyState?.subtitle}</p>
+
+      {/* CTA only for admin */}
+      {role === "admin" && (
+        <button className="empty-cta" onClick={onAddClick}>
+          + Add Transaction
+        </button>
+      )}
     </div>
   );
 }

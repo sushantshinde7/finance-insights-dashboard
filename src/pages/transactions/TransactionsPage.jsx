@@ -7,8 +7,12 @@ import { useTransactions } from "../../hooks/useTransactions";
 import "./transactions.css";
 
 export default function TransactionsPage({ role }) {
-  const { transactions, addTransaction, updateTransaction, deleteTransaction } =
-    useTransactions();
+  const {
+    transactions,
+    addTransaction,
+    updateTransaction,
+    deleteTransaction,
+  } = useTransactions();
 
   const [filterType, setFilterType] = useState("all");
   const [sortOrder, setSortOrder] = useState("desc");
@@ -22,7 +26,7 @@ export default function TransactionsPage({ role }) {
     .sort((a, b) =>
       sortOrder === "asc"
         ? new Date(a.date) - new Date(b.date)
-        : new Date(b.date) - new Date(a.date),
+        : new Date(b.date) - new Date(a.date)
     );
 
   const handleAdd = (tx) => addTransaction(tx);
@@ -45,6 +49,8 @@ export default function TransactionsPage({ role }) {
 
     setTimeout(() => setToast(null), 4000);
   };
+
+  /* ================= EMPTY STATE LOGIC ================= */
 
   const getEmptyState = () => {
     if (transactions.length === 0) {
@@ -110,6 +116,7 @@ export default function TransactionsPage({ role }) {
             data={processedTransactions}
             role={role}
             emptyState={emptyState}
+            onAddClick={() => setShowModal(true)}  /* ✅ IMPORTANT */
             onEdit={(tx) => {
               setEditingTx(tx);
               setShowModal(true);
@@ -137,7 +144,7 @@ export default function TransactionsPage({ role }) {
           initialData={editingTx}
           onClose={() => {
             setShowModal(false);
-            setEditingTx(null); // ✅ important reset
+            setEditingTx(null);
           }}
           onAdd={handleAdd}
           onUpdate={handleUpdate}
