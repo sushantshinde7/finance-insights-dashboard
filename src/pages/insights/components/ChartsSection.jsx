@@ -1,3 +1,6 @@
+import "./ChartsSection.css";
+
+
 import {
   BarChart,
   Bar,

@@ -1,3 +1,5 @@
+import "./InsightsHeader.css";
+
 export default function InsightsHeader() {
   return (
     <div className="insights-header">

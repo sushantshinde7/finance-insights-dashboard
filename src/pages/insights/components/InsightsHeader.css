@@ -1,0 +1,22 @@
+.insights-header {
+  margin-bottom: 28px;
+}
+
+.insights-header h2 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.insights-header p {
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* responsive */
+@media (max-width: 480px) {
+  .insights-header h2 {
+    font-size: 22px;
+  }
+}

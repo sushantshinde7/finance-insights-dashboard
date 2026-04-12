@@ -1,3 +1,6 @@
+import "./KPIGrid.css";
+
+
 export default function KPIGrid({
   income,
   expense,

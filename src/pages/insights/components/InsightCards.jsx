@@ -1,3 +1,6 @@
+import "./InsightCards.css";
+
+
 export default function InsightCards({
   expenseChange,
   topCategory,
