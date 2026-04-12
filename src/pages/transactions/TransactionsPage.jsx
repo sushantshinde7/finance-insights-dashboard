@@ -7,12 +7,8 @@ import { useTransactions } from "../../hooks/useTransactions";
 import "./transactions.css";
 
 export default function TransactionsPage({ role }) {
-  const {
-    transactions,
-    addTransaction,
-    updateTransaction,
-    deleteTransaction,
-  } = useTransactions();
+  const { transactions, addTransaction, updateTransaction, deleteTransaction } =
+    useTransactions();
 
   const [filterType, setFilterType] = useState("all");
   const [sortOrder, setSortOrder] = useState("desc");
@@ -26,7 +22,7 @@ export default function TransactionsPage({ role }) {
     .sort((a, b) =>
       sortOrder === "asc"
         ? new Date(a.date) - new Date(b.date)
-        : new Date(b.date) - new Date(a.date)
+        : new Date(b.date) - new Date(a.date),
     );
 
   const handleAdd = (tx) => addTransaction(tx);
@@ -35,6 +31,8 @@ export default function TransactionsPage({ role }) {
 
   const handleDelete = (id) => {
     const deleted = transactions.find((t) => t.id === id);
+
+    if (!deleted) return;
 
     deleteTransaction(id);
 
@@ -116,7 +114,9 @@ export default function TransactionsPage({ role }) {
             data={processedTransactions}
             role={role}
             emptyState={emptyState}
-            onAddClick={() => setShowModal(true)}  /* ✅ IMPORTANT */
+            onAddClick={
+              role === "admin" ? () => setShowModal(true) : null
+            } /* ✅ IMPORTANT */
             onEdit={(tx) => {
               setEditingTx(tx);
               setShowModal(true);

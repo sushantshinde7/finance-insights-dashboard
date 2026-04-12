@@ -34,14 +34,14 @@
 
 /* FILTER SECTION */
 .panel-filters {
-  padding: 8px var(--space-5); /* tighter vertically */
+  padding: var(--space-2) var(--space-5);
   background: var(--color-surface);
 }
 
 /* DIVIDER */
 .panel-divider {
   height: 1px;
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--color-border);
 }
 
 /* TABLE SECTION */
@@ -114,7 +114,7 @@
   }
 
   .panel-filters {
-    padding: var(--space-3) var(--space-4);
+    padding: var(--space-2) var(--space-4);
   }
 }
 
