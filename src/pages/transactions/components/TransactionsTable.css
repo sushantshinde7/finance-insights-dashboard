@@ -34,7 +34,7 @@
 ========================= */
 
 .transactions-table thead {
-  background: #fafbfc; /* softer than gray */
+  background: var(--color-surface-muted, #fafbfc); /* softer than gray */
 }
 
 .transactions-table th {

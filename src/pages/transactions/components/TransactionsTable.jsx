@@ -1,22 +1,34 @@
 import "./TransactionsTable.css";
 import { Pencil, Trash2 } from "lucide-react";
 
-export default function TransactionsTable({ data, role, onEdit, onDelete, emptyState, onAddClick, }) {
+export default function TransactionsTable({
+  data,
+  role,
+  onEdit,
+  onDelete,
+  emptyState,
+  onAddClick,
+}) {
   if (!data.length) {
-  return (
-    <div className="empty-state">
-      <p className="empty-title">{emptyState?.title}</p>
-      <p className="empty-subtitle">{emptyState?.subtitle}</p>
+    return (
+      <div className="empty-state">
+        <p className="empty-title">
+          {emptyState?.title || "No data available"}
+        </p>
 
-      {/* CTA only for admin */}
-      {role === "admin" && (
-        <button className="empty-cta" onClick={onAddClick}>
-          + Add Transaction
-        </button>
-      )}
-    </div>
-  );
-}
+        <p className="empty-subtitle">
+          {emptyState?.subtitle || "Try adjusting filters"}
+        </p>
+
+        {/* CTA only for admin */}
+        {role === "admin" && onAddClick && (
+          <button className="empty-cta" onClick={onAddClick}>
+            + Add Transaction
+          </button>
+        )}
+      </div>
+    );
+  }
   return (
     <div className="table-wrapper">
       <table className="transactions-table">
