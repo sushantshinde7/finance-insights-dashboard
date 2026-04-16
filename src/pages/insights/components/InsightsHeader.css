@@ -1,22 +1,25 @@
 .insights-header {
-  margin-bottom: 28px;
+  margin-bottom: var(--space-6);
 }
 
-.insights-header h2 {
-  font-size: 30px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+/* TITLE */
+.insights-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -0.3px;
 }
 
-.insights-header p {
-  margin-top: 6px;
-  color: #64748b;
-  font-size: 14px;
+/* SUBTITLE */
+.insights-subtitle {
+  margin-top: 4px;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
 }
 
-/* responsive */
+/* RESPONSIVE */
 @media (max-width: 480px) {
-  .insights-header h2 {
-    font-size: 22px;
+  .insights-title {
+    font-size: var(--text-lg);
   }
 }
