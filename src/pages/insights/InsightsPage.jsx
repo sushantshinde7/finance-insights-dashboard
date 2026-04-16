@@ -19,8 +19,7 @@ export default function InsightsPage() {
 
   // ================= HELPERS =================
 
-  const formatCurrency = (value) =>
-    `₹${value.toLocaleString("en-IN")}`;
+  const formatCurrency = (value) => `₹${value.toLocaleString("en-IN")}`;
 
   const formatMonth = (month) => {
     const date = new Date(month + "-01");
@@ -29,8 +28,9 @@ export default function InsightsPage() {
 
   // ================= DERIVED DATA =================
 
-  const topCategory =
-    [...categoryBreakdown].sort((a, b) => b.value - a.value)[0];
+  const topCategory = [...categoryBreakdown].sort(
+    (a, b) => b.value - a.value,
+  )[0];
 
   const prevMonthExpense =
     monthlyTrend?.[monthlyTrend.length - 2]?.expense || 0;
@@ -40,9 +40,42 @@ export default function InsightsPage() {
       ? 0
       : ((expense - prevMonthExpense) / prevMonthExpense) * 100;
 
+  // ================= EMPTY STATE =================
+
+  const isEmpty =
+    !monthlyTrend?.length &&
+    !balanceTrend?.length &&
+    !categoryBreakdown?.length;
+
+  if (isEmpty) {
+    return (
+      <div className="insights-container">
+        <InsightsHeader />
+
+        <div className="insights-empty">
+          <div className="insights-empty-icon">📊</div>
+
+          <h3 className="insights-empty-title">No insights available yet</h3>
+
+          <p className="insights-empty-subtitle">
+            Add transactions to unlock charts and financial insights
+          </p>
+
+          <button
+            className="insights-empty-cta"
+            onClick={() => (window.location.href = "/transactions")}
+          >
+            Go to Transactions
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // ================= MAIN UI =================
+
   return (
     <div className="insights-container">
-      
       <InsightsHeader />
 
       <KPIGrid
@@ -53,10 +86,7 @@ export default function InsightsPage() {
         formatCurrency={formatCurrency}
       />
 
-      <InsightCards
-        expenseChange={expenseChange}
-        topCategory={topCategory}
-      />
+      <InsightCards expenseChange={expenseChange} topCategory={topCategory} />
 
       <ChartsSection
         monthlyTrend={monthlyTrend}
@@ -66,10 +96,7 @@ export default function InsightsPage() {
         formatMonth={formatMonth}
       />
 
-      <div className="insight-footer">
-        More insights coming soon...
-      </div>
-
+      <div className="insight-footer">More insights coming soon...</div>
     </div>
   );
 }
