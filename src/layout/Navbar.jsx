@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import "./Navbar.css";
 
 const Navbar = ({ role, setRole }) => {
+  const [theme, setTheme] = useState("light");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") || "light";
+    setTheme(saved);
+    document.documentElement.setAttribute("data-theme", saved);
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -8,7 +25,9 @@ const Navbar = ({ role, setRole }) => {
       </div>
 
       <div className="navbar-right">
-        <button className="theme-toggle">🌙</button>
+        <button className="theme-toggle" onClick={toggleTheme}>
+          {theme === "light" ? "🌙" : "☀️"}
+        </button>
 
         <select
           value={role}
