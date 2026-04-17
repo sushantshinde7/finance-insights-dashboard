@@ -12,6 +12,8 @@ body {
   font-family: var(--font-family);
   background: var(--color-bg);
   color: var(--color-text-primary);
+
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 /* APP CONTAINER */
@@ -19,7 +21,7 @@ body {
   padding: var(--space-5);
 }
 
-/* GLOBAL CARD (base for everything) */
+/* GLOBAL CARD */
 .card {
   background: var(--color-surface);
   border-radius: var(--radius-lg);
@@ -33,4 +35,29 @@ body {
 .card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
+}
+
+/* GLOBAL TABLE FIX (VERY IMPORTANT) */
+table {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+/* INPUTS / SELECTS FIX */
+input,
+select,
+textarea {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+}
+
+/* SCROLLBAR (optional but premium) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-3);
+  border-radius: 8px;
 }

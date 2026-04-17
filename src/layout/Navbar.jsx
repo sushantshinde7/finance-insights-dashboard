@@ -25,7 +25,11 @@ const Navbar = ({ role, setRole }) => {
       </div>
 
       <div className="navbar-right">
-        <button className="theme-toggle" onClick={toggleTheme}>
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+        >
           {theme === "light" ? "🌙" : "☀️"}
         </button>
 

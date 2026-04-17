@@ -1,6 +1,11 @@
+/* =========================
+   NAVBAR BASE
+========================= */
+
 .navbar {
   height: 64px;
-  background: var(--color-surface);
+
+  background: var(--color-surface-elevated);
   border-bottom: 1px solid var(--color-border);
 
   display: flex;
@@ -8,52 +13,157 @@
   justify-content: space-between;
 
   padding: 0 var(--space-6);
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  backdrop-filter: blur(8px);
 }
 
-/* LEFT */
+/* subtle dark mode elevation */
+[data-theme="dark"] .navbar {
+  background: rgba(17, 24, 39, 0.85);
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================
+   LEFT
+========================= */
+
 .navbar-left h2 {
   font-size: var(--text-lg);
   font-weight: var(--font-semibold);
   color: var(--color-text-primary);
+  letter-spacing: -0.2px;
 }
 
-/* RIGHT */
+/* =========================
+   RIGHT
+========================= */
+
 .navbar-right {
   display: flex;
   align-items: center;
   gap: var(--space-3);
 }
 
-/* ROLE SELECT */
+/* =========================
+   ROLE SELECT (SYSTEM INPUT)
+========================= */
+
 .role-select {
-  padding: 6px 10px;
+  padding: var(--space-2) var(--space-3);
+
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
+
   background: var(--color-surface);
   color: var(--color-text-primary);
 
   font-size: var(--text-sm);
+
   cursor: pointer;
-  transition: 0.2s;
+
+  transition: all 0.2s ease;
+  
 }
 
+/* hover */
 .role-select:hover {
   border-color: var(--color-primary);
+  background: var(--color-primary-light);
 }
 
-/* THEME BUTTON */
-.theme-toggle {
-  border: 1px solid var(--color-border);
-  background: var(--color-surface);
+/* focus (IMPORTANT UX FIX) */
+.role-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
 
-  padding: 6px 10px;
+/* =========================
+   SELECT DROPDOWN FIX
+========================= */
+
+/* ensure base dropdown respects dark */
+.role-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* helps reduce white flash issue */
+[data-theme="dark"] .role-select {
+  color-scheme: dark;
+}
+/* option styling (limited but helps) */
+.role-select option {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+/* selected option */
+.role-select option:checked {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* =========================
+   THEME TOGGLE BUTTON
+========================= */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  height: 36px;
+
   border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
 
   cursor: pointer;
+
   transition: all 0.2s ease;
 }
 
+/* hover */
 .theme-toggle:hover {
   background: var(--color-primary-light);
+  color: var(--color-primary);
   border-color: var(--color-primary);
+}
+
+/* active click */
+.theme-toggle:active {
+  transform: scale(0.96);
+}
+
+/* focus */
+.theme-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-primary-light);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 var(--space-4);
+  }
+
+  .navbar-left h2 {
+    font-size: var(--text-md);
+  }
+
+  .role-select {
+    font-size: var(--text-xs);
+  }
 }
