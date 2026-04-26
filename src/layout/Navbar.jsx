@@ -21,13 +21,14 @@ const Navbar = ({ role, setRole, sidebarOpen, setSidebarOpen }) => {
   return (
     <div className="navbar">
       <div className="navbar-left">
-
         <button
-          className="hamburger-btn"
+          className={`hamburger-btn ${sidebarOpen ? "active" : ""}`}
           onClick={() => setSidebarOpen(!sidebarOpen)}
           aria-label="Toggle Sidebar"
         >
-          ☰
+          <span />
+          <span />
+          <span />
         </button>
 
         <h2>Finance Insights</h2>
