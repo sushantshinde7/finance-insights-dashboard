@@ -1,10 +1,27 @@
 import "./Sidebar.css";
+import {
+  LayoutDashboard,
+  ArrowLeftRight,
+  BarChart3,
+} from "lucide-react";
 
 const Sidebar = ({ setPage, activePage }) => {
   const navItems = [
-    { key: "dashboard", label: "Dashboard" },
-    { key: "transactions", label: "Transactions" },
-    { key: "insights", label: "Insights" },
+    {
+      key: "dashboard",
+      label: "Dashboard",
+      icon: <LayoutDashboard size={18} />,
+    },
+    {
+      key: "transactions",
+      label: "Transactions",
+      icon: <ArrowLeftRight size={18} />,
+    },
+    {
+      key: "insights",
+      label: "Insights",
+      icon: <BarChart3 size={18} />,
+    },
   ];
 
   return (
@@ -17,7 +34,8 @@ const Sidebar = ({ setPage, activePage }) => {
             className={`nav-item ${activePage === item.key ? "active" : ""}`}
             onClick={() => setPage(item.key)}
           >
-            {item.label}
+            <span className="nav-icon">{item.icon}</span>
+            <span>{item.label}</span>
           </button>
         ))}
       </nav>

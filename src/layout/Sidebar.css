@@ -47,6 +47,7 @@
 
   display: flex;
   align-items: center;
+  gap: 12px;
 
   font-size: var(--text-md);
   font-weight: var(--font-medium);
@@ -59,17 +60,39 @@
   transition: all 0.2s ease;
 }
 
+/* ICON */
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  opacity: 0.9;
+}
+
+/* HOVER */
 .nav-item:hover {
   background: var(--color-primary-light);
   color: var(--color-primary);
 }
 
+.nav-item:hover .nav-icon {
+  opacity: 1;
+}
+
+/* ACTIVE */
 .nav-item.active {
   background: var(--color-primary-light);
   color: var(--color-primary);
   font-weight: var(--font-semibold);
 }
 
+.nav-item.active .nav-icon {
+  opacity: 1;
+}
+
+/* ACTIVE INDICATOR */
 .nav-item.active::before {
   content: "";
   position: absolute;
@@ -82,7 +105,6 @@
 
   background: var(--color-primary);
 }
-
 /* =========================
    FOOTER META
 ========================= */
