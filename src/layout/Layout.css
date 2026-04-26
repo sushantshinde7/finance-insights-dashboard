@@ -9,7 +9,10 @@
   position: relative;
 }
 
-/* DESKTOP SIDEBAR */
+/* =========================
+   DESKTOP SIDEBAR
+========================= */
+
 .sidebar {
   width: 180px;
   min-width: 180px;
@@ -21,11 +24,13 @@
   display: flex;
   flex-direction: column;
 
-  transition: transform 0.3s ease;
   z-index: 90;
 }
 
-/* MAIN */
+/* =========================
+   MAIN CONTENT
+========================= */
+
 .main-content {
   flex: 1;
   min-width: 0;
@@ -39,12 +44,18 @@
   flex-direction: column;
 }
 
-/* BACKDROP */
+/* =========================
+   BACKDROP DEFAULT
+========================= */
+
 .sidebar-backdrop {
   display: none;
 }
 
-/* TABLET / MOBILE */
+/* =========================
+   MOBILE / TABLET DRAWER
+========================= */
+
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;
@@ -55,8 +66,20 @@
     min-width: unset;
     height: calc(100vh - 64px);
 
-    transform: translateX(-100%);
-    box-shadow: var(--shadow-lg);
+    transform: translateX(-108%);
+    opacity: 0.98;
+
+    box-shadow:
+      0 24px 48px rgba(0, 0, 0, 0.18),
+      0 8px 20px rgba(0, 0, 0, 0.10);
+
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms ease;
+
+    will-change: transform;
+
+    z-index: 90;
   }
 
   .sidebar.open {
@@ -65,16 +88,32 @@
 
   .sidebar-backdrop {
     display: block;
+
     position: fixed;
     inset: 64px 0 0 0;
 
-    background: rgba(15, 23, 42, 0.45);
-    backdrop-filter: blur(4px);
+    background: rgba(15, 23, 42, 0.38);
+    backdrop-filter: blur(5px);
+
+    animation: fadeBackdrop 240ms ease;
 
     z-index: 80;
   }
 
   .main-content {
     padding: var(--space-4);
+  }
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
