@@ -19,6 +19,21 @@ const Layout = ({ children, setPage, activePage, role, setRole }) => {
     };
   }, [sidebarOpen]);
 
+  /* ESC key closes sidebar */
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === "Escape") {
+        setSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+
+    return () => {
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, []);
+
   return (
     <div className="layout">
       <Navbar
