@@ -1,28 +1,15 @@
-/* =========================
-   ROOT LAYOUT
-========================= */
-
 .layout {
   min-height: 100vh;
   background: var(--color-bg);
 }
 
-/* =========================
-   BODY (SIDEBAR + CONTENT)
-========================= */
-
 .layout-body {
   display: flex;
   height: calc(100vh - 64px);
-  min-height: calc(100vh - 64px);
-
-  background: var(--color-bg);
+  position: relative;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
+/* DESKTOP SIDEBAR */
 .sidebar {
   width: 220px;
   min-width: 220px;
@@ -33,12 +20,12 @@
 
   display: flex;
   flex-direction: column;
+
+  transition: transform 0.3s ease;
+  z-index: 90;
 }
 
-/* =========================
-   MAIN CONTENT
-========================= */
-
+/* MAIN */
 .main-content {
   flex: 1;
   min-width: 0;
@@ -52,43 +39,42 @@
   flex-direction: column;
 }
 
-/* =========================
-   TABLET
-========================= */
-
-@media (max-width: 1024px) {
-  .sidebar {
-    width: 190px;
-    min-width: 190px;
-  }
-
-  .main-content {
-    padding: var(--space-5);
-  }
+/* BACKDROP */
+.sidebar-backdrop {
+  display: none;
 }
 
-/* =========================
-   SMALL TABLET
-========================= */
-
+/* TABLET / MOBILE */
 @media (max-width: 768px) {
   .sidebar {
-    width: 160px;
-    min-width: 160px;
+    position: fixed;
+    top: 64px;
+    left: 0;
+
+    width: 260px;
+    min-width: 260px;
+    height: calc(100vh - 64px);
+
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 64px 0 0 0;
+
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(4px);
+
+    z-index: 80;
   }
 
   .main-content {
     padding: var(--space-4);
-  }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media (max-width: 480px) {
-  .sidebar {
-    width: 140px;
-    min-width: 140px;
   }
 }

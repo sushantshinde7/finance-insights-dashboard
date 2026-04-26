@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Navbar.css";
 
-const Navbar = ({ role, setRole }) => {
+const Navbar = ({ role, setRole, sidebarOpen, setSidebarOpen }) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
@@ -21,6 +21,15 @@ const Navbar = ({ role, setRole }) => {
   return (
     <div className="navbar">
       <div className="navbar-left">
+
+        <button
+          className="hamburger-btn"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label="Toggle Sidebar"
+        >
+          ☰
+        </button>
+
         <h2>Finance Insights</h2>
       </div>
 
