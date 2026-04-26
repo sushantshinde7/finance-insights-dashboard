@@ -6,14 +6,6 @@
   height: 100%;
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
-
-  position: relative;
-}
-
-/* subtle depth in dark mode */
-[data-theme="dark"] .sidebar {
-  background: var(--color-surface);
-  border-right-color: rgba(255, 255, 255, 0.06);
 }
 
 /* =========================
@@ -21,9 +13,10 @@
 ========================= */
 
 .sidebar-inner {
+  height: 100%;
+
   display: flex;
   flex-direction: column;
-  height: 100%;
 
   padding: var(--space-5) var(--space-3);
 }
@@ -44,8 +37,8 @@
 
 .nav-item {
   position: relative;
-
   width: 100%;
+
   border: none;
   background: transparent;
 
@@ -57,6 +50,7 @@
 
   font-size: var(--text-md);
   font-weight: var(--font-medium);
+
   color: var(--color-text-secondary);
 
   cursor: pointer;
@@ -65,23 +59,19 @@
   transition: all 0.2s ease;
 }
 
-/* hover */
 .nav-item:hover {
   background: var(--color-primary-light);
   color: var(--color-primary);
 }
 
-/* active */
 .nav-item.active {
   background: var(--color-primary-light);
   color: var(--color-primary);
   font-weight: var(--font-semibold);
 }
 
-/* active left indicator */
 .nav-item.active::before {
   content: "";
-
   position: absolute;
   left: 0;
   top: 8px;
@@ -93,34 +83,30 @@
   background: var(--color-primary);
 }
 
-/* focus */
-.nav-item:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--color-primary-light);
-}
+/* =========================
+   FOOTER META
+========================= */
 
-/* active press */
-.nav-item:active {
-  transform: scale(0.99);
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: var(--space-5);
+
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+
+  opacity: 0.65;
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 
-@media (max-width: 1024px) {
-  .sidebar-inner {
-    padding: var(--space-4) var(--space-2);
-  }
-}
-
 @media (max-width: 768px) {
-  .nav-item {
-    justify-content: center;
-    text-align: center;
 
-    padding: 10px 8px;
+
+  .nav-item {
     font-size: var(--text-sm);
+    padding: 10px 12px;
   }
 
   .nav-item.active::before {

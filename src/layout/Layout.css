@@ -3,9 +3,8 @@
 ========================= */
 
 .layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* full viewport height */
+  min-height: 100vh;
+  background: var(--color-bg);
 }
 
 /* =========================
@@ -14,8 +13,9 @@
 
 .layout-body {
   display: flex;
-  flex: 1;
-  min-height: 0; /* 🔥 important for proper stretching */
+  height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
+
   background: var(--color-bg);
 }
 
@@ -25,13 +25,14 @@
 
 .sidebar {
   width: 220px;
-  min-width: 180px;
+  min-width: 220px;
+  height: 100%;
 
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
 
   display: flex;
-  flex-direction: column; /* allows inner to stretch */
+  flex-direction: column;
 }
 
 /* =========================
@@ -40,7 +41,9 @@
 
 .main-content {
   flex: 1;
-  min-width: 0; /* 🔥 prevents overflow issues */
+  min-width: 0;
+  height: 100%;
+  overflow-y: auto;
 
   padding: var(--space-6);
   background: var(--color-bg);
@@ -55,26 +58,8 @@
 
 @media (max-width: 1024px) {
   .sidebar {
-    width: 200px;
-    min-width: 160px;
-  }
-
-  .main-content {
-    padding: var(--space-5);
-  }
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-/* =========================
-   TABLET / SMALL LAPTOP
-========================= */
-@media (max-width: 1024px) {
-  .sidebar {
     width: 190px;
-    min-width: 160px;
+    min-width: 190px;
   }
 
   .main-content {
@@ -85,10 +70,11 @@
 /* =========================
    SMALL TABLET
 ========================= */
+
 @media (max-width: 768px) {
   .sidebar {
-    width: 160px;   /* 🔥 NOT 80 anymore */
-    min-width: 140px;
+    width: 160px;
+    min-width: 160px;
   }
 
   .main-content {
@@ -99,9 +85,10 @@
 /* =========================
    MOBILE
 ========================= */
+
 @media (max-width: 480px) {
   .sidebar {
     width: 140px;
-    min-width: 120px;
+    min-width: 140px;
   }
 }
