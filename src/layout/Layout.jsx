@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import "./Layout.css";
 
 const Layout = ({ children, setPage, activePage, role, setRole }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  /* Prevent body scroll when drawer open */
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [sidebarOpen]);
 
   return (
     <div className="layout">
