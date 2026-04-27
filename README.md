@@ -172,7 +172,16 @@ finance-insights-dashboard/
 │   │   │
 │   │   └── insights/
 │   │       ├── InsightsPage.jsx
-│   │       └── insights.css
+│   │       ├── insights.css
+│   │       └── components/
+│   │           ├── ChartsSection.jsx
+│   │           ├── ChartsSection.css
+│   │           ├── InsightCards.jsx
+│   │           ├── InsightCards.css
+│   │           ├── InsightsHeader.jsx
+│   │           ├── InsightsHeader.css
+│   │           ├── KPIGrid.jsx
+│   │           └── KPIGrid.css
 │   │
 │   ├── hooks/
 │   │   └── useTransactions.js
