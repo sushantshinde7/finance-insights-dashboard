@@ -1,282 +1,81 @@
 # 📊 Finance Insights Dashboard
 
-A modern role-based financial analytics dashboard built with **React (Vite)** that transforms transaction data into actionable insights using interactive visualizations, filtering systems, and smart aggregation logic.
+A financial analytics dashboard built with **React + Vite** — turning raw transaction data into clear, actionable insights through interactive visualizations, derived analytics, and role-based access controls.
 
-The application is structured as a **multi-layout analytics system** with role-based access control and modular dashboards.
-
----
-
-## 🚀 Live Demo
-https://finance-insights-dashboard.vercel.app/
+🔗 **[Live Demo →](https://finance-insights-dashboard.vercel.app/)**
 
 ---
 
-## 🧭 System Architecture (Important)
+## ✨ Features
 
-This project is divided into **3 core layouts**, managed via a fixed navigation system (navbar + sidebar):
+### Dashboard Overview
+- KPI cards for Total Income, Total Expense, and Net Balance
+- Income vs. Expense comparison chart
+- Expense distribution by category
 
-### 1️⃣ Dashboard (Overview Layer)
-A high-level financial summary view.
+### Transactions
+- Full CRUD with admin-only mutation controls
+- Filter by type (income / expense / all) and sort by date
+- Context-aware empty states
 
-#### Includes:
-- 📌 KPI Cards:
-  - Total Income
-  - Total Expense
-  - Net Balance
-- 📊 Charts:
-  - Income vs Expense (Bar Chart)
-  - Expense Distribution (Pie Chart)
-
-#### Purpose:
-Provides a **quick financial snapshot** for decision-making.
-
----
-
-### 2️⃣ Transactions Module (Data Control Layer)
-
-A full CRUD + analytics table for raw financial data.
-
-#### Features:
-- 📄 Complete transaction listing
-- 🔍 Filtering:
-  - Income only
-  - Expense only
-  - All transactions
-- ↕️ Sorting:
-  - Date (Newest → Oldest)
-  - Date (Oldest → Newest)
-- ✏️ Admin Controls (Role-based):
-  - Add transaction
-  - Edit transaction
-  - Delete transaction
-
-#### Role System:
-- 👤 Viewer:
-  - Read-only access
-  - Can view and filter data
-- 🔐 Admin:
-  - Full data manipulation permissions
-
-#### Purpose:
-Acts as the **source-of-truth data management layer**.
-
----
-
-### 3️⃣ Insights Dashboard (Analytics Layer)
-
-A smart analytics engine that converts raw transactions into behavioral insights.
-
-#### Features:
-- 💡 Smart Insight Cards:
-  - Expense change vs previous month
-  - Top spending category identification
-  - Spending behavior classification
-- 📊 Supporting Visuals:
-  - Category-based analysis
-  - Trend-based interpretation
-
-#### Purpose:
-Moves beyond charts into **decision intelligence layer**.
-
----
-
-## 🧱 UI Navigation System
-
-- 🧭 Fixed Navbar (global context)
-- 📂 Sidebar Navigation (layout switching)
-- ⚡ Instant view switching without page reload
-
-This creates a **single-page analytics application experience** similar to SaaS dashboards like Stripe / Notion / Linear.
-
----
-
-## 🧠 Key Features
-
-### 📌 Financial KPIs
-- Total Income tracking
-- Total Expense tracking
-- Net Balance calculation
-- Dynamic top spending category detection
-
----
-
-### 📊 Data Visualizations
-- Income vs Expense comparison (Bar)
-- Category-wise expense breakdown (Pie)
-- Trend-based analysis charts
-
-Built using **Recharts**.
-
----
-
-### 💡 Smart Insights Engine
+### Insights
 - Month-over-month expense comparison
-- Category dominance detection
-- Behavioral classification:
-  - Increasing spend alert
-  - Stable spending pattern
-  - Controlled spending indicator
+- Dynamic top spending category detection
+- Spending behavior classification with trend analytics
 
 ---
 
-## 🧱 Tech Stack
+## 🏗 Architecture
 
-- React.js (Vite)
-- JavaScript (ES6+)
-- Recharts (Data Visualization)
-- Lucide Icons
-- CSS (Custom modular styling)
+### Role-Based Access Control
+| Role | Capabilities |
+|------|-------------|
+| Viewer | Read-only dashboard access |
+| Admin | Full CRUD + data mutation |
 
----
+### Analytics Engine
+Raw transactions are processed into aggregated KPI metrics, category distributions, time-series chart datasets, and behavioral insight summaries — entirely client-side with no backend dependency.
 
-## 📂 PROJECT FOLDER STRCUCTURE
-
+### Frontend Structure
 ```text
-finance-insights-dashboard/
-│
-├── dist/
-├── node_modules/
-├── public/
-│
-├── src/
-│   ├── layout/
-│   │   ├── Layout.jsx
-│   │   ├── Layout.css
-│   │   ├── Navbar.jsx
-│   │   ├── Navbar.css
-│   │   ├── Sidebar.jsx
-│   │   └── Sidebar.css
-│   │
-│   ├── pages/
-│   │   ├── dashboard/
-│   │   │   ├── DashboardPage.jsx
-│   │   │   ├── dashboard.css
-│   │   │   └── components/
-│   │   │       ├── StatCard.jsx
-│   │   │       ├── StatCard.css
-│   │   │       ├── BalanceChart.jsx
-│   │   │       ├── BalanceChart.css
-│   │   │       ├── ExpenseChart.jsx
-│   │   │       └── ExpenseChart.css
-│   │   │
-│   │   ├── transactions/
-│   │   │   ├── TransactionsPage.jsx
-│   │   │   ├── transactions.css
-│   │   │   └── components/
-│   │   │       ├── TransactionsTable.jsx
-│   │   │       ├── TransactionsTable.css
-│   │   │       ├── TransactionFilters.jsx
-│   │   │       ├── TransactionFilters.css
-│   │   │       ├── AddTransactionModal.jsx
-│   │   │       └── AddTransactionModal.css
-│   │   │
-│   │   └── insights/
-│   │       ├── InsightsPage.jsx
-│   │       └── insights.css
-│   │
-│   ├── hooks/
-│   │   └── useTransactions.js
-│   │
-│   ├── data/
-│   │   └── mockTransactions.js
-│   │
-│   ├── styles/
-│   │   ├── global.css
-│   │   └── variables.css
-│   │
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
-│
-├── .gitignore
-├── eslint.config.js
-├── index.html
-├── package.json
-├── package-lock.json
-├── README.md
-└── vite.config.js
+src/
+├── layout/          # Shared navigation & layout system
+├── pages/
+│   ├── dashboard/   # KPI + charts overview
+│   ├── transactions/# CRUD + filtering controls
+│   └── insights/    # Derived analytics engine
+├── hooks/           # Reusable business logic
+├── data/            # Mock transaction source
+└── styles/          # Global design system
 ```
-The project follows a feature-based structure, where each page (dashboard, transactions, insights) contains its own components and styles, improving scalability and maintainability.
 
 ---
 
-## ⚙️ Core System Logic
+## 🎨 UI / UX
 
-### 🔹 Data Model
-Transactions are structured as:
-- id
-- type (income / expense)
-- amount
-- category
-- date
+- Dark / Light mode
+- Responsive collapsible sidebar with mobile drawer
+- ESC key support + scroll lock on mobile
+- Accessible layout with contextual empty states
 
 ---
 
-### 🔹 Derived Computations
-- Income aggregation
-- Expense aggregation
-- Net balance calculation
-- Category grouping
-- Time-series trend mapping
+## 🛠 Tech Stack
+
+`React.js` · `Vite` · `Recharts` · `Lucide React` · `Modular CSS`
 
 ---
 
-### 🔹 Role-Based Access Logic
-- Viewer → read-only state
-- Admin → full CRUD access layer
+## 🔮 Roadmap
+
+- [ ] Advanced date & category filtering
+- [ ] CSV / PDF export
+- [ ] Budget alerts & thresholds
+- [ ] Predictive expense forecasting
+- [ ] Drill-down category analytics
 
 ---
 
-## 🎨 UI/UX Design System
+## 📄 License
 
-- SaaS-inspired layout structure
-- Card-based KPI architecture
-- Responsive grid analytics layout
-- Clean spacing hierarchy (dashboard-first design)
-- Interactive chart components
-- Minimal but functional visual language
-
----
-
-## 📌 Project Intent
-
-This project was built to simulate a **real-world financial analytics SaaS system**, focusing on:
-
-- Data visualization pipelines
-- Role-based dashboard architecture
-- CRUD + analytics hybrid system
-- Derived state computation from raw data
-- Multi-view dashboard UX design
-
----
-
-## 🚀 Future Enhancements
-
-- 🔮 Predictive expense forecasting (AI layer)
-- 🔎 Advanced filters (category + date range)
-- 📤 Export analytics (PDF/CSV reports)
-- 🔔 Budget threshold alerts
-- 🌙 Dark mode system overhaul
-- 📊 Drill-down per-category analytics
-
----
-
-## 📷 Preview
-
-(Add screenshots here later)
-
----
-
-## 👨‍💻 Author
-
-Frontend project focused on:
-- Dashboard systems
-- Financial analytics UI
-- React architecture patterns
-- Data-driven UI design
-
----
-
-## 📜 License
-
-Open-source project for learning and portfolio demonstration purposes.
+MIT — free to use, learn from, and build upon.
