@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./Navbar.css";
+import { Moon, Sun } from "lucide-react";
 
 const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
   const [theme, setTheme] = useState("light");
@@ -40,10 +41,12 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
           onClick={toggleTheme}
           aria-label="Toggle theme"
         >
-          {theme === "light" ? "🌙" : "☀️"}
+          {theme === "light" ? (
+            <Moon size={18} strokeWidth={2} />
+          ) : (
+            <Sun size={18} strokeWidth={2} />
+          )}
         </button>
-
-        
       </div>
     </div>
   );
