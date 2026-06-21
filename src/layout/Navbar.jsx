@@ -37,15 +37,12 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
 
       <div className="navbar-right">
         <button
-          className="theme-toggle"
+          className={`theme-toggle ${theme}`}
           onClick={toggleTheme}
           aria-label="Toggle theme"
         >
-          {theme === "light" ? (
-            <Moon size={18} strokeWidth={2} />
-          ) : (
-            <Sun size={18} strokeWidth={2} />
-          )}
+          <Sun className="theme-icon sun-icon" size={18} />
+          <Moon className="theme-icon moon-icon" size={18} />
         </button>
       </div>
     </div>
