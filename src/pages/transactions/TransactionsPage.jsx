@@ -4,8 +4,8 @@ import TransactionFilters from "./components/TransactionFilters";
 import AddTransactionModal from "./components/AddTransactionModal";
 import AuthPrompt from "../../components/auth/AuthPrompt";
 
-import { useTransactions } from "../../hooks/useTransactions";
-import { isAuthenticated } from "../../constants/auth";
+import { useTransactions } from "../../context/TransactionContext";
+import { useAuth } from "../../context/AuthContext";
 
 import "./transactions.css";
 
@@ -16,6 +16,8 @@ export default function TransactionsPage() {
     updateTransaction,
     deleteTransaction,
   } = useTransactions();
+
+  const { isAuthenticated } = useAuth();
 
   const [filterType, setFilterType] = useState("all");
   const [sortOrder, setSortOrder] = useState("desc");

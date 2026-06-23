@@ -1,23 +1,11 @@
-import { useEffect, useState } from "react";
 import "./Navbar.css";
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("theme") || "light";
-    setTheme(saved);
-    document.documentElement.setAttribute("data-theme", saved);
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
+  const { theme, toggleTheme } = useTheme();
+  const { isAuthenticated } = useAuth();
 
   return (
     <div className="navbar">
@@ -36,9 +24,15 @@ const Navbar = ({ sidebarOpen, setSidebarOpen }) => {
       </div>
 
       <div className="navbar-right">
-        <button className="nav-auth-btn">Login</button>
+        {!isAuthenticated ? (
+          <>
+            <button className="nav-auth-btn">Login</button>
 
-        <button className="nav-auth-btn primary">Sign Up</button>
+            <button className="nav-auth-btn primary">Sign Up</button>
+          </>
+        ) : (
+          <button className="nav-auth-btn">Logout</button>
+        )}
 
         <button
           className={`theme-toggle ${theme}`}

@@ -1,4 +1,4 @@
-import { useTransactions } from "../../hooks/useTransactions";
+import { useTransactions } from "../../context/TransactionContext";
 
 import InsightsHeader from "./components/InsightsHeader";
 import KPIGrid from "./components/KPIGrid";

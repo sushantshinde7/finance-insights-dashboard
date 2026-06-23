@@ -2,7 +2,7 @@ import { Wallet, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import StatCard from "./components/StatCard";
 import BalanceChart from "./components/BalanceChart";
 import ExpenseChart from "./components/ExpenseChart";
-import { useTransactions } from "../../hooks/useTransactions";
+import { useTransactions } from "../../context/TransactionContext";
 
 import "./dashboard.css";
 
