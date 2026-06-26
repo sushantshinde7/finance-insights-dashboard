@@ -1,18 +1,58 @@
 /* =========================
-   FILTER CONTAINER
+   WRAPPER
+========================= */
+
+.filters-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* =========================
+   SEARCH
+========================= */
+
+.search-row {
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+
+  padding: 10px 14px;
+
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+
+  font-size: var(--text-sm);
+
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+/* =========================
+   CONTROLS ROW
 ========================= */
 
 .filters {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: var(--space-4);
 
   flex-wrap: wrap;
 }
 
 /* =========================
-   SEGMENTED TABS (TYPE)
+   FILTER TABS
 ========================= */
 
 .filter-tabs {
@@ -21,17 +61,17 @@
 
   background: #f8fafc;
   border: 1px solid var(--color-border);
+
   border-radius: var(--radius-md);
 
   padding: 4px;
 }
 
-/* individual tab */
 .tab {
   padding: 8px 14px;
 
-  border-radius: var(--radius-sm);
   border: none;
+  border-radius: var(--radius-sm);
 
   background: transparent;
   color: var(--color-text-secondary);
@@ -40,15 +80,14 @@
   font-weight: var(--font-medium);
 
   cursor: pointer;
+
   transition: all 0.2s ease;
 }
 
-/* hover */
 .tab:hover {
   color: var(--color-text-primary);
 }
 
-/* active tab */
 .tab.active {
   background: var(--color-surface);
   color: var(--color-primary);
@@ -57,65 +96,72 @@
 }
 
 /* =========================
-   SORT BUTTON
+   RIGHT CONTROLS
 ========================= */
 
 .filter-actions {
   display: flex;
   align-items: center;
+  gap: var(--space-2);
+
+  flex-wrap: wrap;
 }
 
-.sort-btn {
-  padding: 8px 14px;
+.filter-select {
+  padding: 8px 12px;
 
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
 
   background: var(--color-surface);
-  color: var(--color-text-secondary);
+
+  color: var(--color-text-primary);
 
   font-size: var(--text-sm);
-  font-weight: var(--font-medium);
-
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-/* hover */
-.sort-btn:hover {
+.filter-select:focus {
+  outline: none;
   border-color: var(--color-primary);
-  color: var(--color-primary);
-  background: var(--color-primary-light);
+}
+
+.results-count {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+
+  white-space: nowrap;
 }
 
 /* =========================
-   RESPONSIVE
+   TABLET
 ========================= */
 
 @media (max-width: 768px) {
-  .filters {
-    gap: var(--space-3);
-  }
-
-  .tab {
-    padding: 7px 12px;
-    font-size: var(--text-xs);
-  }
-
-  .sort-btn {
-    padding: 7px 12px;
-    font-size: var(--text-xs);
-  }
-}
-
-@media (max-width: 480px) {
   .filters {
     flex-direction: column;
     align-items: stretch;
   }
 
+  .filter-actions {
+    width: 100%;
+  }
+
+  .filter-select {
+    flex: 1;
+  }
+
+  .results-count {
+    width: 100%;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
   .filter-tabs {
-    justify-content: space-between;
     width: 100%;
   }
 
@@ -124,8 +170,12 @@
     text-align: center;
   }
 
-  .sort-btn {
+  .filter-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-select {
     width: 100%;
-    text-align: center;
   }
 }

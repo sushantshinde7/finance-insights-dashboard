@@ -20,6 +20,10 @@ export default function TransactionsPage() {
   const { isAuthenticated } = useAuth();
 
   const [filterType, setFilterType] = useState("all");
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const [sortField, setSortField] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
 
   const [showModal, setShowModal] = useState(false);
@@ -29,14 +33,57 @@ export default function TransactionsPage() {
   const [toast, setToast] = useState(null);
 
   const processedTransactions = [...transactions]
-    .filter((tx) =>
-      filterType === "all" ? true : tx.type === filterType
-    )
-    .sort((a, b) =>
-      sortOrder === "asc"
-        ? new Date(a.date) - new Date(b.date)
-        : new Date(b.date) - new Date(a.date)
-    );
+    .filter((tx) => {
+      const typeMatch =
+        filterType === "all"
+          ? true
+          : tx.type === filterType;
+
+      const query = searchTerm.trim().toLowerCase();
+
+      if (!query) return typeMatch;
+
+      const formattedDate = new Date(tx.date)
+        .toLocaleDateString("en-IN", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        })
+        .toLowerCase();
+
+      const searchMatch =
+        tx.category.toLowerCase().includes(query) ||
+        tx.type.toLowerCase().includes(query) ||
+        tx.amount.toString().includes(query) ||
+        formattedDate.includes(query);
+
+      return typeMatch && searchMatch;
+    })
+    .sort((a, b) => {
+      let comparison = 0;
+
+      switch (sortField) {
+        case "amount":
+          comparison = a.amount - b.amount;
+          break;
+
+        case "category":
+          comparison = a.category.localeCompare(
+            b.category
+          );
+          break;
+
+        case "date":
+        default:
+          comparison =
+            new Date(a.date) - new Date(b.date);
+          break;
+      }
+
+      return sortOrder === "asc"
+        ? comparison
+        : comparison * -1;
+    });
 
   const handleAdd = (tx) => addTransaction(tx);
 
@@ -48,7 +95,9 @@ export default function TransactionsPage() {
       return;
     }
 
-    const deleted = transactions.find((t) => t.id === id);
+    const deleted = transactions.find(
+      (t) => t.id === id
+    );
 
     if (!deleted) return;
 
@@ -70,21 +119,32 @@ export default function TransactionsPage() {
     if (transactions.length === 0) {
       return {
         title: "No transactions yet",
-        subtitle: "Add your first transaction to get started",
+        subtitle:
+          "Add your first transaction to get started",
+      };
+    }
+
+    if (searchTerm.trim()) {
+      return {
+        title: "No matching transactions",
+        subtitle:
+          "Try a different search term or clear filters",
       };
     }
 
     if (filterType === "income") {
       return {
         title: "No income transactions",
-        subtitle: "Try changing filters or add income",
+        subtitle:
+          "Try changing filters or add income",
       };
     }
 
     if (filterType === "expense") {
       return {
         title: "No expense transactions",
-        subtitle: "Try changing filters or add expenses",
+        subtitle:
+          "Try changing filters or add expenses",
       };
     }
 
@@ -99,7 +159,9 @@ export default function TransactionsPage() {
   return (
     <div className="transactions-container">
       <div className="transactions-header">
-        <h2 className="transactions-title">Transactions</h2>
+        <h2 className="transactions-title">
+          Transactions
+        </h2>
 
         <button
           className="add-btn"
@@ -121,8 +183,15 @@ export default function TransactionsPage() {
           <TransactionFilters
             filterType={filterType}
             setFilterType={setFilterType}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            sortField={sortField}
+            setSortField={setSortField}
             sortOrder={sortOrder}
             setSortOrder={setSortOrder}
+            resultCount={
+              processedTransactions.length
+            }
           />
         </div>
 
@@ -183,7 +252,9 @@ export default function TransactionsPage() {
 
       {showAuthPrompt && (
         <AuthPrompt
-          onClose={() => setShowAuthPrompt(false)}
+          onClose={() =>
+            setShowAuthPrompt(false)
+          }
         />
       )}
     </div>
