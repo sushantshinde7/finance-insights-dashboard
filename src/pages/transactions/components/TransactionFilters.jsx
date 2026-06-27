@@ -1,8 +1,7 @@
 import "./TransactionFilters.css";
+import { SlidersHorizontal } from "lucide-react";
 
 export default function TransactionFilters({
-  filterType,
-  setFilterType,
   searchTerm,
   setSearchTerm,
   sortField,
@@ -10,6 +9,8 @@ export default function TransactionFilters({
   sortOrder,
   setSortOrder,
   resultCount,
+  activeFilterCount,
+  onOpenFilters,
 }) {
   return (
     <div className="filters-wrapper">
@@ -28,34 +29,28 @@ export default function TransactionFilters({
       {/* CONTROLS */}
 
       <div className="filters">
-        <div className="filter-tabs">
-          <button
-            className={`tab ${filterType === "all" ? "active" : ""}`}
-            onClick={() => setFilterType("all")}
-          >
-            All
-          </button>
+        <button
+          className="filters-trigger"
+          onClick={onOpenFilters}
+        >
+          <SlidersHorizontal size={16} />
 
-          <button
-            className={`tab ${filterType === "income" ? "active" : ""}`}
-            onClick={() => setFilterType("income")}
-          >
-            Income
-          </button>
+          <span>Filters</span>
 
-          <button
-            className={`tab ${filterType === "expense" ? "active" : ""}`}
-            onClick={() => setFilterType("expense")}
-          >
-            Expense
-          </button>
-        </div>
+          {activeFilterCount > 0 && (
+            <span className="filters-badge">
+              {activeFilterCount}
+            </span>
+          )}
+        </button>
 
         <div className="filter-actions">
           <select
             className="filter-select"
             value={sortField}
-            onChange={(e) => setSortField(e.target.value)}
+            onChange={(e) =>
+              setSortField(e.target.value)
+            }
           >
             <option value="date">Date</option>
             <option value="amount">Amount</option>
@@ -65,14 +60,17 @@ export default function TransactionFilters({
           <select
             className="filter-select"
             value={sortOrder}
-            onChange={(e) => setSortOrder(e.target.value)}
+            onChange={(e) =>
+              setSortOrder(e.target.value)
+            }
           >
             <option value="desc">Desc</option>
             <option value="asc">Asc</option>
           </select>
 
           <div className="results-count">
-            {resultCount} Transaction{resultCount !== 1 ? "s" : ""}
+            {resultCount} Transaction
+            {resultCount !== 1 ? "s" : ""}
           </div>
         </div>
       </div>

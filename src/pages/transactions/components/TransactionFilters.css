@@ -35,11 +35,14 @@
 .search-input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-light);
+
+  box-shadow:
+    0 0 0 3px
+    var(--color-primary-light);
 }
 
 /* =========================
-   CONTROLS ROW
+   CONTROLS
 ========================= */
 
 .filters {
@@ -52,29 +55,22 @@
 }
 
 /* =========================
-   FILTER TABS
+   FILTER BUTTON
 ========================= */
 
-.filter-tabs {
-  display: flex;
+.filters-trigger {
+  display: inline-flex;
   align-items: center;
+  gap: 8px;
 
-  background: #f8fafc;
-  border: 1px solid var(--color-border);
-
-  border-radius: var(--radius-md);
-
-  padding: 4px;
-}
-
-.tab {
   padding: 8px 14px;
 
-  border: none;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
 
-  background: transparent;
-  color: var(--color-text-secondary);
+  background: var(--color-surface);
+
+  color: var(--color-text-primary);
 
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
@@ -84,19 +80,32 @@
   transition: all 0.2s ease;
 }
 
-.tab:hover {
-  color: var(--color-text-primary);
+.filters-trigger:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-light);
 }
 
-.tab.active {
-  background: var(--color-surface);
-  color: var(--color-primary);
+.filters-badge {
+  min-width: 20px;
+  height: 20px;
 
-  box-shadow: var(--shadow-xs);
+  padding: 0 6px;
+
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--color-primary);
+  color: white;
+
+  font-size: 11px;
+  font-weight: 600;
 }
 
 /* =========================
-   RIGHT CONTROLS
+   RIGHT SIDE
 ========================= */
 
 .filter-actions {
@@ -114,10 +123,10 @@
   border: 1px solid var(--color-border);
 
   background: var(--color-surface);
-
   color: var(--color-text-primary);
 
   font-size: var(--text-sm);
+
   cursor: pointer;
 }
 
@@ -143,6 +152,11 @@
     align-items: stretch;
   }
 
+  .filters-trigger {
+    width: 100%;
+    justify-content: center;
+  }
+
   .filter-actions {
     width: 100%;
   }
@@ -161,15 +175,6 @@
 ========================= */
 
 @media (max-width: 480px) {
-  .filter-tabs {
-    width: 100%;
-  }
-
-  .tab {
-    flex: 1;
-    text-align: center;
-  }
-
   .filter-actions {
     flex-direction: column;
     align-items: stretch;
