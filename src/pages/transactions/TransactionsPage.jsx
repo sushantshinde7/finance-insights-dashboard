@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
+
 import TransactionsTable from "./components/TransactionsTable";
 import TransactionFilters from "./components/TransactionFilters";
 import AddTransactionModal from "./components/AddTransactionModal";
+
+import FilterModal from "./components/FilterModal";
 import AuthPrompt from "../../components/auth/AuthPrompt";
 
 import { useTransactions } from "../../context/TransactionContext";
 import { useAuth } from "../../context/AuthContext";
 
 import "./transactions.css";
+
+const MIN_AMOUNT = 0;
+const MAX_AMOUNT = 100000;
 
 export default function TransactionsPage() {
   const {
@@ -19,31 +25,133 @@ export default function TransactionsPage() {
 
   const { isAuthenticated } = useAuth();
 
-  const [filterType, setFilterType] = useState("all");
-
   const [searchTerm, setSearchTerm] = useState("");
 
   const [sortField, setSortField] = useState("date");
   const [sortOrder, setSortOrder] = useState("desc");
 
   const [showModal, setShowModal] = useState(false);
-  const [showAuthPrompt, setShowAuthPrompt] = useState(false);
+  const [showFiltersModal, setShowFiltersModal] =
+    useState(false);
+
+  const [showAuthPrompt, setShowAuthPrompt] =
+    useState(false);
 
   const [editingTx, setEditingTx] = useState(null);
+
   const [toast, setToast] = useState(null);
+
+  const [filters, setFilters] = useState({
+    type: "all",
+
+    categories: [],
+
+    dateRange: "all",
+
+    amountRange: {
+      min: MIN_AMOUNT,
+      max: MAX_AMOUNT,
+    },
+  });
+
+  const categories = useMemo(() => {
+    return [
+      ...new Set(
+        transactions.map((tx) => tx.category)
+      ),
+    ].sort();
+  }, [transactions]);
+
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+
+    if (filters.type !== "all") count++;
+
+    if (filters.categories.length > 0) count++;
+
+    if (filters.dateRange !== "all") count++;
+
+    if (
+      filters.amountRange.min !== MIN_AMOUNT ||
+      filters.amountRange.max !== MAX_AMOUNT
+    ) {
+      count++;
+    }
+
+    return count;
+  }, [filters]);
 
   const processedTransactions = [...transactions]
     .filter((tx) => {
+      /* TYPE */
+
       const typeMatch =
-        filterType === "all"
+        filters.type === "all"
           ? true
-          : tx.type === filterType;
+          : tx.type === filters.type;
 
-      const query = searchTerm.trim().toLowerCase();
+      if (!typeMatch) return false;
 
-      if (!query) return typeMatch;
+      /* CATEGORY */
 
-      const formattedDate = new Date(tx.date)
+      const categoryMatch =
+        filters.categories.length === 0
+          ? true
+          : filters.categories.includes(
+              tx.category
+            );
+
+      if (!categoryMatch) return false;
+
+      /* AMOUNT */
+
+      const amountMatch =
+        tx.amount >=
+          filters.amountRange.min &&
+        tx.amount <=
+          filters.amountRange.max;
+
+      if (!amountMatch) return false;
+
+      /* DATE RANGE */
+
+      if (filters.dateRange !== "all") {
+        const txDate = new Date(tx.date);
+        const now = new Date();
+
+        const diffDays =
+          (now - txDate) /
+          (1000 * 60 * 60 * 24);
+
+        const limits = {
+          "7d": 7,
+          "15d": 15,
+          "30d": 30,
+          "90d": 90,
+          "1y": 365,
+        };
+
+        const limit =
+          limits[filters.dateRange];
+
+        if (
+          limit &&
+          diffDays > limit
+        ) {
+          return false;
+        }
+      }
+
+      /* SEARCH */
+
+      const query =
+        searchTerm.trim().toLowerCase();
+
+      if (!query) return true;
+
+      const formattedDate = new Date(
+        tx.date
+      )
         .toLocaleDateString("en-IN", {
           day: "2-digit",
           month: "short",
@@ -51,33 +159,40 @@ export default function TransactionsPage() {
         })
         .toLowerCase();
 
-      const searchMatch =
-        tx.category.toLowerCase().includes(query) ||
-        tx.type.toLowerCase().includes(query) ||
-        tx.amount.toString().includes(query) ||
-        formattedDate.includes(query);
-
-      return typeMatch && searchMatch;
+      return (
+        tx.category
+          .toLowerCase()
+          .includes(query) ||
+        tx.type
+          .toLowerCase()
+          .includes(query) ||
+        tx.amount
+          .toString()
+          .includes(query) ||
+        formattedDate.includes(query)
+      );
     })
     .sort((a, b) => {
       let comparison = 0;
 
       switch (sortField) {
         case "amount":
-          comparison = a.amount - b.amount;
+          comparison =
+            a.amount - b.amount;
           break;
 
         case "category":
-          comparison = a.category.localeCompare(
-            b.category
-          );
+          comparison =
+            a.category.localeCompare(
+              b.category
+            );
           break;
 
         case "date":
         default:
           comparison =
-            new Date(a.date) - new Date(b.date);
-          break;
+            new Date(a.date) -
+            new Date(b.date);
       }
 
       return sortOrder === "asc"
@@ -85,9 +200,13 @@ export default function TransactionsPage() {
         : comparison * -1;
     });
 
-  const handleAdd = (tx) => addTransaction(tx);
+  const handleAdd = (tx) => {
+    addTransaction(tx);
+  };
 
-  const handleUpdate = (tx) => updateTransaction(tx);
+  const handleUpdate = (tx) => {
+    updateTransaction(tx);
+  };
 
   const handleDelete = (id) => {
     if (!isAuthenticated) {
@@ -95,9 +214,10 @@ export default function TransactionsPage() {
       return;
     }
 
-    const deleted = transactions.find(
-      (t) => t.id === id
-    );
+    const deleted =
+      transactions.find(
+        (t) => t.id === id
+      );
 
     if (!deleted) return;
 
@@ -105,14 +225,18 @@ export default function TransactionsPage() {
 
     setToast({
       message: "Transaction deleted",
+
       actionLabel: "Undo",
+
       onAction: () => {
         addTransaction(deleted);
         setToast(null);
       },
     });
 
-    setTimeout(() => setToast(null), 4000);
+    setTimeout(() => {
+      setToast(null);
+    }, 4000);
   };
 
   const getEmptyState = () => {
@@ -128,29 +252,22 @@ export default function TransactionsPage() {
       return {
         title: "No matching transactions",
         subtitle:
-          "Try a different search term or clear filters",
+          "Try a different search term",
       };
     }
 
-    if (filterType === "income") {
+    if (activeFilterCount > 0) {
       return {
-        title: "No income transactions",
+        title: "No transactions found",
         subtitle:
-          "Try changing filters or add income",
-      };
-    }
-
-    if (filterType === "expense") {
-      return {
-        title: "No expense transactions",
-        subtitle:
-          "Try changing filters or add expenses",
+          "Try adjusting your filters",
       };
     }
 
     return {
       title: "No transactions found",
-      subtitle: "Try adjusting filters",
+      subtitle:
+        "Try adjusting filters",
     };
   };
 
@@ -181,8 +298,6 @@ export default function TransactionsPage() {
       <div className="card transactions-panel">
         <div className="panel-filters">
           <TransactionFilters
-            filterType={filterType}
-            setFilterType={setFilterType}
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             sortField={sortField}
@@ -191,6 +306,12 @@ export default function TransactionsPage() {
             setSortOrder={setSortOrder}
             resultCount={
               processedTransactions.length
+            }
+            activeFilterCount={
+              activeFilterCount
+            }
+            onOpenFilters={() =>
+              setShowFiltersModal(true)
             }
           />
         </div>
@@ -223,6 +344,20 @@ export default function TransactionsPage() {
         </div>
       </div>
 
+      {showFiltersModal && (
+        <FilterModal
+          isOpen={showFiltersModal}
+          onClose={() =>
+            setShowFiltersModal(false)
+          }
+          filters={filters}
+          setFilters={setFilters}
+          categories={categories}
+          minAmount={MIN_AMOUNT}
+          maxAmount={MAX_AMOUNT}
+        />
+      )}
+
       {toast && (
         <div className="toast">
           <span>{toast.message}</span>
@@ -238,8 +373,16 @@ export default function TransactionsPage() {
 
       {showModal && (
         <AddTransactionModal
-          key={editingTx ? editingTx.id : "new"}
-          mode={editingTx ? "edit" : "add"}
+          key={
+            editingTx
+              ? editingTx.id
+              : "new"
+          }
+          mode={
+            editingTx
+              ? "edit"
+              : "add"
+          }
           initialData={editingTx}
           onClose={() => {
             setShowModal(false);
