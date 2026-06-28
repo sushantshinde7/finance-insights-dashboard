@@ -61,17 +61,42 @@ export default function FilterModal({
     setFilters(localFilters);
     onClose();
   };
+
+  const hasActiveFilters =
+    localFilters.type !== "all" ||
+    localFilters.categories.length > 0 ||
+    localFilters.dateRange !== "all" ||
+    localFilters.amountRange.min !== MIN_AMOUNT ||
+    localFilters.amountRange.max !== MAX_AMOUNT;
+
   return (
     <div className="filter-modal-overlay" onClick={onClose}>
       <div className="filter-modal" onClick={(e) => e.stopPropagation()}>
         {/* HEADER */}
 
         <div className="filter-header">
-          <h3>Filters</h3>
+          <div className="filter-header-left">
+            <h3>Filters</h3>
+            <p>Refine transaction results</p>
+          </div>
 
-          <button className="clear-btn" onClick={clearFilters}>
-            Clear All
-          </button>
+          <div className="filter-header-actions">
+            <button
+              className="clear-btn"
+              onClick={clearFilters}
+              disabled={!hasActiveFilters}
+            >
+              Clear All
+            </button>
+
+            <button
+              className="close-btn"
+              onClick={onClose}
+              aria-label="Close filters"
+            >
+              ✕
+            </button>
+          </div>
         </div>
 
         {/* BODY */}
@@ -245,7 +270,11 @@ export default function FilterModal({
             Cancel
           </button>
 
-          <button className="btn-primary" onClick={applyFilters}>
+          <button
+            className="btn-primary"
+            onClick={applyFilters}
+            disabled={!hasActiveFilters}
+          >
             Apply Filters
           </button>
         </div>
