@@ -80,6 +80,51 @@ export default function TransactionsPage() {
 
     return count;
   }, [filters]);
+  
+
+  const filterSummary = [];
+
+if (filters.type !== "all") {
+  filterSummary.push(
+    filters.type.charAt(0).toUpperCase() +
+      filters.type.slice(1)
+  );
+}
+
+if (filters.categories.length > 0) {
+  filterSummary.push(
+    filters.categories.length === 1
+      ? filters.categories[0]
+      : `${filters.categories.length} Categories`
+  );
+}
+
+const dateLabels = {
+  "7d": "Last 7 Days",
+  "15d": "Last 15 Days",
+  "30d": "Last 30 Days",
+  "90d": "Last 90 Days",
+  "1y": "Last 1 Year",
+};
+
+if (filters.dateRange !== "all") {
+  filterSummary.push(
+    dateLabels[filters.dateRange]
+  );
+}
+
+if (
+  filters.amountRange.min !== 0 ||
+  filters.amountRange.max !== 100000
+) {
+  filterSummary.push(
+    `₹${filters.amountRange.min.toLocaleString(
+      "en-IN"
+    )}–₹${filters.amountRange.max.toLocaleString(
+      "en-IN"
+    )}`
+  );
+}
 
   const processedTransactions = [...transactions]
     .filter((tx) => {
@@ -313,6 +358,7 @@ export default function TransactionsPage() {
             onOpenFilters={() =>
               setShowFiltersModal(true)
             }
+            filterSummary={filterSummary}
           />
         </div>
 
