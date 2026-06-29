@@ -112,6 +112,12 @@ export default function TransactionsPage() {
     return count;
   }, [filters]);
 
+  const clearFilters = () => {
+    setFilters(DEFAULT_FILTERS);
+
+    localStorage.removeItem("finance-dashboard-filters");
+  };
+
   const filterSummary = [];
 
   if (filters.type !== "all") {
@@ -340,6 +346,7 @@ export default function TransactionsPage() {
             activeFilterCount={activeFilterCount}
             onOpenFilters={() => setShowFiltersModal(true)}
             filterSummary={filterSummary}
+            onClearFilters={clearFilters}
           />
         </div>
 

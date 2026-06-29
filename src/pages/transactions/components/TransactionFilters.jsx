@@ -11,6 +11,7 @@ export default function TransactionFilters({
   resultCount,
   activeFilterCount,
   onOpenFilters,
+  onClearFilters,
   filterSummary,
 }) {
   return (
@@ -27,34 +28,38 @@ export default function TransactionFilters({
         />
       </div>
 
-
       {/* CONTROLS */}
 
       <div className="filters">
-        <button className="filters-trigger" onClick={onOpenFilters}>
-          <SlidersHorizontal size={16} />
+        <div className="filter-buttons">
+          <button className="filters-trigger" onClick={onOpenFilters}>
+            <SlidersHorizontal size={16} />
 
-          <span>Filters</span>
+            <span>Filters</span>
+
+            {activeFilterCount > 0 && (
+              <span className="filters-badge">{activeFilterCount}</span>
+            )}
+          </button>
 
           {activeFilterCount > 0 && (
-            <span className="filters-badge">{activeFilterCount}</span>
+            <button className="filters-reset-btn" onClick={onClearFilters}>
+              Reset
+            </button>
           )}
-        </button>
+        </div>
 
         {/* ACTIVE FILTER SUMMARY */}
 
-{filterSummary.length > 0 && (
-  <div className="filter-summary-row">
-    {filterSummary.map((item) => (
-      <span
-        key={item}
-        className="summary-chip"
-      >
-        {item}
-      </span>
-    ))}
-  </div>
-)}
+        {filterSummary.length > 0 && (
+          <div className="filter-summary-row">
+            {filterSummary.map((item) => (
+              <span key={item} className="summary-chip">
+                {item}
+              </span>
+            ))}
+          </div>
+        )}
 
         <div className="filter-actions">
           <select
@@ -82,8 +87,6 @@ export default function TransactionFilters({
           </div>
         </div>
       </div>
-
-      
     </div>
   );
 }
