@@ -90,7 +90,6 @@
   cursor: not-allowed;
 }
 
-
 .close-btn {
   width: 34px;
   height: 34px;
@@ -111,7 +110,6 @@
   background: var(--color-surface-2);
 }
 
-
 .filter-body {
   flex: 1;
 
@@ -125,7 +123,7 @@
   border-right: 1px solid var(--color-border);
 
   background: var(--color-surface-muted);
-  
+
   padding: 12px;
 
   display: flex;
@@ -170,8 +168,6 @@
   font-weight: 600;
 }
 
-
-
 .category-scroll {
   max-height: 220px;
   overflow-y: auto;
@@ -186,7 +182,6 @@
   background: var(--color-border);
   border-radius: 999px;
 }
-
 
 .filter-content {
   padding: 18px;
@@ -221,8 +216,7 @@
 .checkbox-grid {
   display: grid;
 
-  grid-template-columns:
-    repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
 
   gap: 12px;
 }
@@ -269,17 +263,25 @@
     padding: 12px;
   }
 
+  /* In the @media (max-width: 768px) block */
+
   .filter-modal {
     width: 100%;
     max-width: 560px;
-
-    height: 420px;
+    height: 420px; /* already exists — keep it */
   }
 
+  /* ADD this inside the media query */
   .filter-body {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr; /* ADD THIS — sidebar auto, content fills rest */
+    overflow: hidden; /* ADD THIS */
   }
 
+  .filter-content {
+    overflow-y: auto; /* already exists — confirm it's not overridden */
+    min-height: 0; /* ADD THIS — critical for grid children to scroll properly */
+  }
   .filter-sidebar {
     display: grid;
 
@@ -297,25 +299,22 @@
     background: var(--color-surface);
   }
 
+  /* In the @media (max-width: 768px) block */
+
   .filter-nav {
     height: 42px;
-
+    min-height: 42px; /* ADD THIS */
+    max-height: 42px; /* ADD THIS */
     padding: 0;
-
     border-radius: 0;
     border: none;
-
     border-bottom: 2px solid transparent;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     white-space: nowrap;
-
     font-size: 13px;
-
-    flex-shrink: initial;
+    box-sizing: border-box; /* ADD THIS */
   }
 
   .filter-nav.active {
