@@ -11,6 +11,7 @@ export default function TransactionFilters({
   resultCount,
   activeFilterCount,
   onOpenFilters,
+  filterSummary,
 }) {
   return (
     <div className="filters-wrapper">
@@ -26,31 +27,40 @@ export default function TransactionFilters({
         />
       </div>
 
+
       {/* CONTROLS */}
 
       <div className="filters">
-        <button
-          className="filters-trigger"
-          onClick={onOpenFilters}
-        >
+        <button className="filters-trigger" onClick={onOpenFilters}>
           <SlidersHorizontal size={16} />
 
           <span>Filters</span>
 
           {activeFilterCount > 0 && (
-            <span className="filters-badge">
-              {activeFilterCount}
-            </span>
+            <span className="filters-badge">{activeFilterCount}</span>
           )}
         </button>
+
+        {/* ACTIVE FILTER SUMMARY */}
+
+{filterSummary.length > 0 && (
+  <div className="filter-summary-row">
+    {filterSummary.map((item) => (
+      <span
+        key={item}
+        className="summary-chip"
+      >
+        {item}
+      </span>
+    ))}
+  </div>
+)}
 
         <div className="filter-actions">
           <select
             className="filter-select"
             value={sortField}
-            onChange={(e) =>
-              setSortField(e.target.value)
-            }
+            onChange={(e) => setSortField(e.target.value)}
           >
             <option value="date">Date</option>
             <option value="amount">Amount</option>
@@ -60,9 +70,7 @@ export default function TransactionFilters({
           <select
             className="filter-select"
             value={sortOrder}
-            onChange={(e) =>
-              setSortOrder(e.target.value)
-            }
+            onChange={(e) => setSortOrder(e.target.value)}
           >
             <option value="desc">Desc</option>
             <option value="asc">Asc</option>
@@ -74,6 +82,8 @@ export default function TransactionFilters({
           </div>
         </div>
       </div>
+
+      
     </div>
   );
 }

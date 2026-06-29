@@ -42,6 +42,41 @@
 }
 
 /* =========================
+   FILTER SUMMARY CHIPS
+========================= */
+
+.filter-summary-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  padding-top: 2px;
+}
+
+.summary-chip {
+  height: 26px;
+
+  display: inline-flex;
+  align-items: center;
+
+  padding: 0 10px;
+
+  border-radius: 999px;
+
+  border: 1px solid var(--color-border);
+
+  background: var(--color-surface-muted);
+
+  color: var(--color-text-secondary);
+
+  font-size: 12px;
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+/* =========================
    CONTROLS
 ========================= */
 
@@ -62,7 +97,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
+  position: relative;
   padding: 8px 14px;
 
   border-radius: var(--radius-md);
@@ -86,8 +121,10 @@
 }
 
 .filters-badge {
-  min-width: 20px;
-  height: 20px;
+  min-width: 18px;
+  height: 18px;
+
+  font-size: 10px;
 
   padding: 0 6px;
 
