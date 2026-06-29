@@ -256,17 +256,34 @@ export default function FilterModal({
                 <h4>Amount range</h4>
 
                 <div className="amount-values">
-                  <span>₹{localFilters.amountRange.min}</span>
+                  <div className="amount-pill">
+                    ₹{localFilters.amountRange.min.toLocaleString("en-IN")}
+                  </div>
 
-                  <span>₹{localFilters.amountRange.max}</span>
+                  <div className="amount-pill">
+                    ₹{localFilters.amountRange.max.toLocaleString("en-IN")}
+                  </div>
                 </div>
 
-                <div className="range-wrapper">
+                <div className="dual-slider">
+                  <div
+                    className="slider-range"
+                    style={{
+                      left: `${
+                        (localFilters.amountRange.min / MAX_AMOUNT) * 100
+                      }%`,
+                      right: `${
+                        100 - (localFilters.amountRange.max / MAX_AMOUNT) * 100
+                      }%`,
+                    }}
+                  />
+
                   <input
                     type="range"
                     min={MIN_AMOUNT}
                     max={MAX_AMOUNT}
                     value={localFilters.amountRange.min}
+                    className="thumb thumb-left"
                     onChange={(e) =>
                       updateFilter("amountRange", {
                         ...localFilters.amountRange,
@@ -283,6 +300,7 @@ export default function FilterModal({
                     min={MIN_AMOUNT}
                     max={MAX_AMOUNT}
                     value={localFilters.amountRange.max}
+                    className="thumb thumb-right"
                     onChange={(e) =>
                       updateFilter("amountRange", {
                         ...localFilters.amountRange,
