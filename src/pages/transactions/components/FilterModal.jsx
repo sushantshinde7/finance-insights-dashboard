@@ -94,7 +94,11 @@ export default function FilterModal({
         <div className="filter-header">
           <div className="filter-header-left">
             <h3>Filters</h3>
-            <p>Refine transaction results</p>
+            <p>
+              {activeFilterCount > 0
+                ? `${activeFilterCount} filters selected`
+                : "Refine transaction results"}
+            </p>
           </div>
 
           <div className="filter-header-actions">
@@ -312,7 +316,6 @@ export default function FilterModal({
               <span className="apply-badge">{activeFilterCount}</span>
             )}
           </button>
-
         </div>
       </div>
     </div>
