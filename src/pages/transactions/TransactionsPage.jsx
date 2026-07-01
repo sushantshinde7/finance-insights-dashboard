@@ -26,9 +26,14 @@ const DEFAULT_FILTERS = {
 };
 
 export default function TransactionsPage() {
-  const { transactions, addTransaction, updateTransaction, deleteTransaction } =
-    useTransactions();
-
+  const {
+    transactions,
+    activeSample,
+    loadSample,
+    addTransaction,
+    updateTransaction,
+    deleteTransaction,
+  } = useTransactions();
   const { isAuthenticated } = useAuth();
 
   const [searchTerm, setSearchTerm] = useState(() => {
@@ -87,6 +92,12 @@ export default function TransactionsPage() {
     localStorage.removeItem("finance-dashboard-sort-field");
     localStorage.removeItem("finance-dashboard-sort-order");
     localStorage.removeItem("finance-dashboard-filters");
+  };
+
+  // 2. add handler — after resetTransactionView()
+  const handleLoadSample = (key) => {
+    loadSample(key);
+    resetTransactionView();
   };
 
   const categories = useMemo(() => {
@@ -380,30 +391,35 @@ export default function TransactionsPage() {
             <button className="btn-secondary btn-sample">
               Sample <span className="sample-chevron">▾</span>
             </button>
+
             <div className="sample-dropdown">
               <button
-                className="sample-item"
-                onClick={() => {
-                  /* load sample 1 */
-                }}
+                className={`sample-item ${activeSample === "sample1" ? "sample-item--active" : ""}`}
+                onClick={() => handleLoadSample("sample1")}
               >
                 <span className="sample-dot dot-blue" />
                 Personal finance
+                {activeSample === "sample1" && (
+                  <span className="sample-check">✓</span>
+                )}
               </button>
+
               <button
-                className="sample-item"
-                onClick={() => {
-                  /* load sample 2 */
-                }}
+                className={`sample-item ${activeSample === "sample2" ? "sample-item--active" : ""}`}
+                onClick={() => handleLoadSample("sample2")}
               >
                 <span className="sample-dot dot-green" />
-                Business expenses
+                Senior professional
+                {activeSample === "sample2" && (
+                  <span className="sample-check">✓</span>
+                )}
               </button>
+
               <button
                 className="sample-item sample-item--danger"
-                onClick={resetTransactionView}
+                onClick={() => handleLoadSample("clear")}
               >
-                Clear sample data
+                Clear all data
               </button>
             </div>
           </div>

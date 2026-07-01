@@ -92,6 +92,17 @@
   position: relative;
 }
 
+.sample-item--active {
+  background: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+.sample-check {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--color-primary);
+}
+
 .btn-sample {
   gap: 15px;
 }
