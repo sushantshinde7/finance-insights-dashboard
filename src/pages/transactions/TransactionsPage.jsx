@@ -1,7 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
 
 import TransactionsTable from "./components/TransactionsTable";
-import TransactionFilters from "./components/TransactionFilters";
+import TableControls from "./components/TableControls";
 import AddTransactionModal from "./components/AddTransactionModal";
 
 import FilterModal from "./components/FilterModal";
@@ -464,7 +464,7 @@ export default function TransactionsPage() {
       {/* CARD */}
       <div className="card transactions-panel">
         <div className="panel-filters">
-          <TransactionFilters
+          <TableControls
             searchTerm={searchTerm}
             setSearchTerm={setSearchTerm}
             sortField={sortField}
