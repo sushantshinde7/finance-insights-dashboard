@@ -1,5 +1,14 @@
 /* =========================
-   WRAPPER
+   OUTER WRAPPER
+========================= */
+
+.table-outer {
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   SCROLL WRAPPER
 ========================= */
 
 .table-wrapper {
@@ -7,8 +16,26 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 
-  /* subtle separation from card edges */
-  border-radius: var(--radius-lg);
+  /* custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+.table-wrapper::-webkit-scrollbar {
+  height: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
 }
 
 /* =========================
@@ -17,40 +44,60 @@
 
 .transactions-table {
   width: 100%;
-  min-width: 680px;
+  min-width: 540px;
 
-  border-collapse: separate;
-  border-spacing: 0;
+  table-layout: fixed;
+  border-collapse: collapse;
 
   font-size: var(--text-sm);
   background: var(--color-surface);
-
-  border-radius: var(--radius-lg);
-  overflow: hidden;
 }
 
 /* =========================
-   HEADER (clean + premium)
+   COLUMN WIDTHS
+========================= */
+
+/* COLUMN WIDTHS — tighter category */
+.col-date     { width: 90px;  }
+.col-category { width: 160px; } /* was 200px */
+.col-amount   { width: 110px; }
+.col-type     { width: 100px; }
+.col-actions  { width: 80px;  }
+
+/* =========================
+   HEADER
 ========================= */
 
 .transactions-table thead {
-  background: var(--color-surface-muted, #fafbfc); /* softer than gray */
+  background: var(--color-surface-muted);
 }
 
+/* HEADER — more distinct */
 .transactions-table th {
-  text-align: left;
-
-  padding: 14px 18px;
-
-  font-size: 11px;
-  font-weight: var(--font-semibold);
-
+  padding: 12px 16px;           /* slightly taller */
+  font-size: 11.5px;            /* fractionally bigger */
+  font-weight: 700;             /* bolder — was semibold */
   letter-spacing: 0.08em;
   text-transform: uppercase;
-
-  color: var(--color-text-secondary);
-
+  color: var(--color-text-primary);   /* darker than secondary */
   border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.transactions-table th:nth-child(1),
+ .transactions-table th:nth-child(2){
+  text-align: left;
+}
+/* right-align numeric + badge columns to match td alignment */
+.transactions-table th:nth-child(3) {
+  text-align: right;
+}
+.transactions-table th:nth-child(4) {
+  text-align: left;             /* remove right-align */
+}
+
+.transactions-table th:nth-child(5) {
+  text-align: center;
 }
 
 /* =========================
@@ -58,111 +105,131 @@
 ========================= */
 
 .transactions-table td {
-  padding: 16px 18px;
-
-  border-bottom: 1px solid #f5f7fa; /* lighter divider */
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--color-border-subtle, #f0f2f5);
   color: var(--color-text-primary);
-
   vertical-align: middle;
+  line-height: 1.4;
 }
 
-/* row hover = very subtle */
 .transactions-table tbody tr {
-  transition: background 0.15s ease;
+  transition: background 0.1s ease;
 }
 
 .transactions-table tbody tr:hover {
-  background: #fafcff;
+  background: var(--color-primary-light);
 }
 
-/* remove last border */
+/* dissolve the row divider on hover so it reads as one block */
+.transactions-table tbody tr:hover td {
+  border-bottom-color: transparent;
+}
+
 .transactions-table tbody tr:last-child td {
   border-bottom: none;
 }
 
 /* =========================
-   DATE (secondary info)
+   CELL TYPES
 ========================= */
 
-.transactions-table td:first-child {
+.td-date {
   color: var(--color-text-secondary);
-  font-size: 13px;
+  font-size: 12px;
+  white-space: nowrap;
 }
 
-/* =========================
-   AMOUNT (important)
-========================= */
+.td-category {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
-.amount {
+/* amount — neutral, not colored; badge carries the signal */
+.td-amount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-weight: var(--font-medium);
+  text-align: right;
   color: var(--color-text-primary);
 }
 
+.td-type {
+  text-align: left;
+}
+
+/* actions centered, line-height:0 fixes the border-offset bug */
+/* Remove display:flex from td, move it to an inner wrapper */
+.td-actions {
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 0;
+  padding-bottom: 0;            /* let the tr control height uniformly */
+}
+
+/* keep flex on the inner div in JSX */
+.actions-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 100%;
+}
 /* =========================
-   BADGES (refined)
+   BADGES
 ========================= */
 
 .badge {
   display: inline-flex;
   align-items: center;
 
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 999px;
 
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
-
   text-transform: capitalize;
 }
 
-/* income */
-.badge.income {
-  background: rgba(34, 197, 94, 0.08);
+.badge-income {
+  background: rgba(34, 197, 94, 0.1);
   color: #16a34a;
 }
 
-/* expense */
-.badge.expense {
+.badge-expense {
   background: rgba(239, 68, 68, 0.08);
   color: #dc2626;
 }
 
 /* =========================
-   ACTIONS
+   ACTION BUTTONS
 ========================= */
 
-.actions-cell {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* ICON BUTTON */
 .icon-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  width: 28px;
+  height: 28px;
 
-  width: 30px;
-  height: 30px;
-
-  border-radius: 8px;
   border: none;
+  border-radius: 6px;
 
   background: transparent;
   color: var(--color-text-secondary);
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.12s ease;
+  flex-shrink: 0;
 }
 
-/* hover */
 .icon-btn:hover {
   background: var(--color-primary-light);
   color: var(--color-primary);
 }
 
-/* delete hover */
 .icon-btn.danger:hover {
   background: rgba(239, 68, 68, 0.08);
   color: #dc2626;
@@ -172,10 +239,8 @@
    EMPTY STATE
 ========================= */
 
-/* EMPTY STATE */
-
 .empty-state {
-  padding: var(--space-6);
+  padding: 48px 32px;
   text-align: center;
 }
 
@@ -192,25 +257,146 @@
 }
 
 .empty-cta {
-  margin-top: var(--space-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+
+  margin-top: var(--space-4);
+
+  height: 36px;
+  padding: 0 16px;
 
   background: var(--color-primary);
-  color: white;
+  color: #fff;
 
   border: none;
-  padding: 8px 14px;
   border-radius: var(--radius-md);
 
   font-size: var(--text-sm);
   font-weight: var(--font-medium);
 
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.15s ease;
 }
 
 .empty-cta:hover {
   background: var(--color-primary-hover);
-  transform: translateY(-1px);
+}
+
+/* =========================
+   PAGINATION
+========================= */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* top border only — bottom relies on card's own padding */
+  padding: 10px 16px 0;
+  border-top: 1px solid var(--color-border);
+
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pg-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pg-rpp-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.pg-rpp-select {
+  height: 26px;
+  padding: 0 7px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.pg-info {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+.pg-buttons {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.pg-num-group {
+  display: contents;
+}
+
+.pg-ellipsis {
+  width: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+/* base page button */
+.pg-btn {
+  min-width: 30px;
+  height: 30px;
+  padding: 0 7px;
+
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+
+  background: transparent;
+  color: var(--color-text-primary);
+
+  font-size: 12px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  cursor: pointer;
+  transition: all 0.12s ease;
+  white-space: nowrap;
+}
+
+/* prev / next — slightly wider with text label */
+.pg-btn--nav {
+  min-width: 62px;
+  padding: 0 10px;
+  color: var(--color-text-secondary);
+}
+
+.pg-btn:hover:not(:disabled):not(.pg-btn--active) {
+  background: var(--color-surface-muted);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.pg-btn--active {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+  cursor: default;
+}
+
+.pg-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
 }
 
 /* =========================
@@ -218,44 +404,64 @@
 ========================= */
 
 @media (max-width: 768px) {
-  .transactions-table {
-    font-size: 13px;
-  }
-
   .transactions-table th,
   .transactions-table td {
-    padding: 12px 14px;
+    padding: 11px 14px;
   }
+
+  .col-category { width: 160px; }
+  .col-type     { width: 80px;  }
+  .col-amount   { width: 100px; }
 }
 
 @media (max-width: 480px) {
   .transactions-table {
-    min-width: 600px;
+    min-width: 460px;
     font-size: 12px;
   }
 
-  /* compress category */
-  .transactions-table th:nth-child(2),
-  .transactions-table td:nth-child(2) {
-    max-width: 100px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .col-date     { width: 72px;  }
+  .col-category { width: 130px; }
+  .col-amount   { width: 88px;  }
+  .col-type     { width: 76px;  }
+  .col-actions  { width: 60px;  }
 
   .badge {
     font-size: 10px;
-    padding: 3px 8px;
+    padding: 2px 7px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    align-items: stretch;
+    padding-bottom: 0;
+    gap: 10px;
+  }
+
+  .pg-left,
+  .pg-info {
+    justify-content: center;
+  }
+
+  .pg-info {
+    text-align: center;
+  }
+
+  .pg-buttons {
+    justify-content: center;
+  }
+
+  .pg-btn--nav {
+    min-width: 52px;
   }
 }
 
-/* disable hover effects on touch */
 @media (hover: none) {
   .transactions-table tbody tr:hover {
     background: transparent;
   }
 
-  .icon-btn:hover {
-    transform: none;
+  .transactions-table tbody tr:hover td {
+    border-bottom-color: var(--color-border-subtle, #f0f2f5);
   }
 }
