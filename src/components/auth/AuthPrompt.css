@@ -1,27 +1,240 @@
+/* =========================
+   OVERLAY
+========================= */
+
+.auth-prompt-overlay {
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+
+  z-index: 1000;
+}
+
+/* =========================
+   MODAL
+========================= */
+
 .auth-prompt {
-  width: min(420px, 90vw);
-
+  width: min(480px, 100%);
+  position: relative;
   background: var(--color-surface);
+
   border: 1px solid var(--color-border);
+  border-radius: 20px;
 
-  border-radius: 16px;
+  padding: 28px;
 
-  padding: 1.5rem;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.08);
 
-  box-shadow: var(--shadow-lg);
+  animation: authPromptEnter 0.18s ease;
 }
 
-.auth-prompt h3 {
-  margin-bottom: 0.75rem;
-}
+/* =========================
+   CLOSE BUTTON
+========================= */
+/* Fused top-right corner button */
 
-.auth-prompt p {
-  margin-bottom: 1.5rem;
+.auth-prompt-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 47px;
+  height: 47px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: var(--color-surface-muted);
   color: var(--color-text-secondary);
+
+  cursor: pointer;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  border-left: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 14px;
+
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
+
+.auth-prompt-close:hover {
+  background: var(--color-border);
+  color: var(--color-text-primary);
+}
+
+.auth-prompt-close:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+/* =========================
+   CONTENT
+========================= */
+
+.auth-prompt-icon {
+  width: 52px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  border-radius: 14px;
+
+  background: var(--color-primary-light);
+
+  font-size: 24px;
+}
+
+.auth-prompt-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+
+  color: var(--color-text-primary);
+
+  margin-bottom: 10px;
+}
+
+.auth-prompt-description {
+  color: var(--color-text-secondary);
+
+  line-height: 1.6;
+
+  margin-bottom: 20px;
+}
+
+.auth-prompt-features {
+  list-style: none;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.auth-prompt-features li {
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+}
+
+/* =========================
+   ACTIONS
+========================= */
 
 .auth-prompt-actions {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.75rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.auth-prompt-btn {
+  height: 42px;
+
+  padding: 0 18px;
+
+  border-radius: 10px;
+
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.auth-prompt-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Primary */
+
+.auth-prompt-btn--primary {
+  border: none;
+
+  background: var(--color-primary);
+  color: white;
+
+  flex: 1;
+}
+
+.auth-prompt-btn--primary:hover {
+  background: var(--color-primary-hover);
+}
+
+/* Secondary */
+
+.auth-prompt-btn--secondary {
+  border: 1px solid var(--color-border);
+
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+}
+
+/* Ghost */
+
+.auth-prompt-btn--ghost {
+  border: none;
+
+  background: transparent;
+  color: var(--color-text-secondary);
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes authPromptEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 480px) {
+  .auth-prompt {
+    padding: 22px;
+  }
+
+  .auth-prompt-actions {
+    flex-direction: column;
+  }
+
+  .auth-prompt-btn {
+    width: 100%;
+  }
 }
