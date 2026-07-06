@@ -92,7 +92,13 @@ export default function FilterModal({
     <div className="filter-modal-overlay" onClick={onClose}>
       <div className="filter-modal" onClick={(e) => e.stopPropagation()}>
         {/* HEADER */}
-
+        <button
+          className="filter-modal-close"
+          onClick={onClose}
+          aria-label="Close filters"
+        >
+          ✕
+        </button>
         <div className="filter-header">
           <div className="filter-header-left">
             <h3>Filters</h3>
@@ -103,26 +109,16 @@ export default function FilterModal({
             </p>
           </div>
 
-          <div className="filter-header-actions">
-            <button
-              className="clear-btn"
-              onClick={clearFilters}
-              disabled={!hasActiveFilters}
-            >
-              {hasActiveFilters && (
-                <span className="clear-dot" aria-hidden="true" />
-              )}
-              Clear
-            </button>
-
-            <button
-              className="close-btn"
-              onClick={onClose}
-              aria-label="Close filters"
-            >
-              ✕
-            </button>
-          </div>
+          <button
+            className="clear-btn"
+            onClick={clearFilters}
+            disabled={!hasActiveFilters}
+          >
+            {hasActiveFilters && (
+              <span className="clear-dot" aria-hidden="true" />
+            )}
+            Clear
+          </button>
         </div>
 
         {/* BODY */}

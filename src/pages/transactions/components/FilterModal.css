@@ -16,7 +16,7 @@
 .filter-modal {
   width: 580px;
   max-width: 100%;
-
+  position: relative;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
 
@@ -32,12 +32,46 @@
   height: 360px;
 }
 
+.filter-modal-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: 44px;
+  height: 44px;
+
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--color-surface-muted);
+
+  color: var(--color-text-secondary);
+
+  border-left: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+
+  border-top-right-radius: var(--radius-lg);
+  border-bottom-left-radius: var(--radius-md);
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.filter-modal-close:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text-primary);
+}
+
 .filter-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 14px 18px;
+  padding: 14px 72px 14px 18px;
 
   border-bottom: 1px solid var(--color-border);
 

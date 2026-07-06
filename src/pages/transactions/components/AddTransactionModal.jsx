@@ -30,6 +30,17 @@ export default function AddTransactionModal({
     }
   }, [mode, initialData]);
 
+  useEffect(() => {
+  const handleEscape = (e) => {
+    if (e.key === "Escape") onClose();
+  };
+
+  document.addEventListener("keydown", handleEscape);
+
+  return () =>
+    document.removeEventListener("keydown", handleEscape);
+}, [onClose]);
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -67,13 +78,21 @@ export default function AddTransactionModal({
     <div className="modal-overlay" onClick={onClose}>
       {/* ✅ STOP PROPAGATION */}
       <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <button
+          className="modal-close-btn"
+          onClick={onClose}
+          aria-label="Close modal"
+        >
+          ✕
+        </button>
         <h3 className="modal-title">
           {mode === "edit" ? "Edit Transaction" : "Add Transaction"}
         </h3>
 
         <div className="modal-form">
           <input
-            type="date" autoFocus
+            type="date"
+            autoFocus
             name="date"
             value={form.date}
             onChange={handleChange}
