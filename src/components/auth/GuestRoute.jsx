@@ -3,10 +3,14 @@ import { useAuth } from "../../context/AuthContext";
 
 // Prevents logged-in users from seeing /login or /signup
 export default function GuestRoute({ children }) {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return null;
+  }
 
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" replace />;
+    return <Navigate to={ROUTES.DASHBOARD} replace />;
   }
 
   return children;
