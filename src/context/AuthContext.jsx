@@ -8,6 +8,7 @@ import {
   resetPassword,
   onAuthStateChanged,
 } from "../services/firebase";
+import PageLoader from "../components/common/PageLoader"
 
 const AuthContext = createContext();
 
@@ -27,6 +28,10 @@ export function AuthProvider({ children }) {
 
     return unsubscribe; // cleanup listener on unmount
   }, []);
+
+  if (loading) {
+  return <PageLoader />;
+}
 
   /* ── Auth actions ───────────────────────────────────────────── */
   const signup = async (firstName, lastName, email, password) => {
@@ -77,23 +82,7 @@ export function AuthProvider({ children }) {
     logout,
     forgotPassword,
   };
-
-  /* ── Don't render children until Firebase resolves session ─── */
-  if (loading) {
-    return (
-      <div style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-        fontSize: "14px",
-        color: "var(--color-text-secondary)",
-      }}>
-        Loading...
-      </div>
-    );
-  }
-
+  
   return (
     <AuthContext.Provider value={value}>
       {children}
