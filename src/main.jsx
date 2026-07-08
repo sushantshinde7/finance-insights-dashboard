@@ -6,15 +6,18 @@ import "./styles/global.css";
 import { ThemeProvider } from "./context/ThemeContext";
 import { TransactionProvider } from "./context/TransactionContext";
 import { AuthProvider } from "./context/AuthContext";
+import ErrorBoundary from "./components/error/ErrorBoundary";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <TransactionProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </TransactionProvider>
-    </ThemeProvider>
+    <ErrorBoundary>
+      <ThemeProvider>
+        <TransactionProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </TransactionProvider>
+      </ThemeProvider>
+    </ErrorBoundary>
   </React.StrictMode>,
 );
