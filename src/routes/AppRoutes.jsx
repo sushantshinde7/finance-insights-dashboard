@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "../layout/Layout";
+import HomePage from "../pages/home/HomePage";
 import DashboardPage    from "../pages/dashboard/DashboardPage";
 import TransactionsPage from "../pages/transactions/TransactionsPage";
 import InsightsPage     from "../pages/insights/InsightsPage";
@@ -25,7 +26,7 @@ const AppRoutes = () => {
 
         {/* App pages — inside Layout (navbar + sidebar) */}
         <Route element={<Layout />}>
-          <Route path="/"             element={<Navigate to={ROUTES.DASHBOARD}  replace />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/dashboard"    element={<DashboardPage />} />
           <Route path="/transactions" element={<TransactionsPage />} />
           <Route path="/insights"     element={<InsightsPage />} />
