@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { ROUTES } from "../../routes/routes";
 
 // Prevents logged-in users from seeing /login or /signup
 export default function GuestRoute({ children }) {
