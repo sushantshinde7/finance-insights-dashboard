@@ -344,6 +344,43 @@
 }
 
 /* =========================
+   FORGOT PASSWORD VARIANTS
+========================= */
+
+
+/* Success state */
+.auth-success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.auth-success-icon {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--color-primary);
+}
+
+.auth-success .auth-subtitle {
+  line-height: 1.6;
+}
+
+/* Full-width link styled as button */
+.auth-btn-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 42px;
+  margin-top: 8px;
+  text-decoration: none;
+  border-radius: var(--radius-md);
+}
+
+/* =========================
    BUTTONS
 ========================= */
 
