@@ -5,19 +5,82 @@
 .dashboard {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-
-  padding: var(--space-1);
+  gap: var(--space-5);
+  padding: var(--space-4) var(--space-5);
 }
 
 /* =========================
-   KPI CARDS
+   PAGE HEADER
+========================= */
+
+.dashboard-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.dashboard-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dashboard-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.dashboard-period {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
+
+.dashboard-insight {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  max-width: 420px;
+  text-align: right;
+  line-height: 1.5;
+  padding: 8px 12px;
+  background: var(--color-surface-muted);
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--color-primary);
+}
+
+/* =========================
+   STAT CARDS — hierarchical
 ========================= */
 
 .cards-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-5);
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  align-items: stretch;
+}
+
+/* Balance card takes full left column height */
+.cards-primary {
+  display: flex;
+  flex-direction: column;
+}
+
+.cards-primary .stat-card {
+  flex: 1;
+  min-height: 130px;
+}
+
+.cards-primary .stat-value {
+  font-size: 32px;
+}
+
+/* Income + Expense stack on the right */
+.cards-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
 }
 
 /* =========================
@@ -27,21 +90,131 @@
 .charts-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-5);
+  gap: var(--space-4);
 }
-
-/* =========================
-   CHART CARD
-========================= */
 
 .chart-card {
   padding: var(--space-5);
-  display: flex;
+  transition: transform 0.2s ease;
 }
 
-/* hover */
 .chart-card:hover {
   transform: translateY(-2px);
+}
+
+/* =========================
+   RECENT TRANSACTIONS
+========================= */
+
+.recent-section {
+  padding: var(--space-4) var(--space-5);
+}
+
+.recent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.recent-title {
+  font-size: var(--text-md);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+.recent-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: var(--font-medium);
+}
+
+.recent-view-all:hover {
+  text-decoration: underline;
+}
+
+.recent-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.recent-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-subtle, #f0f2f5);
+}
+
+.recent-row:last-child {
+  border-bottom: none;
+}
+
+.recent-row-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recent-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.recent-dot--income  { background: #16a34a; }
+.recent-dot--expense { background: #dc2626; }
+
+.recent-category {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-primary);
+}
+
+.recent-date {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  margin-top: 1px;
+}
+
+.recent-amount {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  font-variant-numeric: tabular-nums;
+}
+
+.recent-amount--income  { color: #16a34a; }
+.recent-amount--expense { color: #dc2626; }
+
+/* =========================
+   FOOTER LINK
+========================= */
+
+.dashboard-footer {
+  display: flex;
+  justify-content: center;
+  padding-bottom: var(--space-2);
+}
+
+.dashboard-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.dashboard-footer-link:hover {
+  color: var(--color-primary);
 }
 
 /* =========================
@@ -49,10 +222,6 @@
 ========================= */
 
 @media (max-width: 1024px) {
-  .cards-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .charts-row {
     grid-template-columns: 1fr;
   }
@@ -60,29 +229,31 @@
 
 @media (max-width: 768px) {
   .dashboard {
-    gap: var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+  }
+
+  .dashboard-insight {
+    text-align: left;
+    max-width: 100%;
   }
 
   .cards-row {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-4);
+    grid-template-columns: 1fr;
+  }
+
+  .cards-primary .stat-value {
+    font-size: 26px;
   }
 }
 
 @media (max-width: 480px) {
   .dashboard {
-    gap: var(--space-4);
-  }
-
-  .cards-row {
-    grid-template-columns: 1fr;
-  }
-
-  .charts-row {
-    grid-template-columns: 1fr;
-  }
-
-  .chart-card {
-    padding: var(--space-4);
+    padding: var(--space-3);
+    gap: var(--space-3);
   }
 }
