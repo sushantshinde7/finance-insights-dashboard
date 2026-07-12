@@ -3,10 +3,28 @@
 ========================= */
 
 .insights-container {
-  padding: var(--space-6);
-  min-height: 100vh;
-  background: var(--color-bg); /* ✅ fixed */
-  color: var(--color-text-primary); /* ✅ fixed */
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+}
+
+
+/* Section labels */
+.insights-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.insights-section-label {
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
 }
 
 /* =========================
@@ -97,7 +115,7 @@
 
 @media (max-width: 768px) {
   .insights-container {
-    padding: var(--space-4);
+    padding: var(--space-3) var(--space-4); 
   }
 
   /* ✅ slightly tighter empty state */
@@ -108,7 +126,7 @@
 
 @media (max-width: 480px) {
   .insights-container {
-    padding: var(--space-3);
+     padding: var(--space-3); 
   }
 
   .insights-empty {

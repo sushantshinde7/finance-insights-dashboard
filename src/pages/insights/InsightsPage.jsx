@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { useTransactions } from "../../context/TransactionContext";
+import { ROUTES } from "../../routes/routes";
 
 import InsightsHeader from "./components/InsightsHeader";
 import KPIGrid from "./components/KPIGrid";
@@ -8,40 +10,38 @@ import ChartsSection from "./components/ChartsSection";
 import "./insights.css";
 
 export default function InsightsPage() {
+  const navigate = useNavigate();
   const {
+    transactions,
     income,
     expense,
     balance,
     categoryBreakdown,
     monthlyTrend,
     balanceTrend,
+    expenseChange,
   } = useTransactions();
 
-  // ================= HELPERS =================
+  const formatCurrency = (v) => `₹${v.toLocaleString("en-IN")}`;
 
-  const formatCurrency = (value) => `₹${value.toLocaleString("en-IN")}`;
-
-  const formatMonth = (month) => {
-    const date = new Date(month + "-01");
-    return date.toLocaleString("en-IN", { month: "short" });
-  };
-
-  // ================= DERIVED DATA =================
-
+  /* ── Derived values ─────────────────────────────────────── */
   const topCategory = [...categoryBreakdown].sort(
-    (a, b) => b.value - a.value,
+    (a, b) => b.value - a.value
   )[0];
 
-  const prevMonthExpense =
-    monthlyTrend?.[monthlyTrend.length - 2]?.expense || 0;
+  const savingsRate = income > 0
+    ? Math.round(((income - expense) / income) * 100)
+    : 0;
 
-  const expenseChange =
-    prevMonthExpense === 0
-      ? 0
-      : ((expense - prevMonthExpense) / prevMonthExpense) * 100;
+  const biggestTx = [...transactions].sort(
+    (a, b) => b.amount - a.amount
+  )[0];
 
-  // ================= EMPTY STATE =================
+  const highestMonth = [...monthlyTrend].sort(
+    (a, b) => b.expense - a.expense
+  )[0];
 
+  /* ── Empty state ────────────────────────────────────────── */
   const isEmpty =
     !monthlyTrend?.length &&
     !balanceTrend?.length &&
@@ -51,52 +51,67 @@ export default function InsightsPage() {
     return (
       <div className="insights-container">
         <InsightsHeader />
-
         <div className="insights-empty">
-          <div className="insights-empty-icon">📊</div>
-
+          <div className="insights-empty-icon" aria-hidden="true">📊</div>
           <h3 className="insights-empty-title">No insights available yet</h3>
-
           <p className="insights-empty-subtitle">
             Add transactions to unlock charts and financial insights
           </p>
-
           <button
             className="insights-empty-cta"
-            onClick={() => (window.location.href = "/transactions")}
+            onClick={() => navigate(ROUTES.TRANSACTIONS)}
           >
-            Go to Transactions
+            Go to transactions
           </button>
         </div>
       </div>
     );
   }
 
-  // ================= MAIN UI =================
-
   return (
     <div className="insights-container">
+
+      {/* HEADER */}
       <InsightsHeader />
 
-      <KPIGrid
-        income={income}
-        expense={expense}
-        balance={balance}
-        topCategory={topCategory}
-        formatCurrency={formatCurrency}
-      />
+      {/* SECTION — KPI SUMMARY */}
+      <section className="insights-section">
+        <h3 className="insights-section-label">Summary</h3>
+        <KPIGrid
+          income={income}
+          expense={expense}
+          balance={balance}
+          savingsRate={savingsRate}
+          topCategory={topCategory}
+          formatCurrency={formatCurrency}
+        />
+      </section>
 
-      <InsightCards expenseChange={expenseChange} topCategory={topCategory} />
+      {/* SECTION — SPENDING PATTERNS */}
+      <section className="insights-section">
+        <h3 className="insights-section-label">Spending patterns</h3>
+        <InsightCards
+          expenseChange={expenseChange}
+          topCategory={topCategory}
+          biggestTx={biggestTx}
+          highestMonth={highestMonth}
+          savingsRate={savingsRate}
+          formatCurrency={formatCurrency}
+        />
+      </section>
 
-      <ChartsSection
-        monthlyTrend={monthlyTrend}
-        balanceTrend={balanceTrend}
-        categoryBreakdown={categoryBreakdown}
-        formatCurrency={formatCurrency}
-        formatMonth={formatMonth}
-      />
+      {/* SECTION — CHARTS */}
+      <section className="insights-section">
+        <h3 className="insights-section-label">Trends and breakdown</h3>
+        <ChartsSection
+          monthlyTrend={monthlyTrend}
+          balanceTrend={balanceTrend}
+          categoryBreakdown={categoryBreakdown}
+          formatCurrency={formatCurrency}
+          formatMonth={(m) => m}
+        />
+      </section>
 
-      <div className="insight-footer">More insights coming soon...</div>
     </div>
   );
 }

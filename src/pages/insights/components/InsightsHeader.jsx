@@ -5,7 +5,7 @@ export default function InsightsHeader() {
     <div className="insights-header">
       <h2 className="insights-title">Financial Insights</h2>
       <p className="insights-subtitle">
-        AI-style breakdown of your spending behavior
+        Spending patterns, trends, and category breakdown
       </p>
     </div>
   );
