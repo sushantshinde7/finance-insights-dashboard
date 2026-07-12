@@ -104,7 +104,7 @@
 }
 
 .btn-sample {
-  gap: 15px;
+  gap: 6px;
 }
 
 .sample-chevron {
@@ -236,12 +236,12 @@
 }
 
 .panel-filters {
-  padding: var(--space-2) 0 var(--space-3) 0 ;
+  padding: var(--space-3) var(--space-5);
   background: var(--color-surface);
 }
 
 .panel-divider {
-  height: 3px;
+  height: 2px;
   background: var(--color-border);
 }
 

@@ -399,6 +399,7 @@ export default function TransactionsPage() {
 
           <button
             className="btn-secondary"
+            disabled={transactions.length === 0}
             onClick={() => {
               if (!isAuthenticated) {
                 setShowAuthPrompt(true);
@@ -565,3 +566,4 @@ export default function TransactionsPage() {
     </div>
   );
 }
+
