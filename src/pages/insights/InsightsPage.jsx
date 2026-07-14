@@ -26,19 +26,16 @@ export default function InsightsPage() {
 
   /* ── Derived values ─────────────────────────────────────── */
   const topCategory = [...categoryBreakdown].sort(
-    (a, b) => b.value - a.value
+    (a, b) => b.value - a.value,
   )[0];
 
-  const savingsRate = income > 0
-    ? Math.round(((income - expense) / income) * 100)
-    : 0;
+  const savingsRate =
+    income > 0 ? Math.round(((income - expense) / income) * 100) : 0;
 
-  const biggestTx = [...transactions].sort(
-    (a, b) => b.amount - a.amount
-  )[0];
+  const biggestTx = [...transactions].sort((a, b) => b.amount - a.amount)[0];
 
   const highestMonth = [...monthlyTrend].sort(
-    (a, b) => b.expense - a.expense
+    (a, b) => b.expense - a.expense,
   )[0];
 
   /* ── Empty state ────────────────────────────────────────── */
@@ -52,7 +49,9 @@ export default function InsightsPage() {
       <div className="insights-container">
         <InsightsHeader />
         <div className="insights-empty">
-          <div className="insights-empty-icon" aria-hidden="true">📊</div>
+          <div className="insights-empty-icon" aria-hidden="true">
+            📊
+          </div>
           <h3 className="insights-empty-title">No insights available yet</h3>
           <p className="insights-empty-subtitle">
             Add transactions to unlock charts and financial insights
@@ -70,9 +69,13 @@ export default function InsightsPage() {
 
   return (
     <div className="insights-container">
-
       {/* HEADER */}
-      <InsightsHeader />
+      <InsightsHeader
+        balance={balance}
+        savingsRate={savingsRate}
+        expenseChange={expenseChange}
+        formatCurrency={formatCurrency}
+      />
 
       {/* SECTION — KPI SUMMARY */}
       <section className="insights-section">
@@ -80,8 +83,6 @@ export default function InsightsPage() {
         <KPIGrid
           income={income}
           expense={expense}
-          balance={balance}
-          savingsRate={savingsRate}
           topCategory={topCategory}
           formatCurrency={formatCurrency}
         />
@@ -92,7 +93,6 @@ export default function InsightsPage() {
         <h3 className="insights-section-label">Spending patterns</h3>
         <InsightCards
           expenseChange={expenseChange}
-          topCategory={topCategory}
           biggestTx={biggestTx}
           highestMonth={highestMonth}
           savingsRate={savingsRate}
@@ -107,11 +107,11 @@ export default function InsightsPage() {
           monthlyTrend={monthlyTrend}
           balanceTrend={balanceTrend}
           categoryBreakdown={categoryBreakdown}
+          topCategory={topCategory}
           formatCurrency={formatCurrency}
           formatMonth={(m) => m}
         />
       </section>
-
     </div>
   );
 }
