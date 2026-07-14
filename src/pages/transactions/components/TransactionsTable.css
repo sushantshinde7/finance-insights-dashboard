@@ -68,8 +68,22 @@
    HEADER
 ========================= */
 
+/*.transactions-table thead {
+  background: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}*/
+
 .transactions-table thead {
   background: var(--color-surface-muted);
+}
+
+.transactions-table thead th:first-child {
+  border-top-left-radius: var(--radius-md);
+}
+
+.transactions-table thead th:last-child {
+  border-top-right-radius: var(--radius-md);
 }
 
 /* HEADER — more distinct */
@@ -291,14 +305,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  /* top border only — bottom relies on card's own padding */
-  border-top: 1px solid var(--color-border);
-  
-  background: var(--color-surface);
   flex-wrap: wrap;
-  gap: 8px;
-  padding: var(--space-4) 0 var(--space-2);
+  gap: 10px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  background: var(--color-surface-muted);
+  border-top: 1px solid var(--color-border);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+
+  padding: var(--space-4) var(--space-5);
 }
 
 .pg-left {
@@ -331,6 +348,7 @@
   font-size: 12px;
   color: var(--color-text-secondary);
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .pg-buttons {
@@ -338,6 +356,8 @@
   align-items: center;
   gap: 3px;
   flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .pg-num-group {
@@ -360,7 +380,7 @@
   border: 1px solid var(--color-border);
   border-radius: 6px;
 
-  background: transparent;
+  background: var(--color-surface);
   color: var(--color-text-primary);
 
   font-size: 12px;
@@ -375,7 +395,6 @@
   white-space: nowrap;
 }
 
-/* prev / next — slightly wider with text label */
 .pg-btn--nav {
   min-width: 62px;
   padding: 0 10px;
@@ -383,7 +402,7 @@
 }
 
 .pg-btn:hover:not(:disabled):not(.pg-btn--active) {
-  background: var(--color-surface-muted);
+  background: var(--color-surface);
   border-color: var(--color-primary);
   color: var(--color-primary);
 }
@@ -399,11 +418,9 @@
   opacity: 0.35;
   cursor: default;
 }
-
 /* =========================
    RESPONSIVE
 ========================= */
-
 @media (max-width: 768px) {
   .transactions-table th,
   .transactions-table td {
@@ -413,6 +430,10 @@
   .col-category { width: 160px; }
   .col-type     { width: 80px;  }
   .col-amount   { width: 100px; }
+
+  .pagination {
+    padding: var(--space-3) var(--space-4);
+  }
 }
 
 @media (max-width: 480px) {
@@ -435,16 +456,13 @@
   .pagination {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
-    padding: var(--space-4) 0 var(--space-2);
+    gap: 12px;
+    padding: var(--space-4);
   }
 
   .pg-left,
   .pg-info {
     justify-content: center;
-  }
-
-  .pg-info {
     text-align: center;
   }
 
