@@ -144,68 +144,66 @@ export default function TransactionsTable({
 
       {/* PAGINATION */}
       <nav className="pagination" aria-label="Table pagination">
-        <div className="pagination">
-          <div className="pg-left">
-            <span className="pg-rpp-label">Rows</span>
-            <select
-              className="pg-rpp-select"
-              value={pageSize}
-              onChange={handlePageSize}
-              aria-label="Rows per page"
-            >
-              {PAGE_SIZE_OPTIONS.map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </div>
+        <div className="pg-left">
+          <span className="pg-rpp-label">Rows</span>
+          <select
+            className="pg-rpp-select"
+            value={pageSize}
+            onChange={handlePageSize}
+            aria-label="Rows per page"
+          >
+            {PAGE_SIZE_OPTIONS.map((n) => (
+              <option key={n} value={n}>
+                {n}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          <div className="pg-info">
-            {start}–{end} of {data.length}
-          </div>
+        <div className="pg-info">
+          {start}–{end} of {data.length}
+        </div>
 
-          <div className="pg-buttons">
-            <button
-              className="pg-btn pg-btn--nav"
-              onClick={() => setPage((p) => p - 1)}
-              disabled={safePage === 1}
-              aria-label="Previous page"
-            >
-              <ChevronLeft size={13} /> Prev
-            </button>
+        <div className="pg-buttons">
+          <button
+            className="pg-btn pg-btn--nav"
+            onClick={() => setPage((p) => p - 1)}
+            disabled={safePage === 1}
+            aria-label="Previous page"
+          >
+            <ChevronLeft size={13} /> Prev
+          </button>
 
-            {pageNumbers.map((num, i) => {
-              const prev = pageNumbers[i - 1];
-              const showEllipsis = prev && num - prev > 1;
-              return (
-                <span key={num} className="pg-num-group">
-                  {showEllipsis && (
-                    <span className="pg-ellipsis" aria-hidden="true">
-                      …
-                    </span>
-                  )}
-                  <button
-                    className={`pg-btn ${num === safePage ? "pg-btn--active" : ""}`}
-                    onClick={() => setPage(num)}
-                    aria-label={`Page ${num}`}
-                    aria-current={num === safePage ? "page" : undefined}
-                  >
-                    {num}
-                  </button>
-                </span>
-              );
-            })}
+          {pageNumbers.map((num, i) => {
+            const prev = pageNumbers[i - 1];
+            const showEllipsis = prev && num - prev > 1;
+            return (
+              <span key={num} className="pg-num-group">
+                {showEllipsis && (
+                  <span className="pg-ellipsis" aria-hidden="true">
+                    …
+                  </span>
+                )}
+                <button
+                  className={`pg-btn ${num === safePage ? "pg-btn--active" : ""}`}
+                  onClick={() => setPage(num)}
+                  aria-label={`Page ${num}`}
+                  aria-current={num === safePage ? "page" : undefined}
+                >
+                  {num}
+                </button>
+              </span>
+            );
+          })}
 
-            <button
-              className="pg-btn pg-btn--nav"
-              onClick={() => setPage((p) => p + 1)}
-              disabled={safePage === totalPages}
-              aria-label="Next page"
-            >
-              Next <ChevronRight size={13} />
-            </button>
-          </div>
+          <button
+            className="pg-btn pg-btn--nav"
+            onClick={() => setPage((p) => p + 1)}
+            disabled={safePage === totalPages}
+            aria-label="Next page"
+          >
+            Next <ChevronRight size={13} />
+          </button>
         </div>
       </nav>
     </div>
