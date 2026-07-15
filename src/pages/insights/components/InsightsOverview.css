@@ -1,0 +1,259 @@
+/* =========================
+   CONTAINER — one surface, not two cards
+========================= */
+
+.insights-overview {
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(
+    135deg,
+    var(--color-surface-muted),
+    var(--color-surface)
+  );
+  border-radius: var(--radius-lg);
+
+  margin-bottom: var(--space-6);
+}
+
+/* =========================
+   VERDICT (formerly .insights-hero)
+========================= */
+
+.overview-verdict {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  padding: var(--space-6) var(--space-6) var(--space-5);
+}
+
+.verdict-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.overview-eyebrow {
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.overview-status-chip {
+  height: 22px;
+  padding: 0 10px;
+
+  display: inline-flex;
+  align-items: center;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: var(--font-semibold);
+}
+
+.overview-status-chip.status-good {
+  background: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+}
+
+.overview-status-chip.status-warning {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+
+.overview-status-chip.status-bad {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+}
+
+.verdict-headline {
+  font-size: 22px;
+  font-weight: var(--font-semibold);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--color-text-primary);
+  max-width: 56ch;
+}
+
+.verdict-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: var(--space-2);
+}
+
+.verdict-stat-label {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.verdict-stat-row {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.verdict-stat-value {
+  font-size: 36px;
+  font-weight: var(--font-bold, 700);
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-primary);
+}
+
+.verdict-stat-trend {
+  font-size: 13px;
+  font-weight: var(--font-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.verdict-stat-trend.up {
+  color: #ef4444;
+}
+
+.verdict-stat-trend.down {
+  color: #16a34a;
+}
+
+/* =========================
+   COMPOSITION (formerly .kpi-strip)
+   — same row, now a continuation of the verdict, not a new card
+========================= */
+
+.overview-composition {
+  display: flex;
+  align-items: center;
+
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+/* status color threads through as a quiet left accent on the whole surface */
+.insights-overview.status-good {
+  border-left: 3px solid #16a34a;
+}
+
+.insights-overview.status-warning {
+  border-left: 3px solid #f59e0b;
+}
+
+.insights-overview.status-bad {
+  border-left: 3px solid #ef4444;
+}
+
+.composition-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.composition-divider {
+  width: 1px;
+  align-self: stretch;
+  background: var(--color-border);
+  margin: 0 var(--space-5);
+}
+
+.composition-label {
+  font-size: 11px;
+  font-weight: var(--font-medium);
+  letter-spacing: 0.03em;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.composition-value {
+  font-size: 19px;
+  font-weight: var(--font-semibold);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-text-primary);
+}
+
+.composition-value.income {
+  color: #16a34a;
+}
+
+.composition-value.expense {
+  color: #ef4444;
+}
+
+.composition-value.category {
+  font-size: 16px;
+  color: var(--color-text-primary);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .overview-verdict {
+    padding: var(--space-5);
+  }
+
+  .overview-composition {
+    padding: var(--space-4) var(--space-5);
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .composition-item {
+    flex: 1 1 calc(50% - var(--space-4));
+    min-width: 140px;
+  }
+
+  .composition-divider {
+    display: none;
+  }
+
+  .verdict-headline {
+    font-size: 19px;
+  }
+
+  .verdict-stat-value {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .overview-verdict {
+    padding: var(--space-4);
+  }
+
+  .overview-composition {
+    padding: var(--space-4);
+  }
+
+  .composition-item {
+    flex: 1 1 100%;
+  }
+
+  .verdict-headline {
+    font-size: 17px;
+  }
+
+  .verdict-stat-value {
+    font-size: 26px;
+  }
+
+  .verdict-stat-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
