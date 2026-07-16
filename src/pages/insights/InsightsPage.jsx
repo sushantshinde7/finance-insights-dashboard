@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useTransactions } from "../../context/TransactionContext";
 import { ROUTES } from "../../routes/routes";
 
-import InsightsHeader from "./components/InsightsHeader";
-import KPIGrid from "./components/KPIGrid";
+import InsightsOverview from "./components/InsightsOverview";
 import InsightCards from "./components/InsightCards";
 import ChartsSection from "./components/ChartsSection";
 
@@ -69,24 +68,15 @@ export default function InsightsPage() {
 
   return (
     <div className="insights-container">
-      {/* HEADER */}
-      <InsightsHeader
+      <InsightsOverview
         balance={balance}
         savingsRate={savingsRate}
         expenseChange={expenseChange}
+        income={income}
+        expense={expense}
+        topCategory={topCategory}
         formatCurrency={formatCurrency}
       />
-
-      {/* SECTION — KPI SUMMARY */}
-      <section className="insights-section">
-        <h3 className="insights-section-label">Summary</h3>
-        <KPIGrid
-          income={income}
-          expense={expense}
-          topCategory={topCategory}
-          formatCurrency={formatCurrency}
-        />
-      </section>
 
       {/* SECTION — SPENDING PATTERNS */}
       <section className="insights-section">
@@ -95,7 +85,8 @@ export default function InsightsPage() {
           expenseChange={expenseChange}
           biggestTx={biggestTx}
           highestMonth={highestMonth}
-          savingsRate={savingsRate}
+          topCategory={topCategory}
+          expense={expense}
           formatCurrency={formatCurrency}
         />
       </section>
@@ -108,6 +99,7 @@ export default function InsightsPage() {
           balanceTrend={balanceTrend}
           categoryBreakdown={categoryBreakdown}
           topCategory={topCategory}
+          expenseChange={expenseChange}
           formatCurrency={formatCurrency}
           formatMonth={(m) => m}
         />
