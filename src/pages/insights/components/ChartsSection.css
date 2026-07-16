@@ -62,7 +62,98 @@
   padding: var(--space-4);
 }
 
+/* =========================
+   PIE CARD — split body: pie + scrollable category legend
+   Base (desktop): side by side, pie ~64%, legend fills the rest
+========================= */
+
+.pie-chart-body {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;
+  min-height: 0;
+}
+
+.pie-visual {
+  flex: 0 0 64%;
+  min-width: 0;
+  height: 320px;
+  margin-top: 10px;
+}
+
+.pie-legend-list {
+  flex: 0 0 35%;
+  min-width: 0;
+  max-height:320px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  border-left: 1px solid var(--color-border);
+  padding: 0 0 0 16px;
+}
+
+.pie-legend-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pie-legend-item {
+  display: grid;
+
+  grid-template-columns:10px 1fr 90px 45px;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 8px 0;
+
+  border-bottom: 1px solid var(--color-border);
+}
+
+.pie-legend-item:last-child {
+  border-bottom: none;
+}
+
+.pie-legend-swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pie-legend-name {
+  flex: 1;
+  min-width: 0;
+  font-size: 12.5px;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pie-legend-value {
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.pie-legend-percent {
+  font-size: 11px;
+  min-width: 30px;
+  text-align: right;
+  color: var(--color-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
 /* responsive */
+@media (max-width: 1024px) {
+  .pie-visual {
+    flex: 0 0 58%;
+  }
+}
+
 @media (max-width: 768px) {
   .insights-grid {
     grid-template-columns: 1fr;
@@ -75,10 +166,43 @@
   .chart-card {
     padding: var(--space-3);
   }
+
+  /* stack: pie above, legend becomes a capped scrollable strip below */
+  .pie-chart-body {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .pie-visual {
+    flex: 1 1 auto;
+    width: 100%;
+    height: 220px;
+  }
+
+  .pie-legend-list {
+    max-height: 220px;
+    padding-top: var(--space-3);
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .pie-legend-item {
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .pie-visual .recharts-responsive-container {
+    min-height: 220px !important;
+  }
 }
 
 @media (max-width: 480px) {
   .chart-title {
     font-size: 12.5px;
+  }
+
+  .pie-legend-list {
+    max-height: 140px;
   }
 }
