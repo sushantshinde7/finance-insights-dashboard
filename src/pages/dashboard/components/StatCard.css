@@ -61,6 +61,43 @@
   );
 }
 
+.stat-card.savings::after {
+  background: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.14) 0%,
+    rgba(139, 92, 246, 0.08) 30%,
+    transparent 70%
+  );
+}
+
+/* Balance card — tone-driven when there's a header insight to match */
+.stat-card.balance-good::after {
+  background: radial-gradient(
+    circle,
+    rgba(63, 250, 132, 0.15) 0%,
+    rgba(73, 253, 139, 0.09) 30%,
+    transparent 70%
+  );
+}
+
+.stat-card.balance-warning::after {
+  background: radial-gradient(
+    circle,
+    rgba(245, 158, 11, 0.14) 0%,
+    rgba(245, 158, 11, 0.08) 30%,
+    transparent 70%
+  );
+}
+
+.stat-card.balance-bad::after {
+  background: radial-gradient(
+    circle,
+    rgba(248, 110, 110, 0.10) 0%,
+    rgba(248, 110, 110, 0.06) 30%,
+    transparent 70%
+  );
+}
+
 /* =========================
    HEADER
 ========================= */
@@ -103,11 +140,45 @@
   color: var(--color-danger);
 }
 
+.stat-card.savings .stat-icon {
+  background: rgba(139, 92, 246, 0.12);
+  color: #7c3aed;
+}
+
+.stat-card.balance-good .stat-icon {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+
+.stat-card.balance-warning .stat-icon {
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+}
+
+.stat-card.balance-bad .stat-icon {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+
 /* TITLE */
 .stat-title {
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
   font-weight: var(--font-medium);
+}
+
+/* =========================
+   BODY — value + trend share the row
+========================= */
+
+.stat-body {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+
+  margin-top: var(--space-2);
 }
 
 /* =========================
@@ -118,8 +189,8 @@
   font-size: 26px;
   font-weight: var(--font-bold);
 
-  margin-top: var(--space-2);
   letter-spacing: 0.2px;
+  font-variant-numeric: tabular-nums;
 
   color: var(--color-text-primary);
 }
@@ -141,8 +212,7 @@
   display: flex;
   align-items: center;
   gap: 4px; /* tighter */
-
-  margin-top: var(--space-1);
+  flex-shrink: 0;
 }
 
 /* BADGE */
@@ -152,6 +222,7 @@
 
   padding: 3px 6px;
   border-radius: 999px;
+  white-space: nowrap;
 }
 
 /* POSITIVE */
@@ -176,4 +247,19 @@
 .trend-text {
   font-size: 11px;
   color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 360px) {
+  /* extremely narrow — let trend drop below value instead of
+     squeezing both onto one unreadably tight row */
+  .stat-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 }

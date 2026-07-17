@@ -14,24 +14,25 @@ const StatCard = ({ title, value, icon, type, change }) => {
         </div>
       </div>
 
-      {/* VALUE */}
-      <div className="stat-value">{value}</div>
+      {/* BODY — value and trend share the row instead of stacking */}
+      <div className="stat-body">
+        <span className="stat-value">{value}</span>
 
-      {/* TREND */}
-      {change !== undefined && (
-        <div className="stat-trend">
-          <span
-            className={`trend-badge ${
-              isNeutral ? "neutral" : isPositive ? "positive" : "negative"
-            }`}
-          >
-            {isPositive ? "+" : ""}
-            {change}%
-          </span>
+        {change !== undefined && (
+          <div className="stat-trend">
+            <span
+              className={`trend-badge ${
+                isNeutral ? "neutral" : isPositive ? "positive" : "negative"
+              }`}
+            >
+              {isPositive ? "+" : ""}
+              {change}%
+            </span>
 
-          <span className="trend-text">vs last month</span>
-        </div>
-      )}
+            <span className="trend-text">vs last month</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
