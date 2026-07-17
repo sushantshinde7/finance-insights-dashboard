@@ -10,21 +10,20 @@
 }
 
 /* =========================
-   PAGE HEADER
+   PAGE HEADER — flowing, not boxed
 ========================= */
 
 .dashboard-header {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-4);
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.dashboard-header-left {
+.dashboard-heading-row {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .dashboard-title {
@@ -38,54 +37,73 @@
   color: var(--color-text-secondary);
 }
 
+.dashboard-period::before {
+  content: "·";
+  margin-right: 8px;
+  color: var(--color-text-tertiary, var(--color-text-secondary));
+}
+
 .dashboard-insight {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
   font-size: var(--text-sm);
   color: var(--color-text-secondary);
-  max-width: 420px;
-  text-align: right;
   line-height: 1.5;
-  padding: 8px 12px;
-  background: var(--color-surface-muted);
-  border-radius: var(--radius-md);
-  border-left: 3px solid var(--color-primary);
+  max-width: 60ch;
+}
+
+.insight-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transform: translateY(-1px);
+}
+
+.insight-dot.dot-good {
+  background: #16a34a;
+}
+
+.insight-dot.dot-warning {
+  background: #f59e0b;
+}
+
+.insight-dot.dot-bad {
+  background: #ef4444;
+}
+
+.insight-dot.dot-neutral {
+  background: var(--color-text-tertiary, #94a3b8);
 }
 
 /* =========================
-   STAT CARDS — hierarchical
+   STAT CARDS — 4 equal metrics
+   No asymmetric grouping, no forced height/width mismatch.
+   Every card is sized by the same rule at every breakpoint.
 ========================= */
 
 .cards-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4);
-  align-items: stretch;
-}
-
-/* Balance card takes full left column height */
-.cards-primary {
-  display: flex;
-  flex-direction: column;
-}
-
-.cards-primary .stat-card {
-  flex: 1;
-  min-height: 130px;
-}
-
-.cards-primary .stat-value {
-  font-size: 32px;
-}
-
-/* Income + Expense stack on the right */
-.cards-secondary {
-  display: flex;
-  flex-direction: column;
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--space-4);
 }
 
 /* =========================
    CHARTS GRID
 ========================= */
+
+.dashboard-charts-block {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.dashboard-charts-intro {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+}
 
 .charts-row {
   display: grid;
@@ -227,27 +245,21 @@
   }
 }
 
+@media (max-width: 900px) {
+  /* 4-across becomes 2x2 — never a full-width single card */
+  .cards-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .dashboard {
     padding: var(--space-3) var(--space-4);
     gap: var(--space-4);
   }
 
-  .dashboard-header {
-    flex-direction: column;
-  }
-
   .dashboard-insight {
-    text-align: left;
     max-width: 100%;
-  }
-
-  .cards-row {
-    grid-template-columns: 1fr;
-  }
-
-  .cards-primary .stat-value {
-    font-size: 26px;
   }
 }
 
@@ -255,5 +267,20 @@
   .dashboard {
     padding: var(--space-3);
     gap: var(--space-3);
+  }
+
+  .cards-row {
+    gap: var(--space-3);
+  }
+
+  .dashboard-heading-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  .dashboard-period::before {
+    content: "";
+    margin-right: 0;
   }
 }
