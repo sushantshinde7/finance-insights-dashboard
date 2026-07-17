@@ -1,4 +1,4 @@
-import { Wallet, ArrowUpRight, ArrowDownRight, ArrowRight } from "lucide-react";
+import { Wallet, ArrowUpRight, ArrowDownRight, ArrowRight, PiggyBank } from "lucide-react";
 import { Link } from "react-router-dom";
 import StatCard from "./components/StatCard";
 import BalanceChart from "./components/BalanceChart";
@@ -33,25 +33,68 @@ export default function DashboardPage() {
     });
   })();
 
-  /* ── Quick insight sentence ─────────────────────────────────
-     One derived sentence from existing analytics.
-     No new data needed — just reads what context already has.
+  /* ── Savings rate ────────────────────────────────────────────
+     Shared by the insight line and the Savings Rate stat card.
   ────────────────────────────────────────────────────────────── */
-  const quickInsight = (() => {
+  const savingsRate = income > 0
+    ? Math.round(((income - expense) / income) * 100)
+    : 0;
+
+  /* ── Quick insight ───────────────────────────────────────────
+     One derived line from existing analytics, plus a tone so the
+     page header can carry the same red/amber/green language as
+     Insights — just as a quiet dot, not a status chip.
+  ────────────────────────────────────────────────────────────── */
+  const insight = (() => {
     if (!transactions.length) return null;
-    const savingsRate = income > 0
-      ? Math.round(((income - expense) / income) * 100)
-      : 0;
+
     if (expenseChange < -20)
-      return `Expenses dropped ${Math.abs(expenseChange)}% vs last month — your best controlled month recently.`;
+      return {
+        text: `Expenses dropped ${Math.abs(expenseChange)}% vs last month — your best controlled month recently.`,
+        tone: "good",
+      };
     if (expenseChange > 20)
-      return `Expenses rose ${expenseChange}% vs last month. Worth reviewing non-essential spending.`;
+      return {
+        text: `Expenses rose ${expenseChange}% vs last month. Worth reviewing non-essential spending.`,
+        tone: "bad",
+      };
     if (savingsRate > 40)
-      return `You're saving ${savingsRate}% of your income — strong financial position.`;
+      return {
+        text: `You're saving ${savingsRate}% of your income — strong financial position.`,
+        tone: "good",
+      };
     if (savingsRate < 10)
-      return `Savings rate is ${savingsRate}%. Income and expenses are close — watch the gap.`;
-    return `Savings rate is ${savingsRate}% this period.`;
+      return {
+        text: `Savings rate is ${savingsRate}%. Income and expenses are close — watch the gap.`,
+        tone: "warning",
+      };
+    return {
+      text: `Savings rate is ${savingsRate}% this period.`,
+      tone: "neutral",
+    };
   })();
+
+  /* ── Charts intro ────────────────────────────────────────────
+     One line tying the charts back to the insight above them,
+     framed as the "proof" rather than a new, disconnected topic.
+  ────────────────────────────────────────────────────────────── */
+  const chartsIntro = insight
+    ? insight.tone === "good"
+      ? "Here's what got you here."
+      : insight.tone === "bad" || insight.tone === "warning"
+      ? "Here's where it's showing up."
+      : "Here's the movement behind the numbers."
+    : null;
+
+  /* ── Balance card tone ────────────────────────────────────────
+     Total Balance is the page's headline number, so it carries
+     the same tone as the header dot instead of a static color —
+     one shared signal instead of a decoration repeated by itself.
+  ────────────────────────────────────────────────────────────── */
+  const balanceCardType =
+    insight && insight.tone !== "neutral"
+      ? `balance-${insight.tone}`
+      : "balance";
 
   /* ── Recent transactions ────────────────────────────────────
      Last 5 by date — shown in the bottom strip.
@@ -63,57 +106,67 @@ export default function DashboardPage() {
   return (
     <div className="dashboard">
 
-      {/* PAGE HEADER */}
+      {/* PAGE HEADER — one flowing unit, not a boxed hero */}
       <div className="dashboard-header">
-        <div className="dashboard-header-left">
+        <div className="dashboard-heading-row">
           <h2 className="dashboard-title">Overview</h2>
           {periodLabel && (
-            <span className="dashboard-period">
-              Data through {periodLabel}
-            </span>
+            <span className="dashboard-period">{periodLabel}</span>
           )}
         </div>
-        {quickInsight && (
-          <p className="dashboard-insight">{quickInsight}</p>
+
+        {insight && (
+          <p className="dashboard-insight">
+            <span
+              className={`insight-dot dot-${insight.tone}`}
+              aria-hidden="true"
+            />
+            {insight.text}
+          </p>
         )}
       </div>
 
-      {/* STAT CARDS — Balance dominant, Income + Expense secondary */}
+      {/* STAT CARDS — 4 equal metrics, no forced height/width mismatch */}
       <div className="cards-row">
-        <div className="cards-primary">
-          <StatCard
-            title="Total Balance"
-            value={`₹${balance.toLocaleString("en-IN")}`}
-            icon={<Wallet size={18} />}
-            type="balance"
-            change={balanceChange}
-          />
-        </div>
-        <div className="cards-secondary">
-          <StatCard
-            title="Income"
-            value={`₹${income.toLocaleString("en-IN")}`}
-            icon={<ArrowUpRight size={18} />}
-            type="income"
-            change={incomeChange}
-          />
-          <StatCard
-            title="Expenses"
-            value={`₹${expense.toLocaleString("en-IN")}`}
-            icon={<ArrowDownRight size={18} />}
-            type="expense"
-            change={expenseChange}
-          />
-        </div>
+        <StatCard
+          title="Total Balance"
+          value={`₹${balance.toLocaleString("en-IN")}`}
+          icon={<Wallet size={18} />}
+          type={balanceCardType}
+          change={balanceChange}
+        />
+        <StatCard
+          title="Income"
+          value={`₹${income.toLocaleString("en-IN")}`}
+          icon={<ArrowUpRight size={18} />}
+          type="income"
+          change={incomeChange}
+        />
+        <StatCard
+          title="Expenses"
+          value={`₹${expense.toLocaleString("en-IN")}`}
+          icon={<ArrowDownRight size={18} />}
+          type="expense"
+          change={expenseChange}
+        />
+        <StatCard
+          title="Savings Rate"
+          value={`${savingsRate}%`}
+          icon={<PiggyBank size={18} />}
+          type="savings"
+        />
       </div>
 
       {/* CHARTS */}
-      <div className="charts-row">
-        <div className="card chart-card">
-          <BalanceChart transactions={transactions} />
-        </div>
-        <div className="card chart-card">
-          <ExpenseChart transactions={transactions} />
+      <div className="dashboard-charts-block">
+        {chartsIntro && <p className="dashboard-charts-intro">{chartsIntro}</p>}
+        <div className="charts-row">
+          <div className="card chart-card">
+            <BalanceChart transactions={transactions} />
+          </div>
+          <div className="card chart-card">
+            <ExpenseChart transactions={transactions} />
+          </div>
         </div>
       </div>
 
