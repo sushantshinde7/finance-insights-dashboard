@@ -2,6 +2,7 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import "./ExpenseChart.css";
 
 const COLORS = ["#3b82f6", "#22c55e", "#f59e0b", "#ef4444", "#8b5cf6"];
+const LEGEND_LIMIT = 5;
 
 const ExpenseChart = ({ transactions }) => {
   const grouped = transactions
@@ -18,6 +19,19 @@ const ExpenseChart = ({ transactions }) => {
 
   // ✅ FIX: compute AFTER data exists
   const total = data.reduce((sum, d) => sum + d.value, 0);
+
+  // Color lookup keyed by category, matching each Cell's fill exactly —
+  // computed from `data`'s original order, before any sorting for the legend.
+  const colorOf = (name) => {
+    const i = data.findIndex((d) => d.name === name);
+    return COLORS[i % COLORS.length];
+  };
+
+  // Legend: top categories by spend only, capped — a glanceable key,
+  // not a full breakdown (that's what Insights is for).
+  const sortedForLegend = [...data].sort((a, b) => b.value - a.value);
+  const visibleCategories = sortedForLegend.slice(0, LEGEND_LIMIT);
+  const remainingCount = sortedForLegend.length - visibleCategories.length;
 
   return (
     <div className="chart">
@@ -57,6 +71,27 @@ const ExpenseChart = ({ transactions }) => {
           </PieChart>
         </ResponsiveContainer>
       </div>
+
+      {data.length > 0 && (
+        <div className="expense-legend">
+          {visibleCategories.map((c) => (
+            <div className="expense-legend-item" key={c.name}>
+              <span
+                className="expense-legend-dot"
+                style={{ background: colorOf(c.name) }}
+                aria-hidden="true"
+              />
+              <span className="expense-legend-name">{c.name}</span>
+            </div>
+          ))}
+
+          {remainingCount > 0 && (
+            <span className="expense-legend-more">
+              +{remainingCount} more
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 };
