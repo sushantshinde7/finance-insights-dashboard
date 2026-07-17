@@ -512,21 +512,21 @@ export default function TransactionsPage() {
           <div className="summary-item">
             <span className="summary-label">Transactions</span>
             <span className="summary-value">{summary.count}</span>
-            <span className="summary-helper">placeholder</span>
+            {/*<span className="summary-status">{balanceStatus}</span>*/}
           </div>
           <div className="summary-item">
             <span className="summary-label">Income</span>
             <span className="summary-value summary-income">
               ₹{summary.income.toLocaleString("en-IN")}
             </span>
-            <span className="summary-helper">placeholder</span>
+            {/*<span className="summary-status">{balanceStatus}</span>*/}
           </div>
           <div className="summary-item">
             <span className="summary-label">Expenses</span>
             <span className="summary-value summary-expense">
               ₹{summary.expense.toLocaleString("en-IN")}
             </span>
-            <span className="summary-helper">placeholder</span>
+            {/*<span className="summary-status">{balanceStatus}</span>*/}
           </div>
           <div className="summary-item">
             <span className="summary-label">Net Balance</span>
@@ -540,7 +540,7 @@ export default function TransactionsPage() {
               {Math.abs(summary.net).toLocaleString("en-IN")}
             </span>
 
-            <span className="summary-status">{balanceStatus}</span>
+            {/*<span className="summary-status">{balanceStatus}</span>*/}
           </div>
         </section>
       )}

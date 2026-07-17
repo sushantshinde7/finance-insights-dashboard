@@ -14,23 +14,26 @@
   border-radius: var(--radius-md);
 }
 
-/* TITLE — the star, own row, heavy */
+/* MASSIVE PAGE TITLE — commanding, clean, heavy */
 .transactions-title {
-  font-size: clamp(2rem, 3vw, 2.25rem);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem); /* Significantly larger and scales with screen width */
+  font-weight: 800;                        /* Extra-bold for a premium dashboard presence */
+  letter-spacing: -0.025em;                /* Tighter letter spacing keeps massive text elegant */
+  line-height: 1.05;                       /* Ultra-tight line height avoids disconnected text gaps */
   color: var(--color-text-primary);
+  margin-bottom: 0.1rem;                   /* Perfect responsive padding to push subtitle down */
 }
 
-/* SUBTITLE — own row, secondary, quiet */
+/* RESPONSIVE SUBTITLE — quiet, perfectly proportioned, flows underneath */
 .transactions-subtitle {
-  font-size: 13px;
+  font-size: clamp(0.85rem, 1.2vw, 1rem);  /* Replaces 13px; scales beautifully up to 16px */
+  font-weight: 400;
+  letter-spacing: 0.005em;
   color: var(--color-text-secondary);
   line-height: 1.5;
-  max-width: 60ch;
-  margin-top: -4px; /* pulls it closer to title without touching it */
+  max-width: 55ch;                         /* Optimized line length for scanning financial text */
 }
+
 
 
 .header-actions {
