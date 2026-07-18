@@ -18,18 +18,24 @@ const HomePage = () => {
       {/* HERO */}
       <section className="hero-section">
         <div className="hero-content">
-          <span className="hero-badge">Personal Finance Platform</span>
+          <span className="hero-badge">
+            <span className="hero-badge-dot" aria-hidden="true" />
+            Finsights · Personal Finance, Simplified
+          </span>
 
           <h1 className="hero-title">
-            Personal Finance Management
-            <br />
-            & Financial Analytics Platform
+            <span className="hero-title-line">
+              Turn Everyday Transactions Into Financial Clarity.
+            </span>
+            <span className="hero-title-line">
+              Track, Analyze, and Grow With Confidence.
+            </span>
           </h1>
 
           <p className="hero-description">
-            Track expenses, monitor income, visualize trends, and understand
-            your financial behavior through interactive dashboards,
-            transaction management, and actionable financial insights.
+            Track expenses, monitor income, and turn your transaction
+            history into clear, actionable insights through interactive
+            dashboards and modern financial tools.
           </p>
 
           <div className="hero-actions">
